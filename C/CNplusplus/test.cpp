@@ -3,7 +3,11 @@
 
 int main()
 {
-	int k = 1;
-	while(k++<10);
+	int i;
+	for (i = 1;i++<4;)
+	{
+		printf("%d",i);
+	}
+	printf("%d",i);
 	return 0;
 }
