@@ -23,6 +23,8 @@ export_presets.cfg
 mono_crash.*
 
 # Build results
+build/
+*.exe
 [Dd]ebug/
 [Dd]ebugPublic/
 [Rr]elease/
