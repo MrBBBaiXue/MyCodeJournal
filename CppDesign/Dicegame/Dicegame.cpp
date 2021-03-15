@@ -3,7 +3,6 @@
 //Big 1 time
 //Small 1 time
 //Leopard 5 time
-
 #include<stdio.h>
 #include<stdlib.h>
 #include<time.h>
