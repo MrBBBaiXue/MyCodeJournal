@@ -6,9 +6,40 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<time.h>
+#include<iostream>
+
+class Dice
+{
+private:
+	int _point;
+
+	//声明方法
+public:
+	void Throw(int range)
+	{
+		_point = rand() % range + 1;
+		srand((unsigned)time(NULL));
+		return;
+	}
+
+	int Get()
+	{
+		return _point;
+	}
+	//构造器
+	Dice()
+	{
+		_point = 0;
+		Throw(6);
+	}
+};
+
 
 int main()
 {
+	Dice dice1, dice2, dice3;
+	//dice1.Throw(6);
+	std::cout << dice1.Get() << dice2.Get() << dice3.Get() << std::endl;
 
 	void ThrowDice(int dice[]);//声明关于摇骰子的函数
 
