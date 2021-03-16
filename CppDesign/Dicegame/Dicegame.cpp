@@ -8,6 +8,7 @@
 #include<time.h>
 #include<iostream>
 
+
 class Dice
 {
 private:
@@ -15,6 +16,8 @@ private:
 
 	//声明方法
 public:
+	int Result = 0;//骰子相加结果是大、小、豹子
+
 	void Throw(int range)
 	{
 		_point = rand() % range + 1;
@@ -31,6 +34,87 @@ public:
 	{
 		_point = 0;
 		Throw(6);
+	}
+};
+
+class User
+{
+public:
+	int UserScore = 20;//玩家积分
+
+	int Choice = 0;//玩家猜测类型
+
+	int BetScore = 0;//玩家下注筹码
+
+	char IfContinue;//是否继续
+
+	//玩家输入猜测大小【判断有效输入】
+	void InterChoice()
+	{
+		while (1)
+		{
+			printf("请输入你猜测【猜小输入1，猜大输入2，猜豹子输入3】: ");
+			scanf_s("%d", &Choice);
+			if (Choice == 1 || Choice == 2 || Choice == 3)
+			{
+				break;
+			}
+			printf("请输入正确的格式\n\n");
+		}
+	}
+
+	//玩家输入筹码 【判断筹码效果】
+	void InterBetScore()
+	{
+		while (1)
+		{
+			printf("请输入你要下注的筹码：");
+			scanf_s("%d", &BetScore);
+			if (BetScore > UserScore)
+			{
+				printf("请不要输入超过你积分的筹码，你没那么多钱！\n\n");
+				continue;
+			}
+			break;
+		}
+	}
+
+	//玩家输入是否继续
+	void InterIfContinue()
+	{
+		printf("是否继续？继续游戏输入：Y/y，结束游戏输入：N/n\n\n");
+		scanf_s("%c", &IfContinue);
+		getchar();
+		if (IfContinue == 'n' || IfContinue == 'N')
+		{
+			printf("感谢游玩 再见！\n");
+		}
+	}
+};
+
+class Computer
+{
+public:
+	int ComputerScore = 100;//电脑积分
+
+	int Times = 0;//输赢倍数
+
+	//电脑判断输赢积分，计算倍数
+	void Judge_Result()
+	{
+
+	}
+
+	//计算积分：电脑和玩家加减积分_结算积分结果
+	void Calculation_Store()
+	{
+
+	}
+
+	//判断两者积分是否小于0
+	void Judge_Store()
+	{
+
 	}
 };
 
@@ -145,6 +229,7 @@ int main()
 		}
 	}
 }
+
 void ThrowDice(int dice[])
 {
 	int range = 6;
