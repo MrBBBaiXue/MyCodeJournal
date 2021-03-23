@@ -7,9 +7,9 @@
 				   Boyan Wang (JingNianNian@github.com)
 				   Wenle Zhang (Skywb@github.com)
 
-	Version:       1.1
+	Version:       1.2
 
-	Date:          2021-03-22
+	Date:          2021-03-23
 
 	Description:   Dicegame with OOP design used.
 
@@ -17,12 +17,15 @@
 				   Computer
 				   Player
 				   Main
+				   BetType
 
 ****************************************************************/
-#include<stdio.h>
-#include<stdlib.h>
-#include<time.h>
-#include<iostream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include "windows.h"
+#include <iostream>
+
 #define NUM_OF_DICES 3
 #define DIVIDE_NUM (NUM_OF_DICES * 6) / 2 + 1
 #define INIT_SCORE 2000
@@ -72,11 +75,11 @@ public:
 /// 2 = 小,
 /// 3 = 豹子。
 /// </summary>
-enum BetType
+enum class BetType
 {
-	Larger,
-	Smaller,
-	Leopard
+	Larger = 1,
+	Smaller = 2,
+	Leopard = 3
 };
 
 /// <summary>
@@ -137,7 +140,7 @@ public:
 	/// <returns>可否继续进行游戏</returns>
 	bool CanContinue()
 	{
-		return (Score >= 0) ? true : false;
+		return (Score > 0) ? true : false;
 	}
 };
 
@@ -148,51 +151,8 @@ class Player
 {
 public:
 	int Score = INIT_SCORE;		 // 积分
-	BetType PlayerBetType;   // 猜测类型
+	BetType PlayerBetType = BetType::Larger;   // 猜测类型
 	int BetScore = 1;		 // 玩家下注筹码
-
-	////玩家输入猜测大小【判断有效输入】
-	//void InterChoice()
-	//{
-	//	while (1)
-	//	{
-	//		printf("请输入你猜测【猜小输入1，猜大输入2，猜豹子输入3】: ");
-	//		scanf_s("%d", &Choice);
-	//		if (Choice == 1 || Choice == 2 || Choice == 3)
-	//		{
-	//			break;
-	//		}
-	//		printf("请输入正确的格式\n\n");
-	//	}
-	//}
-
-	////玩家输入筹码 【判断筹码效果】
-	//void InterBetScore()
-	//{
-	//	while (1)
-	//	{
-	//		printf("请输入你要下注的筹码：");
-	//		scanf_s("%d", &BetScore);
-	//		if (BetScore > UserScore)
-	//		{
-	//			printf("请不要输入超过你积分的筹码，你没那么多钱！\n\n");
-	//			continue;
-	//		}
-	//		break;
-	//	}
-	//}
-
-	////玩家输入是否继续
-	//void EnterIfContinue()
-	//{
-	//	printf("是否继续？继续游戏输入：Y/y，结束游戏输入：N/n\n\n");
-	//	scanf_s("%c", &IfContinue);
-	//	getchar();
-	//	if (IfContinue == 'n' || IfContinue == 'N')
-	//	{
-	//		printf("感谢游玩 再见！\n");
-	//	}
-	//}
 
 	/// <summary>
 	/// 返回可否继续游戏（积分够不够）
@@ -200,26 +160,25 @@ public:
 	/// <returns>可否继续进行游戏</returns>
 	bool CanContinue()
 	{
-		return (Score >= 0) ? true : false;
+		return (Score > 0) ? true : false;
 	}
 };
 
 /// <summary>
-/// 输出类，输出信息
+/// 静态输出类，输出信息
 /// </summary>
 class Output
 {
-private:
-	Computer* _computer; // Computer 的类指针
-	Player* _player;	 // Player 的类指针
-
 public:
-	static void OutputRules()
+	/// <summary>
+	/// 输出规则
+	/// </summary>
+	static void Rules()
 	{
 		system("cls"); // 清屏
-		std::cout << "-骰子游戏----------------------------------------------------------" << std::endl;
+		std::cout << "-骰子游戏-----------------------------------------------------------" << std::endl;
 		std::cout << std::endl;
-		std::cout << " 规则：" << std::endl;
+		std::cout << " 【规则】" << std::endl;
 		std::cout << std::endl;
 		std::cout << " 1.游戏开始时，庄家和玩家将会各获得 " << INIT_SCORE << " 积分。" << std::endl;
 		std::cout << std::endl;
@@ -235,9 +194,151 @@ public:
 		std::cout << std::endl;
 		std::cout << " 4.系统按照猜测分数进行加减分并进行下一轮，直到一方分数小于零为止。" << std::endl;
 		std::cout << std::endl;
-		std::cout << "-按回车键继续-------------------------------------------------------" << std::endl;
+		std::cout << "-按回车键开始-------------------------------------------------------" << std::endl;
+		std::cout << std::endl;
 		system("pause>nul"); // 等待玩家回车
 		return;
+	}
+
+	/// <summary>
+	/// 游戏：输入下注类型阶段
+	/// </summary>
+	/// <param name="pComputer">电脑指针</param>
+	/// <param name="pPlayer">玩家指针</param>
+	/// <param name="round">当前回合数</param>
+	static void GameInputBetType(Computer* pComputer, Player* pPlayer, int round)
+	{
+		system("cls"); // 清屏
+		std::cout << "-骰子游戏-----------------------------------------------------------" << std::endl;
+		std::cout << std::endl;
+		std::cout << " 第【" << round << "】回合" << std::endl;
+		std::cout << std::endl;
+		std::cout << " 玩家分数：【" << pPlayer->Score << "】 庄家分数：【" << pComputer->Score << "】" << std::endl;
+		std::cout << std::endl;
+		std::cout << " -猜测阶段--------------------------------------------------------- " << std::endl;
+		std::cout << std::endl;
+		std::cout << " 骰子已经摇好，请输入你的猜测：" << std::endl;
+		std::cout << std::endl;
+		std::cout << "   1) 如果骰子总点数大于等于：" << DIVIDE_NUM << " 是 大；" << std::endl;
+		std::cout << std::endl;
+		std::cout << "   2) 如果骰子总点数小于：" << DIVIDE_NUM << " 是 小；" << std::endl;
+		std::cout << std::endl;
+		std::cout << "   3) 如果 " << NUM_OF_DICES << " 个骰子点数一样是 豹子。" << std::endl;
+		std::cout << std::endl;
+		std::cout << " 输入1，猜测大；输入2，猜测小；输入3，猜测豹子。" << std::endl;
+		std::cout << std::endl;
+		std::cout << "-输入你的猜测-------------------------------------------------------" << std::endl;
+		std::cout << std::endl;
+	}
+
+	/// <summary>
+	/// 游戏：输入下注分值阶段
+	/// </summary>
+	/// <param name="pComputer">电脑指针</param>
+	/// <param name="pPlayer">玩家指针</param>
+	/// <param name="round">当前回合数</param>
+	/// <param name="maxBetScore">最大下注分数</param>
+	static void GameInputBetScore(Computer* pComputer, Player* pPlayer, int round, int maxBetScore)
+	{
+		system("cls"); // 清屏
+		std::cout << "-骰子游戏-----------------------------------------------------------" << std::endl;
+		std::cout << std::endl;
+		std::cout << " 第【" << round << "】回合" << std::endl;
+		std::cout << std::endl;
+		std::cout << " 玩家分数：【" << pPlayer->Score << "】 庄家分数：【" << pComputer->Score << "】" << std::endl;
+		std::cout << std::endl;
+		std::cout << " -下注阶段--------------------------------------------------------- " << std::endl;
+		std::cout << std::endl;
+		if (pPlayer->PlayerBetType == BetType::Larger)
+		{
+			std::cout << " 您猜测的是 大，下注总分数为 1 倍分值。" << std::endl;
+		}
+		if (pPlayer->PlayerBetType == BetType::Smaller)
+		{
+			std::cout << " 您猜测的是 小，下注总分数为 1 倍分值。" << std::endl;
+		}		
+		if (pPlayer->PlayerBetType == BetType::Leopard)
+		{
+			std::cout << " 您猜测的是 豹子，下注总分数为 5 倍分值。" << std::endl;
+		}
+		std::cout << std::endl;
+		std::cout << " 请输入您的下注分值，您现在还可以下注 【" << maxBetScore << "】 分。" << std::endl;
+		std::cout << std::endl;
+		std::cout << "-输入你的下注分值---------------------------------------------------" << std::endl;
+		std::cout << std::endl;
+	}
+
+	/// <summary>
+	/// 游戏：结算
+	/// </summary>
+	/// <param name="pComputer">电脑指针</param>
+	/// <param name="pPlayer">玩家指针</param>
+	/// <param name="round">当前回合数</param>
+	/// <param name="wins">当前是否获胜</param>
+	/// <param name="canContinue">可否继续</param>
+	static void GameRoundEnd(Computer* pComputer, Player* pPlayer, int round, bool wins, bool canContinue)
+	{
+		system("cls"); // 清屏
+		std::cout << "-骰子游戏-----------------------------------------------------------" << std::endl;
+		std::cout << std::endl;
+		std::cout << " 第【" << round << "】回合结束" << std::endl;
+		std::cout << std::endl;
+		std::cout << " 玩家分数：【" << pPlayer->Score << "】 庄家分数：【" << pComputer->Score << "】" << std::endl;
+		std::cout << std::endl;
+		std::cout << " -本局结果--------------------------------------------------------- " << std::endl;
+		std::cout << std::endl;		
+		if (wins)
+		{
+			std::cout << " 【您赢了本局！】" << std::endl;
+		}
+		else
+		{
+			std::cout << " 【您输了本局...】" << std::endl;
+		}
+		std::cout << std::endl;
+		if (canContinue)
+		{
+			std::cout << " 还要继续玩吗？输入Y/y继续，输入N/n退出。" << std::endl;
+			std::cout << std::endl;
+			std::cout << "-输入你的选项-------------------------------------------------------" << std::endl;
+		}
+		else
+		{
+			std::cout << " 分数不足，无法继续；感谢您的游玩！" << std::endl;
+			std::cout << std::endl;
+			std::cout << "-按回车键退出-------------------------------------------------------" << std::endl;
+		}
+		std::cout << std::endl;
+	}
+
+	/// <summary>
+	/// 输出错误输入
+	/// </summary>
+	static void ErrorWrongInput()
+	{
+		system("cls"); // 清屏
+		std::cout << "-【错误】-----------------------------------------------------------" << std::endl;
+		std::cout << std::endl;
+		std::cout << " 输入有误，请重新确认您的输入！" << std::endl;
+		std::cout << std::endl;
+		std::cout << "--------------------------------------------------------------------" << std::endl;
+		std::cout << std::endl;
+		Sleep(3000); // 来自Windows.h 休眠三秒
+	}
+
+	/// <summary>
+	/// 输出错误输入
+	/// </summary>
+	static void ErrorWrongNoEnoughScore()
+	{
+		system("cls"); // 清屏
+		std::cout << "-【错误】-----------------------------------------------------------" << std::endl;
+		std::cout << std::endl;
+		std::cout << " 输入有误，您没有足够的下注积分！" << std::endl;
+		std::cout << std::endl;
+		std::cout << "--------------------------------------------------------------------" << std::endl;
+		std::cout << std::endl;
+		Sleep(3000); // 来自Windows.h 休眠三秒
 	}
 };
 
@@ -253,95 +354,117 @@ int main(int argc, char* argv[])
 		system("color f0"); // 命令行窗口设置
 		system("title 骰子游戏"); 
 		system("mode con cols=68 lines=22");
-		Output::OutputRules(); // 输出规则
+		Output::Rules(); // 输出规则
 
-		int round = 1;
-		Computer computer, * pComputer = computer;
-		//1.掷骰子，电脑生成得到各个骰子的数，给予Dice的数组中
-		//2.玩家输入猜测大小【判断有效输入】
-		//4.输入筹码【判断筹码效果】
-		//4.电脑判断输赢积分
-		//5.计算积分：电脑和玩家加减积分
-		//6.判断玩家和电脑的积分是否可以继续下一次【询问是否下一次】
-		//while (1)
-		//{
-		//	// 基本积分
-		//	printf("玩家积分：%d\n电脑积分：%d\n\n", UserScore, ComputerScore);
+		Computer computer, * pComputer = &computer;
+		Player player, * pPlayer = &player;
+		int round = 1; // 回合数
 
-		//	//1.掷骰子，电脑生成得到各个骰子的数，给予Dice的数组中
-		//	ThrowDice(Dice);
+		while (true)
+		{
 
-		//	//2.玩家输入猜测大小【判断有效输入】
-		//	while (1)
-		//	{
-		//		printf("请输入你猜测【猜小输入1，猜大输入2，猜豹子输入3】: ");
-		//		scanf_s("%d", &Choice);
-		//		if (Choice == 1 || Choice == 2 || Choice == 3)
-		//		{
-		//			break;
-		//		}
-		//		printf("请输入正确的格式\n\n");
-		//	}
+			int maxBetScore = 0;
+			// 重扔骰子
+			pComputer->ThrowDice();
 
-		//	//4.输入筹码【判断筹码效果】
-		//	while (1)
-		//	{
-		//		printf("请输入你要下注的筹码：");
-		//		scanf_s("%d", &BetScore);
-		//		if (BetScore > UserScore)
-		//		{
-		//			printf("请不要输入超过你积分的筹码，你没那么多钱！\n\n");
-		//			continue;
-		//		}
-		//		break;
-		//	}
+			// 1.输入猜测类别
+			while (true)
+			{
+				Output::GameInputBetType(pComputer, pPlayer, round);
+				auto input = 0;
+				std::cin >> input;
+				if (input == 1)
+				{
+					pPlayer->PlayerBetType = BetType::Larger;
+					maxBetScore = pPlayer->Score;
+					break;
+				}
+				if (input == 2)
+				{
+					pPlayer->PlayerBetType = BetType::Smaller;
+					maxBetScore = pPlayer->Score;
+					break;
+				}
+				if (input == 3)
+				{
+					// 检查还有没有5分
+					if (pPlayer->Score < 5)
+					{
+						Output::ErrorWrongNoEnoughScore();
+						continue;
+					}
+					pPlayer->PlayerBetType = BetType::Leopard;
+					maxBetScore = pPlayer->Score / 5;
+					break;
+				}
+				Output::ErrorWrongInput();
+			}
 
-		//	//4.电脑判断输赢积分，计算倍数
+			// 2.输入下注分值			
+			while (true)
+			{
+				Output::GameInputBetScore(pComputer, pPlayer, round, maxBetScore);
+				auto input = 0;
+				std::cin >> input;
+				if (input > maxBetScore)
+				{
+					Output::ErrorWrongNoEnoughScore();
+					continue;
+				}
+				pPlayer->BetScore = input;
+				break;
+			}
 
-		//	if ((Dice[0] + Dice[1] + Dice[2]) <= 10 && (Dice[0] != Dice[1] || Dice[0] != Dice[2] || Dice[1] != Dice[2]))
-		//	{
-		//		Result = 1;//小，sumDice <= 10 且3个不同
-		//		Times = (Result == Choice) ? 1 : -1;
-		//	}
-		//	if ((Dice[0] + Dice[1] + Dice[2]) > 10 && (Dice[0] != Dice[1] || Dice[0] != Dice[2] || Dice[1] != Dice[2]))
-		//	{
-		//		Result = 2;//大，sumDice > 10 且3个不同
-		//		Times = (Result == Choice) ? 1 : -1;
-		//	}
-		//	if ((Dice[0] == Dice[1]) && (Dice[0] == Dice[2]) && (Dice[1] == Dice[2]))//豹子 三个骰子一样
-		//	{
-		//		Result = 3;//豹子,三个相同
-		//		Times = (Result == Choice) ? 3 : -3;
-		//	}
-		//	//展现骰子结果
-		//	printf("骰子的数字分别为 %d %d %d\n\n", Dice[0], Dice[1], Dice[2]);
-		//	//4.计算积分：电脑和玩家加减积分
-		//	ComputerScore -= Times * BetScore;//计算电脑积分
+			// 3.判断输赢积分，计算倍数
+			auto wins = false;
+			auto point = 0;
+			switch (pPlayer->PlayerBetType)
+			{
+			case BetType::Larger:
+				wins = (pComputer->GetDiceTotalPoints() >= DIVIDE_NUM) ? true : false;
+				point = pPlayer->BetScore * 1;
+				break;
+			case BetType::Smaller:
+				wins = (pComputer->GetDiceTotalPoints() < DIVIDE_NUM) ? true : false;
+				point = pPlayer->BetScore * 1;
+				break;
+			case BetType::Leopard:
+				wins = (pComputer->IsLeopard()) ? true : false;
+				point = pPlayer->BetScore * 5;
+				break;
+			}
+			
+			// 4. 加减积分
+			pPlayer->Score = (wins) ? pPlayer->Score + point : pPlayer->Score - point;
+			pComputer->Score = (wins) ? pComputer->Score - point : pComputer->Score + point;
+			auto canContinue = (pPlayer->CanContinue() && pComputer->CanContinue()) ? true : false;
 
-		//	UserScore += Times * BetScore;//计算玩家积分
-
-		//	//结局1--玩家or电脑积分<=0
-		//	if (UserScore <= 0 || ComputerScore <= 0)
-		//	{
-		//		UserScore > ComputerScore ? printf("玩家胜利\n") : printf("电脑胜利\n");
-		//		printf("玩家剩余积分：%d  电脑剩余积分：%d\n", UserScore, ComputerScore);
-		//		printf("游戏结束\n");
-		//		break;
-		//	}
-
-		//	//结算这次猜骰子的积分结果
-		//	printf("玩家剩余积分：%d  电脑剩余积分：%d\n\n", UserScore, ComputerScore);
-
-		//	//结局2--玩家主动结束游戏
-		//	printf("是否继续？继续游戏输入：Y/y，结束游戏输入：N/n\n\n");
-		//	scanf_s("%c", &IfContinue);
-		//	getchar();
-		//	if (IfContinue == 'n' || IfContinue == 'N')
-		//	{
-		//		printf("感谢游玩 再见！\n");
-		//		break;
-		//	}
-		//}
+			// 5.输入是否继续			
+			while (true)
+			{
+				Output::GameRoundEnd(pComputer, pPlayer, round, wins, canContinue);
+				if (canContinue)
+				{
+					char input = 'Y';
+					std::cin >> input;
+					if ((input == 'Y' || input == 'y') && canContinue)
+					{
+						round++;
+						break;
+					}
+					if (input == 'N' || input == 'n')
+					{
+						return 0;
+					}
+					Output::ErrorWrongInput();
+				}
+				else
+				{
+					system("pause>nul");
+					return 0;
+				}
+			}
+		}
 	}
 	catch (std::exception e)
 	{
