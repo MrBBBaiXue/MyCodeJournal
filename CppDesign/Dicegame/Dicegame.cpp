@@ -286,7 +286,11 @@ public:
 		std::cout << " 玩家分数：【" << pPlayer->Score << "】 庄家分数：【" << pComputer->Score << "】" << std::endl;
 		std::cout << std::endl;
 		std::cout << " -本局结果--------------------------------------------------------- " << std::endl;
-		std::cout << std::endl;		
+		std::cout << std::endl;
+		std::cout << "骰子点数是： " << pComputer->Dices[0].Get() << " "
+			<< pComputer->Dices[1].Get() << " "
+			<< pComputer->Dices[2].Get() << std::endl;
+		std::cout << std::endl;
 		if (wins)
 		{
 			std::cout << " 【您赢了本局！】" << std::endl;
