@@ -21,9 +21,15 @@
     <ClCompile Include="PokerDataIO.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Poker.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PokerDataIO.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Poker.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

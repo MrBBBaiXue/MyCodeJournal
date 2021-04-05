@@ -1,7 +1,7 @@
 /****************************************************************
 	P O K E R D E A L E R
 
-		File Name: PokerDataIO.h
+		File Name: Poker.h
 
 		   Author: Chenhao Wang (MrBBBaiXue@github.com)
 				   Boyan Wang (JingNianNian@github.com)
@@ -17,6 +17,21 @@
 #pragma once
 
 #include <iostream>
-#include <fstream>
+#include <string>
 
-void OutputTestMsg();
+class Poker
+{
+public:
+	int Point;
+	PokerColor Color;
+	std::string GetData();
+	bool SetData();
+};
+
+enum PokerColor
+{
+	Spade = 0,
+	Heart = 1,
+	Blossom = 2,
+	Cube = 3
+};

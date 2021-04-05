@@ -1,7 +1,7 @@
 /****************************************************************
 	P O K E R D E A L E R
 
-		File Name: PokerDataIO.h
+		File Name: Poker.cpp
 
 		   Author: Chenhao Wang (MrBBBaiXue@github.com)
 				   Boyan Wang (JingNianNian@github.com)
@@ -14,9 +14,14 @@
 
 ****************************************************************/
 
-#pragma once
+#include "Poker.h"
 
-#include <iostream>
-#include <fstream>
+std::string Poker::GetData()
+{
+	return std::string();
+}
 
-void OutputTestMsg();
+bool Poker::SetData()
+{
+	return false;
+}
