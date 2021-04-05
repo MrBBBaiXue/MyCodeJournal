@@ -19,11 +19,17 @@ using System.Text.Json;
 
 namespace PokerDealer
 {
+    /// <summary>
+    /// 牌的类
+    /// </summary>
     public class Poker
     {
         public int Point { get; set; }
+        // 牌的点数
         public PokerType PokerType { get; set; }
+        // 牌的花色，详见PokerType
         public string Serialize() => JsonSerializer.Serialize(this);
+        // JSON序列化（这是唯一和C++有区别的地方，在C++中要手写实现）
         public bool Deserialize(string str)
         {
             try
@@ -40,6 +46,17 @@ namespace PokerDealer
         }
     }
 
+    /// <summary>
+    /// 初始牌堆，多一个是否被拿取的属性
+    /// </summary>
+    public class PokerInPool : Poker
+    {
+        public bool IsTaken { get; set; }
+    }
+
+    /// <summary>
+    /// 牌的花色枚举
+    /// </summary>
     public enum PokerType
     {
         [Description("♠ 黑桃")]
