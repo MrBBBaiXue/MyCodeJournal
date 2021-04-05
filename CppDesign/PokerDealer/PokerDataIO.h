@@ -19,4 +19,11 @@
 #include <iostream>
 #include <fstream>
 
-void OutputTestMsg();
+class PokerDataIO
+{
+public:
+	std::string DataPath;
+	Poker* Pokers[];
+	void Write();
+	void Read();
+};

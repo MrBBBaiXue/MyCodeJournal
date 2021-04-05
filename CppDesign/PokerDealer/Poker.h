@@ -22,16 +22,12 @@
 class Poker
 {
 public:
-	int Point;
-	PokerColor Color;
-	std::string GetData();
-	bool SetData();
-};
+	int Point { get; set; }; // 点数
+	int Color; // 0 黑桃
+			   // 1 红心
+	           // 2 黑梅
+	           // 3 方片
+	std::string GetDataString();
+	bool SetDataString(std::string str);
 
-enum PokerColor
-{
-	Spade = 0,
-	Heart = 1,
-	Blossom = 2,
-	Cube = 3
 };

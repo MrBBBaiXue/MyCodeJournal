@@ -27,6 +27,13 @@
 /// <returns>%ERRORLEVEL%</returns>
 int main()
 {
-	OutputTestMsg();
+	auto pok = new Poker();
+	pok->Point = 12;
+	pok->Color = 0;
+	std::cout << pok->GetDataString() << std::endl;
+	// PokerDataIO Class
+	PokerDataIO pokerDataIO = new PokerDataIO {
+		DataPath = "C:\\pokerData.dat"
+	}
 	return 0;
 }

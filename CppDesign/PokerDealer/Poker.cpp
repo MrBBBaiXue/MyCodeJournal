@@ -16,12 +16,13 @@
 
 #include "Poker.h"
 
-std::string Poker::GetData()
+std::string Poker::GetDataString()
 {
-	return std::string();
+	return std::string{std::to_string(Point) + "," + std::to_string(Color)};
 }
 
-bool Poker::SetData()
+bool Poker::SetDataString(std::string str)
 {
+	// 通过获得的string设置该Poker的Data
 	return false;
 }

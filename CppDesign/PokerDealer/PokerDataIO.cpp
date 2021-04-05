@@ -17,8 +17,12 @@
 #include "PokerDataIO.h"
 #include "Poker.h"
 
-void OutputTestMsg()
+void PokerDataIO::Write()
 {
-	std::cout << "PokerDataIO.h\\OutputTestMsg triggered!" << std::endl;
+	return;
+}
+
+void PokerDataIO::Read()
+{
 	return;
 }
