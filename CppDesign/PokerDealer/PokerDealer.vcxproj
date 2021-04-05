@@ -141,7 +141,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="PokerDataIO.cpp" />
     <ClCompile Include="PokerDealer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="PokerDataIO.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
