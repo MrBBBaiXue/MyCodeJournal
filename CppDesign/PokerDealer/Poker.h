@@ -22,7 +22,7 @@
 class Poker
 {
 public:
-	int Point { get; set; }; // 点数
+	int Point; // 点数
 	int Color; // 0 黑桃
 			   // 1 红心
 	           // 2 黑梅
