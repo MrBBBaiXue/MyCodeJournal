@@ -45,6 +45,7 @@ namespace Magician
                     role = Utility.CheckRole();
                     // 要求玩家选择自己的角色
                     canContinue = (role) ? Game.MagicianGame() : Game.ViewerGame();
+                    // 三目
                 }
                 catch
                 {

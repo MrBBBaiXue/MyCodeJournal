@@ -8,12 +8,13 @@
 				   Wenle Zhang (Skywb@github.com)
 				   Sen Ma
 
-			 Date: 2021-04-05
+			 Date: 2021-04-06
 
 	  Description: Randomly arrange poker and display.
 
 ****************************************************************/
 
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text.Json;
 
@@ -28,22 +29,6 @@ namespace PokerDealer
         // 牌的点数
         public PokerType PokerType { get; set; }
         // 牌的花色，详见PokerType
-        public string Serialize() => JsonSerializer.Serialize(this);
-        // JSON序列化（这是唯一和C++有区别的地方，在C++中要手写实现）
-        public bool Deserialize(string str)
-        {
-            try
-            {
-                var poker = JsonSerializer.Deserialize<Poker>(str);
-                Point = poker.Point;
-                PokerType = poker.PokerType;
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
     }
 
     /// <summary>
@@ -52,6 +37,38 @@ namespace PokerDealer
     public class PokerInPool : Poker
     {
         public bool IsTaken { get; set; }
+    }
+
+    /// <summary>
+    /// 牌组的类
+    /// </summary>
+    public class PokerSet
+    {
+        public int Index { get; set; }
+        // 当前牌组的序号
+        public List<Poker> Pokers { get; set; }
+        // 存放牌组信息
+        public string Serialize() => JsonSerializer.Serialize(this);
+        // JSON序列化，详见 System.Text.Json
+        public bool Deserialize(string str)
+        {
+            // JSON反序列化
+            try
+            {
+                var pokerSet = JsonSerializer.Deserialize<PokerSet>(str);
+                Pokers = pokerSet.Pokers;
+                Index = pokerSet.Index;
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public PokerSet()
+        {
+            Pokers = new List<Poker> { };
+        }
     }
 
     /// <summary>

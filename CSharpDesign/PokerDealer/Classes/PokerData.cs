@@ -8,7 +8,7 @@
 				   Wenle Zhang (Skywb@github.com)
 				   Sen Ma
 
-			 Date: 2021-04-05
+			 Date: 2021-04-06
 
 	  Description: Randomly arrange poker and display.
 
@@ -16,11 +16,18 @@
 
 using System.IO;
 
-namespace PokerDealer.Classes
+namespace PokerDealer
 {
     public class PokerData
     {
-		FileStream fileStream;
-
-    }
+		private FileStream _fileStream;
+		private string _path;
+	
+		public PokerData(FileStream fileStream, string path)
+        {
+			_fileStream = fileStream;
+			_path = path;
+			// ToDo : init filestream
+        }
+	}
 }

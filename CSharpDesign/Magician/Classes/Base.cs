@@ -1,8 +1,24 @@
-﻿using System;
+﻿/****************************************************************
+	                    M A G I C I A N
+
+		File Name: Base.cs
+
+		   Author: Chenhao Wang (MrBBBaiXue@github.com)
+				   Boyan Wang (JingNianNian@github.com)
+				   Wenle Zhang (Skywb@github.com)
+
+	         Date: 2021-04-05
+
+	  Description: Base Class, contains base definitions.
+
+****************************************************************/
+
+using System;
 
 namespace Magician
 {
-    /// <summary>
+
+    /// <summary> 
     /// 将观众角色抽象为对象，继承Number类
     /// </summary>
     class Viewer : Number
@@ -101,12 +117,18 @@ namespace Magician
     /// </summary>
     class Number
     {
+        private static Random Random = new Random();
         protected int InputNumber { get; }
         protected int OnePosition { get; }
+        // 个位
         protected int TensPosition { get; }
+        // 十分位
         protected int HundredsPosition { get; }
+        // 百分位
         protected int[] FullPermutation { get; }
+        // 全排列
         protected int RemoveSelfSum { get; }
+        // 删除自身的数
         /// <summary>
         /// 类的构造函数，通过玩家输入所想的数来确定其它信息
         /// </summary>
@@ -150,10 +172,7 @@ namespace Magician
         /// <returns>一个100-999的随机数</returns>
         public static int GetRandomNumber()
         {
-            byte[] bytes = new byte[4];
-            var rng = new System.Security.Cryptography.RNGCryptoServiceProvider();
-            rng.GetBytes(bytes);
-            return BitConverter.ToUInt16(bytes, 0) % 900 + 100;
+            return Random.Next(100,1000);
         }
     }
 }
