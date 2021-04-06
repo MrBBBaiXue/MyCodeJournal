@@ -13,8 +13,6 @@
 
 ****************************************************************/
 
-using System;
-using System.Threading;
 
 //Publish Command : dotnet publish -c Release -r win7-x64 /p:PublishSingleFile=true /p:PublishTrimmed=true
 
