@@ -3,13 +3,13 @@
 
 		File Name: Program.cs
 
-		   Author: Chenhao Wang (MrBBBaiXue@github.com)
+		Author: Chenhao Wang (MrBBBaiXue@github.com)
 				   Boyan Wang (JingNianNian@github.com)
 				   Wenle Zhang (Skywb@github.com)
 
-			 Date: 2021-04-05
+	    Date: 2021-04-05
 
-	  Description: Guess Number using the sum of it.
+	    Description: Guess Number using the sum of it.
 
 ****************************************************************/
 
@@ -132,7 +132,14 @@ namespace MagicNumber
         {
             Console.Clear();
             Console.WriteLine("----------------------------------------结果----------------------------------------\n");
-            Console.WriteLine($"·魔术师：我猜测你心中想的数字是：{result}\n");
+            if (result == -1)
+            {
+                Console.WriteLine("·魔术师：你输入的这个和没有相对应的解。\n");
+            }
+            else
+            {
+                Console.WriteLine($"·魔术师：我猜测你心中想的数字是：{result}\n");
+            }
             Console.WriteLine("----------------------------------------结果----------------------------------------\n");
             Console.WriteLine("·按下任意键继续");
             Console.ReadKey(false);
@@ -381,6 +388,7 @@ namespace MagicNumber
         public int CalculateAnswer(int removeSelfSum)
         {
             int nCon = removeSelfSum / 222;
+            int nOne, nTen, nHund;
             int nNum;
             do
             {
@@ -389,16 +397,30 @@ namespace MagicNumber
                 {
                     nCon++;
                 }
+                else if (nNum > 1000)
+                {
+                    return -1;
+                }
+                else if (nNum >=100 && nNum <= 1000)
+                {
+                    nOne = nNum % 10;
+                    nTen = nNum / 10 % 10;
+                    nHund = nNum / 100;
+                    if (nOne + nTen + nHund == nCon)
+                    {
+                        return nNum;
+                    }
+                    else
+                    {
+                        nCon++;
+                        continue;
+                    }
+                }
                 else
                 {
-                    break;
+                    throw new Exception();
                 }
             } while (true);
-            if (nNum > 1000)
-            {
-                return -1;
-            }
-            return nNum;
         }
         /// <summary>
         /// 基于玩家是魔术师时，判断玩家猜测是否正确
