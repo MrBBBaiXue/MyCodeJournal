@@ -52,7 +52,7 @@ namespace PokerDealer
                 int poolIndex;
                 do
                 {
-                    poolIndex = random.Next(0, 52);
+                    poolIndex = random.Next(0, pokerPool.Count);
                 }
                 while (pokerPool[poolIndex].IsTaken == true);
                 // 如果没有被拿走，那么就把这个扑克增加到扑克堆中

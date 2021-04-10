@@ -18,6 +18,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Text;
+using System.IO;
 using Con = System.Console;
 // 重定义Console，防止和项目命名空间冲突
 
@@ -29,6 +31,8 @@ namespace PokerDealer.Console
     {
         // 牌堆，由四个PokerSet组成
         public static List<PokerSet> Pokers = new List<PokerSet> { };
+
+        public static string DataPath = Path.Combine(Environment.CurrentDirectory, $"pokerData.dat");
 
         /// <summary>
         /// 程序的入口点
@@ -43,11 +47,22 @@ namespace PokerDealer.Console
                 Pokers.Add(PokerOperation.GeneratePokerSet(pokerPool, i, 13));
             }
             // 输出全部4个牌组的序列化数据
+            var stringBuilder = new StringBuilder();
             foreach (var pokerSet in Pokers)
             {
-                Con.WriteLine(pokerSet.Serialize() + "\n");
+                stringBuilder.Append($"{pokerSet.Serialize()}\n");
             }
+            Con.WriteLine(stringBuilder.ToString());
+            // 输出至文件
+            var pokerData = new PokerData(DataPath);
+            if (!File.Exists(DataPath))
+            {
+                pokerData.Write(Pokers);
+            }
+            //
+            Pokers = pokerData.Read();
             return;
+
         }
     }
 }
