@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Reflection;
 using System.Text.Json;
 
 namespace PokerDealer
@@ -13,6 +15,20 @@ namespace PokerDealer
         // 牌的点数
         public PokerType PokerType { get; set; }
         // 牌的花色，详见PokerType
+        public string GetEnumDescription(Enum en)
+        {
+            Type type = en.GetType();   //获取类型  
+            MemberInfo[] memberInfos = type.GetMember(en.ToString());   //获取成员  
+            if (memberInfos != null && memberInfos.Length > 0)
+            {
+                DescriptionAttribute[] attrs = memberInfos[0].GetCustomAttributes(typeof(DescriptionAttribute), false) as DescriptionAttribute[];   //获取描述特性  
+                if (attrs != null && attrs.Length > 0)
+                {
+                    return attrs[0].Description;    //返回当前描述
+                }
+            }
+            return en.ToString();
+        }
     }
 
     /// <summary>
@@ -64,13 +80,13 @@ namespace PokerDealer
     /// </summary>
     public enum PokerType
     {
-        [Description("♠ 黑桃")]
+        [Description("黑桃")]
         Spade = 0,
-        [Description("♥ 红心")]
+        [Description("红心")]
         Heart = 1,
-        [Description("♣ 梅花")]
+        [Description("梅花")]
         Blossom = 2,
-        [Description("♦ 方片")]
+        [Description("方块")]
         Cube = 3
     }
 }
