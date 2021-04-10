@@ -40,7 +40,7 @@ namespace PokerDealer.Console
         /// <param name="args">参数</param>
         static void Main(string[] args)
         {
-            ConsoleOperation.ApplyConsoleSettings(30,50);
+            ConsoleOperation.ApplyConsoleSettings(45,145);
             var pokerPool = PokerOperation.GeneratePokerPool();
             // 获得初始牌池
             for (var i = 1; i <= 4; i++)
