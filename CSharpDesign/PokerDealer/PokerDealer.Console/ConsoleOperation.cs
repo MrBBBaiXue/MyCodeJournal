@@ -64,26 +64,102 @@ namespace PokerDealer.Console
                 }
             }
         }
+        public static void OutputPokersLine(PokerSet pokers)
+        {
+            Con.WriteLine($"第{pokers.Index}组牌组如下：");
+            List<StringBuilder> lines = new List<StringBuilder>();
+            for (int i = 0; i < 8; i++)
+            {
+                lines.Add(new StringBuilder());
+            }
+            for (int i = 0; i < 13; i++)
+            {
+                lines[0].Append("┌---------┐");
+                lines[3].Append("│         │");
+                lines[4].Append("│         │");
+                lines[7].Append("└---------┘");
+            }
+            foreach (var poker in pokers.Pokers)
+            {
+                string f()
+                {
+                    if (poker.Point == 1)
+                    {
+                        return "A";
+                    }
+                    else if (poker.Point == 11)
+                    {
+                        return "J";
+                    }
+                    else if (poker.Point == 12)
+                    {
+                        return "Q";
+                    }
+                    else if (poker.Point == 13)
+                    {
+                        return "K";
+                    }
+                    else
+                    {
+                        return poker.Point.ToString();
+                    }
+                }
+                string point = f();
+                lines[1].Append($"│ {point}{(point == "10" ? "" : " ")}      │");
+                lines[2].Append($"│   {poker.GetEnumDescription(poker.PokerType)}  │");
+                lines[5].Append($"│   {poker.GetEnumDescription(poker.PokerType)}  │");
+                lines[6].Append($"│       {(point == "10" ? "" : " ")}{point}│");
+            }
+            foreach (var line in lines)
+            {
+                Con.WriteLine(line);
+            }
+        }
         public static void OutputPokers(PokerSet pokers)
         {
             Con.Clear();
             Con.WriteLine($"第{pokers.Index}组牌组如下：");
             foreach (var poker in pokers.Pokers)
             {
-                Con.WriteLine("┌----------┐");
-                Con.WriteLine($"|{poker.Point}         |");
-                Con.WriteLine($"|   {poker.GetEnumDescription(poker.PokerType)}   |");
-                Con.WriteLine("|          |");
-                Con.WriteLine("|          |");
-                Con.WriteLine($"|   {poker.GetEnumDescription(poker.PokerType)}   |");
-                Con.WriteLine($"|         {poker.Point}|");
-                Con.WriteLine("└----------┘");
+                string f()
+                {
+                    if (poker.Point == 1)
+                    {
+                        return "A";
+                    }
+                    else if (poker.Point == 11)
+                    {
+                        return "J";
+                    }
+                    else if (poker.Point == 12)
+                    {
+                        return "Q";
+                    }
+                    else if (poker.Point == 13)
+                    {
+                        return "K";
+                    }
+                    else
+                    {
+                        return poker.Point.ToString();
+                    }
+                }
+                string point = f();
+                Con.WriteLine("┌---------┐");
+                Con.WriteLine($"│ {point}{(point == "10" ? "" : " ")}      │");
+                Con.WriteLine($"│   {poker.GetEnumDescription(poker.PokerType)}  │");
+                Con.WriteLine("│         │");
+                Con.WriteLine("│         │");
+                Con.WriteLine($"│   {poker.GetEnumDescription(poker.PokerType)}  │");
+                Con.WriteLine($"│       {(point == "10" ? "" : " ")}{point}│");
+                Con.WriteLine("└---------┘");
             }
             Con.WriteLine("按下任意键继续");
             Con.ReadKey(false);
         }
         public static void ApplyConsoleSettings(int h, int w)
         {
+            Con.OutputEncoding = Encoding.UTF8;
             Con.BackgroundColor = ConsoleColor.White;
             Con.ForegroundColor = ConsoleColor.Black;
             Con.Title = "发牌小游戏";

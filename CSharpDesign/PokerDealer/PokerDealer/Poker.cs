@@ -80,13 +80,13 @@ namespace PokerDealer
     /// </summary>
     public enum PokerType
     {
-        [Description("黑桃")]
+        [Description("♠♠")]
         Spade = 0,
-        [Description("红心")]
+        [Description("♥♥")]
         Heart = 1,
-        [Description("梅花")]
+        [Description("♣♣")]
         Blossom = 2,
-        [Description("方块")]
+        [Description("♦ ♦ ")]
         Cube = 3
     }
 }
