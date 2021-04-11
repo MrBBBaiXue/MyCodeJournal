@@ -40,6 +40,7 @@ namespace PokerDealer.Console
         /// <param name="args">参数</param>
         static void Main(string[] args)
         {
+            ConsoleOperation.ApplyConsoleSettings(45,145);
             var pokerPool = PokerOperation.GeneratePokerPool();
             // 获得初始牌池
             for (var i = 1; i <= 4; i++)
@@ -50,7 +51,7 @@ namespace PokerDealer.Console
             var stringBuilder = new StringBuilder();
             foreach (var pokerSet in Pokers)
             {
-                stringBuilder.Append($"{pokerSet.Serialize()}\n");
+                ConsoleOperation.OutputPokersLine(pokerSet);
             }
             Con.WriteLine(stringBuilder.ToString());
             // 输出至文件
