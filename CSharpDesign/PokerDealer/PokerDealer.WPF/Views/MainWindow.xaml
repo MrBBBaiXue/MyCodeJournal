@@ -10,12 +10,13 @@
         xmlns:viewmodels="clr-namespace:PokerDealer.WPF.ViewModels"
         Title="{Binding WindowTitle}"
         mc:Ignorable="d"
-        Height="600" Width="1000"
+        Height="620" Width="1000"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         BorderThickness="0"
         NonClientAreaBackground="{DynamicResource SecondaryRegionBrush}"   
         d:DataContext="{d:DesignInstance Type=viewmodels:MainWindow}"
+        Topmost="True"
         >
 
     <hc:GlowWindow.NonClientAreaContent>
@@ -81,27 +82,41 @@
                 Command="{Binding SaveCommand}"
                 />
         </Grid>
-        <Grid x:Name="pokerGrid" Margin="10,40,10,0">
-            <ListBox x:Name = "pokerListBoxSet1"
-                     Style = "{StaticResource ListBoxBaseStyle}"
-                     VirtualizingPanel.IsVirtualizing="True"
-                     Background = "{DynamicResource SecondaryRegionBrush}"
+        <Grid x:Name="pokerGrid" Margin="10,50,10,10" Width="980">
+            <ListBox x:Name = "pokerListBox"
+                     Style = "{DynamicResource StackPanelHorizontalListBox}"
+                     Background = "Transparent"
                      BorderThickness="0"
+                     ItemsSource="{Binding Pokers}"  
+                     
                      >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid>
-                            <TextBlock Text="{Binding Point}"
-                                       HorizontalAlignment="Left"
-                                       VerticalAlignment="Top"
-                                       Margin="90,5,0,0"
-                                       FontSize="14"
+                            <TextBlock Text="{Binding Index}"
+                                       Width="225"
                                        />
-                            <TextBlock Text="{Binding NumberOfImageBlocks,StringFormat={}{0}个分割块}"
-                                       HorizontalAlignment="Left"
-                                       VerticalAlignment="Top"
-                                       Margin="90,30,0,0"
-                                       />
+                            <ListBox x:Name = "pokersBox"
+                                     Style = "{DynamicResource ListBoxBaseStyle}"
+                                     Background = "Transparent"
+                                     BorderThickness="0"
+                                     ItemsSource="{Binding Pokers}"
+                                     >
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Width="225" Height="40">
+                                            <Grid>
+                                                <TextBlock Text="{Binding PokerType}"
+                                                       />
+                                                <TextBlock Text="{Binding Point}"
+                                                       FontSize="14"
+                                                       Margin="10,10,10,10"
+                                                           />
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
                         </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>

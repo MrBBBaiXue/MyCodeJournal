@@ -7,9 +7,9 @@ namespace PokerDealer.WPF.ViewModels
 {
     public class MainWindow : NotificationObject
     {
-        public static string WindowTitle { get; set; }
-        public static DelegateCommand NightModeToggleButtonClickEvent { get; set; }
-        public static ObservableCollection<PokerSet> Pokers { get; set; }
+        public string WindowTitle { get; set; }
+        public DelegateCommand NightModeToggleButtonClickEvent { get; set; }
+        public ObservableCollection<PokerSet> Pokers { get; set; }
         public void NightModeToggleButtonClick(object parameter)
         {
             HandyControl.Themes.ThemeManager.Current.ApplicationTheme =
@@ -17,9 +17,13 @@ namespace PokerDealer.WPF.ViewModels
                 HandyControl.Themes.ApplicationTheme.Dark : HandyControl.Themes.ApplicationTheme.Light;
         }
 
-        public static DelegateCommand ImportCommand { get; set; }
+        public DelegateCommand ImportCommand { get; set; }
         public void Import(object parameter)
         {
+            while (Pokers.Count > 0)
+            {
+                Pokers.RemoveAt(0);
+            }
             string path;
             var dialog = new Microsoft.Win32.OpenFileDialog
             {
@@ -29,7 +33,6 @@ namespace PokerDealer.WPF.ViewModels
             {
                 path = dialog.FileName;
                 var pokerData = new PokerData(path);
-
                 // List to ObservableCollection
                 foreach (var pokerSet in pokerData.Read())
                 {
@@ -37,10 +40,14 @@ namespace PokerDealer.WPF.ViewModels
                 }
             }
         }
-        public static DelegateCommand GenerateCommand { get; set; }
+        public DelegateCommand GenerateCommand { get; set; }
         public void Generate(object parameter)
         {
-            Pokers = new ObservableCollection<PokerSet> { };
+            // Remove Items
+            while(Pokers.Count > 0)
+            {
+                Pokers.RemoveAt(0);
+            }
             var pokerPool = PokerOperation.GeneratePokerPool();
             for (var i = 1; i <= 4; i++)
             {
@@ -48,7 +55,7 @@ namespace PokerDealer.WPF.ViewModels
             }
         }
 
-        public static DelegateCommand SaveCommand { get; set; }
+        public DelegateCommand SaveCommand { get; set; }
         public void Save(object parameter)
         {
             string path;
