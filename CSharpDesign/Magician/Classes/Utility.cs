@@ -1,4 +1,19 @@
-﻿using System;
+﻿/****************************************************************
+	                    M A G I C I A N
+
+		File Name: Utility.cs
+
+		   Author: Chenhao Wang (MrBBBaiXue@github.com)
+				   Boyan Wang (JingNianNian@github.com)
+				   Wenle Zhang (Skywb@github.com)
+
+	         Date: 2021-04-05
+
+	  Description: Guess Number using the sum of it.
+
+****************************************************************/
+
+using System;
 using System.Threading;
 
 namespace Magician
@@ -9,7 +24,7 @@ namespace Magician
     class Utility
     {
         /// <summary>
-        /// 游戏模式
+        /// 游戏模式 , 如果Mode = 1，则为输入和猜测模式
         /// </summary>
         public static byte Mode { get; set; }
         /// <summary>
@@ -71,7 +86,7 @@ namespace Magician
             }
         }
         /// <summary>
-        /// 基于玩家时旁观者时，输出程序对玩家心中所想数字的猜测结果
+        /// 基于玩家是旁观者时，输出程序对玩家心中所想数字的猜测结果
         /// </summary>
         /// <param name="result">程序计算结果</param>
         public static void ViewerOutputCalculate(int result)
