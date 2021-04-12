@@ -40,28 +40,42 @@ namespace PokerDealer.Console
         /// <param name="args">参数</param>
         static void Main(string[] args)
         {
-            ConsoleOperation.ApplyConsoleSettings(45,145);
-            var pokerPool = PokerOperation.GeneratePokerPool();
+            // 初始化Console数据
+            ConsoleOperation.ApplyConsoleSettings(20, 60);
+            ConsoleOperation.OutputRule();
+            // 获得用户想要进行的操作
+            var operation = ConsoleOperation.InputOperation();
+            switch (operation)
+            {
+                case 1:
+                    DataPath = ConsoleOperation.InputDataPath();
+                    var pokerData = new PokerData(DataPath);
+                    Pokers = pokerData.Read();
+                    break;
+
+                case 2:
+                    var pokerPool = PokerOperation.GeneratePokerPool();
+                    for (var i = 1; i <= 4; i++)
+                    {
+                        Pokers.Add(PokerOperation.GeneratePokerSet(pokerPool, i, 13));
+                    }
+                    ConsoleOperation.OutputShufflePorksInf();
+                    break;
+                default:
+                    return;
+            }
             // 获得初始牌池
-            for (var i = 1; i <= 4; i++)
+            while (true)
             {
-                Pokers.Add(PokerOperation.GeneratePokerSet(pokerPool, i, 13));
+                var checkIndex = ConsoleOperation.InputCheckPokerSets();
+                if (checkIndex == 5)
+                {
+                    break;
+                }
+                ConsoleOperation.ApplyConsoleSettings(45, 145);
+                ConsoleOperation.OutputPokersLine(Pokers[checkIndex - 1]);
             }
-            // 输出全部4个牌组的序列化数据
-            var stringBuilder = new StringBuilder();
-            foreach (var pokerSet in Pokers)
-            {
-                ConsoleOperation.OutputPokersLine(pokerSet);
-            }
-            Con.WriteLine(stringBuilder.ToString());
-            // 输出至文件
-            var pokerData = new PokerData(DataPath);
-            if (!File.Exists(DataPath))
-            {
-                pokerData.Write(Pokers);
-            }
-            //
-            Pokers = pokerData.Read();
+            Con.Clear();
             return;
 
         }
