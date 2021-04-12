@@ -86,7 +86,7 @@ namespace PokerDealer
         Heart = 1,
         [Description("♣♣")]
         Blossom = 2,
-        [Description("♦ ♦ ")]
+        [Description("♦♦")]
         Cube = 3
     }
 }

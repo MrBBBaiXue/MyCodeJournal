@@ -40,30 +40,52 @@ namespace PokerDealer.Console
         /// <param name="args">参数</param>
         static void Main(string[] args)
         {
-            ConsoleOperation.ApplyConsoleSettings(45,145);
-            var pokerPool = PokerOperation.GeneratePokerPool();
-            // 获得初始牌池
-            for (var i = 1; i <= 4; i++)
+            // 初始化Console数据
+            ConsoleOperation.ApplyConsoleSettings(20, 60);
+            ConsoleOperation.OutputRule();
+            // 获得用户想要进行的操作
+            var operation = ConsoleOperation.InputOperation();
+            switch (operation)
             {
-                Pokers.Add(PokerOperation.GeneratePokerSet(pokerPool, i, 13));
-            }
-            // 输出全部4个牌组的序列化数据
-            var stringBuilder = new StringBuilder();
-            foreach (var pokerSet in Pokers)
-            {
-                ConsoleOperation.OutputPokersLine(pokerSet);
-            }
-            Con.WriteLine(stringBuilder.ToString());
-            // 输出至文件
-            var pokerData = new PokerData(DataPath);
-            if (!File.Exists(DataPath))
-            {
-                pokerData.Write(Pokers);
-            }
-            //
-            Pokers = pokerData.Read();
-            return;
+                // 操作A：读取现有的牌组
+                case 1:
+                    DataPath = ConsoleOperation.InputDataPath(true);
+                    var pokerData = new PokerData(@DataPath);
+                    Pokers = pokerData.Read();
+                    ConsoleOperation.OutputIOCompleted("读取成功");
+                    break;
 
+                // 操作B：创建新牌组
+                case 2:
+                    var pokerPool = PokerOperation.GeneratePokerPool();
+                    for (var i = 1; i <= 4; i++)
+                    {
+                        Pokers.Add(PokerOperation.GeneratePokerSet(pokerPool, i, 13));
+                    }
+                    ConsoleOperation.OutputShufflePorksInf();
+                    break;
+            }
+            // 用户输入要查看的PokerSet
+            ConsoleOperation.ApplyConsoleSettings(45, 145);
+            while (true)
+            {
+                var checkIndex = ConsoleOperation.InputCheckPokerSets();
+                if (checkIndex == 5)
+                {
+                    break;
+                }
+                if (checkIndex == 6)
+                {
+                    DataPath = ConsoleOperation.InputDataPath(false);
+                    var pokerData = new PokerData(@DataPath);
+                    pokerData.Write(Pokers);
+                    ConsoleOperation.OutputIOCompleted("保存成功");
+                    continue;
+                }
+                ConsoleOperation.OutputPokersLine(Pokers[checkIndex - 1]);
+            }
+            Con.Clear();
+            return;
         }
     }
 }
