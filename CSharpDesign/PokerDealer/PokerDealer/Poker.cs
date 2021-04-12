@@ -14,6 +14,32 @@ namespace PokerDealer
     {
         public int Point { get; set; }
         // 牌的点数
+
+        // 牌的点数 (string)
+        public string PointString
+        {
+            get
+            {
+                if (Point == 1)
+                {
+                    return "A";
+                }
+                if (Point == 11)
+                {
+                    return "J";
+                }
+                if (Point == 12)
+                {
+                    return "Q";
+                }
+                if (Point == 13)
+                {
+                    return "K";
+                }
+                return Point.ToString();
+            }
+        }
+
         public PokerType PokerType { get; set; }
         // 牌的花色，详见PokerType
         public string GetEnumDescription(Enum en)

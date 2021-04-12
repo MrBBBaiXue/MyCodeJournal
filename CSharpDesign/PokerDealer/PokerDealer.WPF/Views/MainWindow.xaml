@@ -108,7 +108,7 @@
                                             <Grid>
                                                 <TextBlock Text="{Binding PokerType}"
                                                        />
-                                                <TextBlock Text="{Binding Point}"
+                                                <TextBlock Text="{Binding PointString}"
                                                        FontSize="14"
                                                        Margin="10,10,10,10"
                                                            />
