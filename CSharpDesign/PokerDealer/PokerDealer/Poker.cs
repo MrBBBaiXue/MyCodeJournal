@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Reflection;
 using System.Text.Json;
@@ -9,7 +10,7 @@ namespace PokerDealer
     /// <summary>
     /// 牌的类
     /// </summary>
-    public class Poker
+    public class Poker : NotificationObject
     {
         public int Point { get; set; }
         // 牌的点数
@@ -21,8 +22,8 @@ namespace PokerDealer
             MemberInfo[] memberInfos = type.GetMember(en.ToString());   //获取成员  
             if (memberInfos != null && memberInfos.Length > 0)
             {
-                DescriptionAttribute[] attrs = memberInfos[0].GetCustomAttributes(typeof(DescriptionAttribute), false) as DescriptionAttribute[];   //获取描述特性  
-                if (attrs != null && attrs.Length > 0)
+                //获取描述特性  
+                if (memberInfos[0].GetCustomAttributes(typeof(DescriptionAttribute), false) is DescriptionAttribute[] attrs && attrs.Length > 0)
                 {
                     return attrs[0].Description;    //返回当前描述
                 }
@@ -42,11 +43,11 @@ namespace PokerDealer
     /// <summary>
     /// 牌组的类
     /// </summary>
-    public class PokerSet
+    public class PokerSet : NotificationObject
     {
         public int Index { get; set; }
         // 当前牌组的序号
-        public List<Poker> Pokers { get; set; }
+        public ObservableCollection<Poker> Pokers { get; set; }
         // 存放牌组信息
         public string Serialize() => JsonSerializer.Serialize(this);
         // JSON序列化，详见 System.Text.Json
@@ -71,7 +72,7 @@ namespace PokerDealer
         /// </summary>
         public PokerSet()
         {
-            Pokers = new List<Poker> { };
+            Pokers = new ObservableCollection<Poker> { };
         }
     }
 
