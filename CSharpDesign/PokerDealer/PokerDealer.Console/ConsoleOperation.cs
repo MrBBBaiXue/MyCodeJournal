@@ -31,6 +31,18 @@ namespace PokerDealer.Console
             System.Threading.Thread.Sleep(1000);
             Con.Clear();
         }
+
+        /// <summary>
+        /// 输出成功信息
+        /// </summary>
+        public static void OutputIOCompleted(string content)
+        {
+            Con.Clear();
+            Con.WriteLine($"> {content}");
+            System.Threading.Thread.Sleep(1000);
+            Con.Clear();
+        }
+
         /// <summary>
         /// 输出某个牌组的信息
         /// </summary>
@@ -94,7 +106,7 @@ namespace PokerDealer.Console
                 try
                 {
                     Con.WriteLine("> 请选择你想查看的牌组：\n");
-                    Con.WriteLine("  请按下 1-4键 查看序号对应的牌组, 按 5键退出\n");
+                    Con.WriteLine("  请按下 1-4 查看序号对应的牌组, 按 5 退出, 按 6 保存牌组到文件。\n");
                     var k = Con.ReadKey(false);
                     if (k.Key == ConsoleKey.D1)
                     {
@@ -115,6 +127,10 @@ namespace PokerDealer.Console
                     else if (k.Key == ConsoleKey.D5)
                     {
                         return 5;
+                    }
+                    else if (k.Key == ConsoleKey.D6)
+                    {
+                        return 6;
                     }
                     else
                     {
@@ -170,8 +186,9 @@ namespace PokerDealer.Console
         /// <summary>
         /// 获得用户输入的数据文件路径
         /// </summary>
+        /// <param name="isCheckNeeded">是否需要检查文件存在</param>
         /// <returns>PokerData的路径</returns>
-        public static string InputDataPath()
+        public static string InputDataPath(bool isCheckNeeded)
         {
             while (true)
             {
@@ -180,9 +197,16 @@ namespace PokerDealer.Console
                     Con.Clear();
                     Con.WriteLine("> 请输入数据文件路径：\n");
                     var path = Con.ReadLine();
-                    if (!System.IO.File.Exists(path))
+                    if (isCheckNeeded)
                     {
-                        throw new Exception();
+                        if (!System.IO.File.Exists(path))
+                        {
+                            throw new Exception();
+                        }
+                        else
+                        {
+                            return path;
+                        }
                     }
                     else
                     {
@@ -192,7 +216,7 @@ namespace PokerDealer.Console
                 catch
                 {
                     Con.Clear();
-                    Con.WriteLine("路径错误，请重新输入！(文件不存在或无权限)");
+                    Con.WriteLine("路径错误，请重新输入!");
                     System.Threading.Thread.Sleep(3000);
                     continue;
                 }

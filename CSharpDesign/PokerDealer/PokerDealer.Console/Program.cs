@@ -47,12 +47,15 @@ namespace PokerDealer.Console
             var operation = ConsoleOperation.InputOperation();
             switch (operation)
             {
+                // 操作A：读取现有的牌组
                 case 1:
-                    DataPath = ConsoleOperation.InputDataPath();
-                    var pokerData = new PokerData(DataPath);
+                    DataPath = ConsoleOperation.InputDataPath(true);
+                    var pokerData = new PokerData(@DataPath);
                     Pokers = pokerData.Read();
+                    ConsoleOperation.OutputIOCompleted("读取成功");
                     break;
 
+                // 操作B：创建新牌组
                 case 2:
                     var pokerPool = PokerOperation.GeneratePokerPool();
                     for (var i = 1; i <= 4; i++)
@@ -61,10 +64,9 @@ namespace PokerDealer.Console
                     }
                     ConsoleOperation.OutputShufflePorksInf();
                     break;
-                default:
-                    return;
             }
-            // 获得初始牌池
+            // 用户输入要查看的PokerSet
+            ConsoleOperation.ApplyConsoleSettings(45, 145);
             while (true)
             {
                 var checkIndex = ConsoleOperation.InputCheckPokerSets();
@@ -72,12 +74,18 @@ namespace PokerDealer.Console
                 {
                     break;
                 }
-                ConsoleOperation.ApplyConsoleSettings(45, 145);
+                if (checkIndex == 6)
+                {
+                    DataPath = ConsoleOperation.InputDataPath(false);
+                    var pokerData = new PokerData(@DataPath);
+                    pokerData.Write(Pokers);
+                    ConsoleOperation.OutputIOCompleted("保存成功");
+                    continue;
+                }
                 ConsoleOperation.OutputPokersLine(Pokers[checkIndex - 1]);
             }
             Con.Clear();
             return;
-
         }
     }
 }
