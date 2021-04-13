@@ -39,9 +39,23 @@ namespace PokerDealer
                 return Point.ToString();
             }
         }
-
         public PokerType PokerType { get; set; }
         // 牌的花色，详见PokerType
+        public bool IsRed => (PokerType == PokerType.Heart || PokerType == PokerType.Cube);
+        public string PokerTypeString
+        {
+            get
+            {
+                return PokerType switch
+                {
+                    PokerType.Spade => "♠",
+                    PokerType.Heart => "♥️",
+                    PokerType.Blossom => "♣️",
+                    PokerType.Cube => "♦️",
+                    _ => "",
+                };
+            }
+        }
         public string GetEnumDescription(Enum en)
         {
             Type type = en.GetType();   //获取类型  
