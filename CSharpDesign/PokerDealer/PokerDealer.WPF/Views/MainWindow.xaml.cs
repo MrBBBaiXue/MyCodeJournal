@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,16 +15,18 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using HandyControl;
 
-namespace PokerDealer.WPF
+namespace PokerDealer.WPF.Views
 {
+
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// MainWindow.xaml 的后台逻辑
     /// </summary>
-    public partial class MainWindow : HandyControl.Controls.Window
-    {
+    public partial class MainWindow : HandyControl.Controls.GlowWindow
+    {       
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = App.MainWindowViewModel;
         }
     }
 }

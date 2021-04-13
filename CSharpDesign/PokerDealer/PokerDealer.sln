@@ -7,7 +7,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokerDealer", "PokerDealer\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokerDealer.WPF", "PokerDealer.WPF\PokerDealer.WPF.csproj", "{B2C4104C-A7DC-453D-B9EC-105870AE5BDA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokerDealer.Console", "PokerDealer.Console\PokerDealer.Console.csproj", "{D062B6D9-BAF5-45AD-A591-15C6297A5988}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokerDealer.Console", "PokerDealer.Console\PokerDealer.Console.csproj", "{D062B6D9-BAF5-45AD-A591-15C6297A5988}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{08D43E94-B09F-44AF-9143-7EBA651CCD0C}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
