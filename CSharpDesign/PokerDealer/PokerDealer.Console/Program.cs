@@ -37,8 +37,7 @@ namespace PokerDealer.Console
         /// <summary>
         /// 程序的入口点
         /// </summary>
-        /// <param name="args">参数</param>
-        static void Main(string[] args)
+        static void Main()
         {
             // 初始化Console数据
             ConsoleOperation.ApplyConsoleSettings(20, 60);
