@@ -143,6 +143,13 @@
                                                         </Style>
                                                     </TextBlock.Style>
                                                 </TextBlock>
+                                                <TextBlock Text="{Binding InfoString}"
+                                                           FontSize="16"
+                                                           HorizontalAlignment="Right"
+                                                           VerticalAlignment="Center"
+                                                           Margin="0,0,10,0"
+                                                           Foreground="{DynamicResource ThirdlyTextBrush}"
+                                                           />
                                             </Grid>
                                         </Border>
                                     </DataTemplate>

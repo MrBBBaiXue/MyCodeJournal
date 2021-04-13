@@ -12,10 +12,16 @@ namespace PokerDealer
     /// </summary>
     public class Poker : NotificationObject
     {
-        public int Point { get; set; }
         // 牌的点数
+        public int Point { get; set; }
 
-        // 牌的点数 (string)
+        // 牌的花色，详见PokerType
+        public PokerType PokerType { get; set; }
+
+        // 用于前台绑定，大部分为Lambda表达式
+        public bool IsRed => (PokerType == PokerType.Heart || PokerType == PokerType.Cube);
+
+        // 牌的点数，类型和描述信息 (string)
         public string PointString
         {
             get
@@ -39,9 +45,6 @@ namespace PokerDealer
                 return Point.ToString();
             }
         }
-        public PokerType PokerType { get; set; }
-        // 牌的花色，详见PokerType
-        public bool IsRed => (PokerType == PokerType.Heart || PokerType == PokerType.Cube);
         public string PokerTypeString
         {
             get
@@ -54,6 +57,22 @@ namespace PokerDealer
                     PokerType.Cube => "♦️",
                     _ => "",
                 };
+            }
+        }
+        public string InfoString
+        {
+            get
+            {
+                string typeString;
+                typeString = PokerType switch
+                {
+                    PokerType.Spade => "黑桃",
+                    PokerType.Heart => "红心",
+                    PokerType.Blossom => "黑梅",
+                    PokerType.Cube => "方片",
+                    _ => ""
+                };
+                return $"{typeString} {PointString}";
             }
         }
         public string GetEnumDescription(Enum en)
