@@ -125,9 +125,24 @@
                                                     </TextBlock.Style>
                                                     </TextBlock>
                                                 <TextBlock Text="{Binding PointString}"
-                                                       FontSize="18"
-                                                       Margin="50,8,0,0"
-                                                           />
+                                                           FontSize="18"
+                                                           Margin="50,0,0,0"
+                                                           VerticalAlignment="Center"
+                                                           HorizontalAlignment="Left"
+                                                           >﻿
+                                                    <TextBlock.Style>
+                                                        <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockBaseStyle}">
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding Path=IsRed}" Value="False">
+                                                                    <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding Path=IsRed}" Value="True">
+                                                                    <Setter Property="Foreground" Value="{DynamicResource DangerBrush}"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </TextBlock.Style>
+                                                </TextBlock>
                                             </Grid>
                                         </Border>
                                     </DataTemplate>
