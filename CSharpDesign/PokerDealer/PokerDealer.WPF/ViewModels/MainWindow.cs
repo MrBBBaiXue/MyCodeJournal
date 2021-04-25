@@ -20,10 +20,6 @@ namespace PokerDealer.WPF.ViewModels
         public DelegateCommand ImportCommand { get; set; }
         public void Import(object parameter)
         {
-            while (Pokers.Count > 0)
-            {
-                Pokers.RemoveAt(0);
-            }
             string path;
             var dialog = new Microsoft.Win32.OpenFileDialog
             {
@@ -31,6 +27,10 @@ namespace PokerDealer.WPF.ViewModels
             };
             if ((bool)dialog.ShowDialog())
             {
+                while (Pokers.Count > 0)
+                {
+                    Pokers.RemoveAt(0);
+                }
                 path = dialog.FileName;
                 var pokerData = new PokerData(path);
                 // List to ObservableCollection
