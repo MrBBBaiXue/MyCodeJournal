@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Manglietia", "Manglietia.csproj", "{69599219-0BB9-4FC0-A0FB-1B0AADF713C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Manglietia.WPF", "Manglietia.WPF\Manglietia.WPF.csproj", "{09289A06-4B41-4A9E-A7D6-5CF7F3508EA7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Manglietia.API", "Manglietia.API\Manglietia.API.csproj", "{99BCF01C-CF63-4FA2-8F63-DC7F9F2450E2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +13,19 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{69599219-0BB9-4FC0-A0FB-1B0AADF713C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{69599219-0BB9-4FC0-A0FB-1B0AADF713C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{69599219-0BB9-4FC0-A0FB-1B0AADF713C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{69599219-0BB9-4FC0-A0FB-1B0AADF713C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09289A06-4B41-4A9E-A7D6-5CF7F3508EA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09289A06-4B41-4A9E-A7D6-5CF7F3508EA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09289A06-4B41-4A9E-A7D6-5CF7F3508EA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09289A06-4B41-4A9E-A7D6-5CF7F3508EA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99BCF01C-CF63-4FA2-8F63-DC7F9F2450E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99BCF01C-CF63-4FA2-8F63-DC7F9F2450E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99BCF01C-CF63-4FA2-8F63-DC7F9F2450E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99BCF01C-CF63-4FA2-8F63-DC7F9F2450E2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {A7D3D2C7-ED28-47B0-87CA-4AB57EB55D1C}
+		SolutionGuid = {A3B1CD2F-0000-46DE-885E-E8793B531C18}
 	EndGlobalSection
 EndGlobal
