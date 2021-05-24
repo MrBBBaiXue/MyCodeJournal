@@ -9,13 +9,14 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using HandyControl;
 
 namespace Manglietia.WPF.Views
 {
     /// <summary>
     /// MainView.xaml 的交互逻辑
     /// </summary>
-    public partial class MainView : Window
+    public partial class MainView : HandyControl.Controls.Window
     {
         public MainView()
         {

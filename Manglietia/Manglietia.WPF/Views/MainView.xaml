@@ -1,4 +1,5 @@
-﻿<Window x:Class="Manglietia.WPF.Views.MainView"
+﻿<hc:Window x:Class="Manglietia.WPF.Views.MainView"
+        xmlns:hc="https://handyorg.github.io/handycontrol"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -8,9 +9,59 @@
         xmlns:vm="clr-namespace:Manglietia.WPF.ViewModels"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance vm:MainViewModel, IsDesignTimeCreatable=True}"
-        Title="{Binding WindowTitle}" Height="450" Width="800"
+        Title="Manglietia 学生成绩管理系统" Height="650" Width="1000"
+        x:Name="mainWindow"
+        Topmost="True"
+        Background="{DynamicResource RegionBrush}"
         >
-    <Grid>
-        
+    <Grid x:Name="toolBarGrid" VerticalAlignment="Top" Margin="10">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+            <ComboBox x:Name="classComboBox"
+                      IsEditable="False"
+                      Width="150"
+                      VerticalAlignment="Center"
+                      HorizontalAlignment="Left"
+                      />
+            <Button x:Name="addClassButton"
+                    Style="{StaticResource ButtonPrimary}"
+                    Margin="10,0,0,0"
+                    hc:IconElement.Geometry="{StaticResource AddGeometry}"
+                    hc:IconElement.Height="12"
+                    hc:IconElement.Width="12"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Left"
+                    />
+            <Button x:Name="removeClassButton"
+                    Style="{StaticResource ButtonPrimary}"
+                    Margin="10,0,0,0"
+                    hc:IconElement.Geometry="{StaticResource SubGeometry}"
+                    hc:IconElement.Height="12"
+                    hc:IconElement.Width="12"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Left"
+                    />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button x:Name="addStudentButton"
+                    Style="{StaticResource ButtonDashedPrimary}"
+                    Content=" 添加学生 "
+                    Margin="0,0,10,0"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Right"
+                    />
+            <Button x:Name="editStudentButton"
+                    Style="{StaticResource ButtonDashedPrimary}"
+                    Content=" 编辑信息 "
+                    Margin="0,0,10,0"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Right"
+                    />
+            <Button x:Name="removeStudentButton"
+                    Style="{StaticResource ButtonDashedDanger}"
+                    Content=" 移除 "
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Right"
+                    />
+        </StackPanel>
     </Grid>
-</Window>
+</hc:Window>

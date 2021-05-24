@@ -3,12 +3,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:s="https://github.com/canton7/Stylet"
              xmlns:local="clr-namespace:Manglietia.WPF"
+             xmlns:hc="https://handyorg.github.io/handycontrol"
              >
     <Application.Resources>
         <s:ApplicationLoader>
             <s:ApplicationLoader.Bootstrapper>
                 <local:Bootstrapper/>
             </s:ApplicationLoader.Bootstrapper>
+            <s:ApplicationLoader.MergedDictionaries>
+                <hc:ThemeResources/>
+                <hc:Theme/>
+            </s:ApplicationLoader.MergedDictionaries>
         </s:ApplicationLoader>
     </Application.Resources>
 </Application>
