@@ -9,59 +9,106 @@
         xmlns:vm="clr-namespace:Manglietia.WPF.ViewModels"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance vm:MainViewModel, IsDesignTimeCreatable=True}"
-        Title="Manglietia 学生成绩管理系统" Height="650" Width="1000"
+        Title="⬛  Manglietia" Height="650" Width="1000"
         x:Name="mainWindow"
-        Topmost="True"
         Background="{DynamicResource RegionBrush}"
+        NonClientAreaBackground="{DynamicResource RegionBrush}"
+        Topmost="True"
         >
-    <Grid x:Name="toolBarGrid" VerticalAlignment="Top" Margin="10">
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-            <ComboBox x:Name="classComboBox"
+    <hc:Window.NonClientAreaContent>
+        <Grid x:Name="nonClientAreaGrid">
+            <Button x:Name="fileMenuButton"
+                    Content="文件"
+                    HorizontalAlignment="Left"
+                    Margin="20,0,0,0"
+                    Style="{StaticResource ButtonCustom}"
+                    FontSize="13"
+                    Foreground="{DynamicResource PrimaryTextBrush}"
+                    />
+            <Button x:Name="serverMenuButton"
+                    Content="连接"
+                    HorizontalAlignment="Left"
+                    Margin="60,0,0,0"
+                    Style="{StaticResource ButtonCustom}"
+                    FontSize="13"
+                    Foreground="{DynamicResource PrimaryTextBrush}"
+                    />
+            <Button x:Name="aboutMenuButton"
+                    Content="关于"
+                    HorizontalAlignment="Left"
+                    Margin="100,0,0,0"
+                    Style="{StaticResource ButtonCustom}"
+                    FontSize="13"
+                    Foreground="{DynamicResource PrimaryTextBrush}"
+                    />
+            <ToggleButton x:Name="nightModeToggleButton"
+                          BorderThickness="0"
+                          HorizontalAlignment="Right"
+                          VerticalContentAlignment="Center"
+                          Height="30"
+                          Width="40"
+                          Margin="0,0,0,0"                          
+                          Style="{StaticResource ToggleButtonIconPrimary}"
+                          Background="Transparent"
+                          Foreground="{DynamicResource PrimaryTextBrush}"
+                          hc:IconSwitchElement.Geometry="{StaticResource EyeOpenGeometry}"
+                          hc:IconSwitchElement.GeometrySelected="{StaticResource EyeCloseGeometry}"
+                          hc:IconElement.Width="16"
+                          Command="{s:Action ToggleDarkMode}"
+                          IsChecked="{Binding IsDarkMode}"
+                          >
+            </ToggleButton>
+        </Grid>
+    </hc:Window.NonClientAreaContent>
+    <Grid x:Name="mainGrid">
+        <Grid x:Name="toolBarGrid" VerticalAlignment="Top" Margin="10">
+            <hc:UniformSpacingPanel Spacing="10">
+                <ComboBox x:Name="classComboBox"
                       IsEditable="False"
                       Width="150"
                       VerticalAlignment="Center"
                       HorizontalAlignment="Left"
                       />
-            <Button x:Name="addClassButton"
-                    Style="{StaticResource ButtonPrimary}"
-                    Margin="10,0,0,0"
+                <Button x:Name="addClassButton"
+                    Style="{StaticResource ButtonDashed}"
                     hc:IconElement.Geometry="{StaticResource AddGeometry}"
                     hc:IconElement.Height="12"
                     hc:IconElement.Width="12"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Left"
                     />
-            <Button x:Name="removeClassButton"
-                    Style="{StaticResource ButtonPrimary}"
-                    Margin="10,0,0,0"
+                <Button x:Name="removeClassButton"
+                    Style="{StaticResource ButtonDashedDanger}"
                     hc:IconElement.Geometry="{StaticResource SubGeometry}"
                     hc:IconElement.Height="12"
                     hc:IconElement.Width="12"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Left"
                     />
-        </StackPanel>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button x:Name="addStudentButton"
-                    Style="{StaticResource ButtonDashedPrimary}"
+            </hc:UniformSpacingPanel>
+            <hc:UniformSpacingPanel Spacing="10" HorizontalAlignment="Right">
+                <Button x:Name="addStudentButton"
+                    Style="{StaticResource ButtonDashed}"
                     Content=" 添加学生 "
-                    Margin="0,0,10,0"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Right"
                     />
-            <Button x:Name="editStudentButton"
-                    Style="{StaticResource ButtonDashedPrimary}"
-                    Content=" 编辑信息 "
-                    Margin="0,0,10,0"
+                <Button x:Name="editStudentButton"
+                    Style="{StaticResource ButtonDashed}"
+                    Content=" 编辑 "
                     VerticalAlignment="Center"
                     HorizontalAlignment="Right"
                     />
-            <Button x:Name="removeStudentButton"
+                <Button x:Name="removeStudentButton"
                     Style="{StaticResource ButtonDashedDanger}"
                     Content=" 移除 "
                     VerticalAlignment="Center"
                     HorizontalAlignment="Right"
                     />
-        </StackPanel>
+            </hc:UniformSpacingPanel>
+        </Grid>
+        <Grid x:Name="dataGrid" Margin="10,50,10,10">
+            
+        </Grid>
     </Grid>
 </hc:Window>
