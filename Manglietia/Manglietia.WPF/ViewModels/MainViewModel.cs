@@ -47,7 +47,6 @@ namespace Manglietia.WPF.ViewModels
 
         public void ToggleDarkMode()
         {
-            
             HandyControl.Themes.ThemeManager.Current.ApplicationTheme = 
                 (IsDarkMode) ? HandyControl.Themes.ApplicationTheme.Dark : HandyControl.Themes.ApplicationTheme.Light;
             IsDarkMode = !IsDarkMode;
