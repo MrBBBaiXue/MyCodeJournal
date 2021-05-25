@@ -1,15 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using HandyControl;
+﻿using System.Windows;
 
 namespace Manglietia.WPF.Views
 {
@@ -21,6 +10,11 @@ namespace Manglietia.WPF.Views
         public MainView()
         {
             InitializeComponent();
+        }
+
+        private void FileMenuButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            FileMenu.IsOpen = true;
         }
     }
 }

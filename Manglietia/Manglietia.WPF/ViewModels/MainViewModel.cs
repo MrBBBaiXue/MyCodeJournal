@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Text;
-using Stylet;
+﻿using System.Collections.ObjectModel;
 using c = System.Console;
+using System.Runtime.CompilerServices;
+using Manglietia.DLL;
 
 namespace Manglietia.WPF.ViewModels
 {
@@ -11,7 +9,9 @@ namespace Manglietia.WPF.ViewModels
     {
         public bool IsDarkMode { get; set; } = false;
         public ObservableCollection<DLL.Class> Classes { get; set; } = new ObservableCollection<DLL.Class> { };
-
+        public int SelectedIndex { get; set; } = 0;
+        public Class SelectedClass => Classes[SelectedIndex];
+        public ObservableCollection<Student> SelectedStudents => SelectedClass.Students;
         public MainViewModel()
         {
             // Load File from Server directly
@@ -52,5 +52,6 @@ namespace Manglietia.WPF.ViewModels
             IsDarkMode = !IsDarkMode;
             return;
         }
+
     }
 }

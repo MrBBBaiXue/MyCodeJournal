@@ -10,22 +10,35 @@
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance vm:MainViewModel, IsDesignTimeCreatable=True}"
         Title="⬛  Manglietia" Height="650" Width="1000"
-        x:Name="mainWindow"
+        x:Name="MainWindow"
         Background="{DynamicResource RegionBrush}"
         NonClientAreaBackground="{DynamicResource RegionBrush}"
         Topmost="True"
         >
     <hc:Window.NonClientAreaContent>
-        <Grid x:Name="nonClientAreaGrid">
-            <Button x:Name="fileMenuButton"
+        <Grid x:Name="NonClientAreaGrid">
+            <Button x:Name="FileMenuButton"
                     Content="文件"
                     HorizontalAlignment="Left"
                     Margin="20,0,0,0"
                     Style="{StaticResource ButtonCustom}"
                     FontSize="13"
                     Foreground="{DynamicResource PrimaryTextBrush}"
-                    />
-            <Button x:Name="serverMenuButton"
+                    Click="FileMenuButton_OnClick"
+                    >
+                <Button.ContextMenu>
+                    <ContextMenu Name="FileMenu"
+                                 Background="{DynamicResource RegionBrush}"
+                                 BorderBrush="{DynamicResource SecondaryRegionBrush}"
+                                 >
+                        <MenuItem Header="新建" Foreground="{DynamicResource PrimaryTextBrush}" />
+                        <MenuItem Header="打开..." Foreground="{DynamicResource PrimaryTextBrush}"/>
+                        <MenuItem Header="保存..." Foreground="{DynamicResource PrimaryTextBrush}"/>
+                        <MenuItem Header="另存为..." Foreground="{DynamicResource PrimaryTextBrush}"/>
+                    </ContextMenu>
+                </Button.ContextMenu>
+            </Button>
+            <Button x:Name="ServerMenuButton"
                     Content="连接"
                     HorizontalAlignment="Left"
                     Margin="60,0,0,0"
@@ -33,7 +46,7 @@
                     FontSize="13"
                     Foreground="{DynamicResource PrimaryTextBrush}"
                     />
-            <Button x:Name="aboutMenuButton"
+            <Button x:Name="AboutMenuButton"
                     Content="关于"
                     HorizontalAlignment="Left"
                     Margin="100,0,0,0"
@@ -41,7 +54,7 @@
                     FontSize="13"
                     Foreground="{DynamicResource PrimaryTextBrush}"
                     />
-            <ToggleButton x:Name="nightModeToggleButton"
+            <ToggleButton x:Name="NightModeToggleButton"
                           BorderThickness="0"
                           HorizontalAlignment="Right"
                           VerticalContentAlignment="Center"
@@ -60,16 +73,19 @@
             </ToggleButton>
         </Grid>
     </hc:Window.NonClientAreaContent>
-    <Grid x:Name="mainGrid">
-        <Grid x:Name="toolBarGrid" VerticalAlignment="Top" Margin="10">
+    <Grid x:Name="MainGrid">
+        <Grid x:Name="ToolBarGrid" VerticalAlignment="Top" Margin="10">
             <hc:UniformSpacingPanel Spacing="10">
-                <ComboBox x:Name="classComboBox"
+                <ComboBox x:Name="ClassComboBox"
                       IsEditable="False"
-                      Width="150"
+                      Width="200"
                       VerticalAlignment="Center"
                       HorizontalAlignment="Left"
-                      />
-                <Button x:Name="addClassButton"
+                      hc:DropDownElement.ConsistentWidth="False"
+                      ItemsSource="{Binding Classes}"
+                      SelectedIndex="{Binding SelectedIndex}"
+                />
+                <Button x:Name="AddClassButton"
                     Style="{StaticResource ButtonDashed}"
                     hc:IconElement.Geometry="{StaticResource AddGeometry}"
                     hc:IconElement.Height="12"
@@ -77,7 +93,7 @@
                     VerticalAlignment="Center"
                     HorizontalAlignment="Left"
                     />
-                <Button x:Name="removeClassButton"
+                <Button x:Name="RemoveClassButton"
                     Style="{StaticResource ButtonDashedDanger}"
                     hc:IconElement.Geometry="{StaticResource SubGeometry}"
                     hc:IconElement.Height="12"
@@ -85,21 +101,30 @@
                     VerticalAlignment="Center"
                     HorizontalAlignment="Left"
                     />
+                <Button x:Name="DataAnalysisButton"
+                    Style="{StaticResource ButtonDashedPrimary}"
+                    hc:IconElement.Geometry="{StaticResource SearchGeometry}"
+                    hc:IconElement.Height="12"
+                    hc:IconElement.Width="12"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Left"
+                    Content=" 数据探查 "
+                    />
             </hc:UniformSpacingPanel>
             <hc:UniformSpacingPanel Spacing="10" HorizontalAlignment="Right">
-                <Button x:Name="addStudentButton"
+                <Button x:Name="AddStudentButton"
                     Style="{StaticResource ButtonDashed}"
                     Content=" 添加学生 "
                     VerticalAlignment="Center"
                     HorizontalAlignment="Right"
                     />
-                <Button x:Name="editStudentButton"
+                <Button x:Name="EditStudentButton"
                     Style="{StaticResource ButtonDashed}"
                     Content=" 编辑 "
                     VerticalAlignment="Center"
                     HorizontalAlignment="Right"
                     />
-                <Button x:Name="removeStudentButton"
+                <Button x:Name="RemoveStudentButton"
                     Style="{StaticResource ButtonDashedDanger}"
                     Content=" 移除 "
                     VerticalAlignment="Center"
@@ -107,8 +132,17 @@
                     />
             </hc:UniformSpacingPanel>
         </Grid>
-        <Grid x:Name="dataGrid" Margin="10,50,10,10">
-            
+        <Grid x:Name="DataGrid" Margin="10,50,10,10">
+            <DataGrid hc:DataGridAttach.CanUnselectAllWithBlankArea="True"
+                      HeadersVisibility="All"
+                      RowHeaderWidth="60"
+                      AutoGenerateColumns="False"
+                      ItemsSource="{Binding SelectedStudents}"
+                      >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Name}" Header="姓名" CanUserResize="True" FontSize="14"/>
+                </DataGrid.Columns>
+            </DataGrid>
         </Grid>
     </Grid>
 </hc:Window>

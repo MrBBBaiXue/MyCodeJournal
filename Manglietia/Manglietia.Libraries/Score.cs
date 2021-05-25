@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Manglietia.DLL
+﻿namespace Manglietia.DLL
 {
     public class Score
     {
