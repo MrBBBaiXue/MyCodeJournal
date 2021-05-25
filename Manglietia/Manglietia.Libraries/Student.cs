@@ -1,9 +1,11 @@
 ﻿using System.Collections.ObjectModel;
+using System.Text;
 
 namespace Manglietia.DLL
 {
-    public class Student
+    public class Student : NotificationObject
     {
+        public bool IsSelected { get; set; } = false;
         public ObservableCollection<Score> Scores { get; set; } = new ObservableCollection<Score> { };
         public string Name { get; set; }
         public bool Sex { get; set; }
@@ -16,6 +18,19 @@ namespace Manglietia.DLL
         public Student()
         {
             GUID = System.Guid.NewGuid().ToString();
+        }
+
+        public string ScoreText
+        {
+            get
+            {
+                var stringBuilder = new StringBuilder();
+                foreach (var score in Scores)
+                {
+                    stringBuilder.Append($"{score.Subject}: {score.Point}; ");
+                }
+                return stringBuilder.ToString();
+            }
         }
     }
 }

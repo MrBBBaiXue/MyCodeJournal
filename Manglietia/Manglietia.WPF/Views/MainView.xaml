@@ -13,8 +13,7 @@
         x:Name="MainWindow"
         Background="{DynamicResource RegionBrush}"
         NonClientAreaBackground="{DynamicResource RegionBrush}"
-        Topmost="True"
-        >
+>
     <hc:Window.NonClientAreaContent>
         <Grid x:Name="NonClientAreaGrid">
             <Button x:Name="FileMenuButton"
@@ -31,10 +30,10 @@
                                  Background="{DynamicResource RegionBrush}"
                                  BorderBrush="{DynamicResource SecondaryRegionBrush}"
                                  >
-                        <MenuItem Header="新建" Foreground="{DynamicResource PrimaryTextBrush}" />
-                        <MenuItem Header="打开..." Foreground="{DynamicResource PrimaryTextBrush}"/>
-                        <MenuItem Header="保存..." Foreground="{DynamicResource PrimaryTextBrush}"/>
-                        <MenuItem Header="另存为..." Foreground="{DynamicResource PrimaryTextBrush}"/>
+                        <MenuItem Header="新建" Foreground="{DynamicResource PrimaryTextBrush}" Click="{s:Action NewFile}"/>
+                        <MenuItem Header="打开..." Foreground="{DynamicResource PrimaryTextBrush}" Click="{s:Action OpenFile}"/>
+                        <MenuItem Header="保存..." Foreground="{DynamicResource PrimaryTextBrush}" Click="{s:Action SaveFile}"/>
+                        <MenuItem Header="另存为..." Foreground="{DynamicResource PrimaryTextBrush}" Click="{s:Action SaveToAnotherFile}"/>
                     </ContextMenu>
                 </Button.ContextMenu>
             </Button>
@@ -84,6 +83,7 @@
                       hc:DropDownElement.ConsistentWidth="False"
                       ItemsSource="{Binding Classes}"
                       SelectedIndex="{Binding SelectedIndex}"
+                      DisplayMemberPath="Description"
                 />
                 <Button x:Name="AddClassButton"
                     Style="{StaticResource ButtonDashed}"
@@ -92,6 +92,7 @@
                     hc:IconElement.Width="12"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Left"
+                    Command="{s:Action AddClass}"
                     />
                 <Button x:Name="RemoveClassButton"
                     Style="{StaticResource ButtonDashedDanger}"
@@ -100,6 +101,7 @@
                     hc:IconElement.Width="12"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Left"
+                    Command="{s:Action RemoveClass}"
                     />
                 <Button x:Name="DataAnalysisButton"
                     Style="{StaticResource ButtonDashedPrimary}"
@@ -109,6 +111,7 @@
                     VerticalAlignment="Center"
                     HorizontalAlignment="Left"
                     Content=" 数据探查 "
+                    Command="{s:Action DataAnalysis}"
                     />
             </hc:UniformSpacingPanel>
             <hc:UniformSpacingPanel Spacing="10" HorizontalAlignment="Right">
@@ -117,18 +120,21 @@
                     Content=" 添加学生 "
                     VerticalAlignment="Center"
                     HorizontalAlignment="Right"
+                    Command="{s:Action AddStudent}"
                     />
                 <Button x:Name="EditStudentButton"
                     Style="{StaticResource ButtonDashed}"
                     Content=" 编辑 "
                     VerticalAlignment="Center"
                     HorizontalAlignment="Right"
+                    Command="{s:Action EditStudent}"
                     />
                 <Button x:Name="RemoveStudentButton"
                     Style="{StaticResource ButtonDashedDanger}"
                     Content=" 移除 "
                     VerticalAlignment="Center"
                     HorizontalAlignment="Right"
+                    Command="{s:Action RemoveStudent}"
                     />
             </hc:UniformSpacingPanel>
         </Grid>
@@ -138,9 +144,35 @@
                       RowHeaderWidth="60"
                       AutoGenerateColumns="False"
                       ItemsSource="{Binding SelectedStudents}"
+                      FontSize="14"
                       >
                 <DataGrid.Columns>
+                    <DataGridCheckBoxColumn Binding="{Binding IsSelected}"/>
                     <DataGridTextColumn Binding="{Binding Name}" Header="姓名" CanUserResize="True" FontSize="14"/>
+                    <DataGridTemplateColumn Width="80" Header="性别" CanUserResize="True">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
+                                <CheckBox IsChecked="{Binding Sex}" FontSize="14" Foreground="{DynamicResource PrimaryTextBrush}">
+                                    <CheckBox.Resources>
+                                        <Style TargetType="{x:Type CheckBox}"
+                                               BasedOn="{StaticResource CheckBoxBaseStyle}"
+                                               >
+                                            <Setter Property="Content" Value="男"/>
+                                            <Style.Triggers>
+                                                <Trigger Property="IsChecked" Value="True">
+                                                    <Setter Property="Content" Value="女"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </CheckBox.Resources>
+                                </CheckBox>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Binding="{Binding ID}" Header="学号" CanUserResize="True" FontSize="14"/>
+                    <DataGridTextColumn Binding="{Binding Phone}" Header="手机号" CanUserResize="True" FontSize="14"/>
+                    <DataGridTextColumn Binding="{Binding ScoreText}" Header="成绩" CanUserResize="True" FontSize="14"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

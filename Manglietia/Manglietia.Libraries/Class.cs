@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.ObjectModel;
 
 namespace Manglietia.DLL
@@ -14,8 +15,9 @@ namespace Manglietia.DLL
         {
             GUID = System.Guid.NewGuid().ToString();
         }
+
         // JSON序列化
-        public string Seralize() => JsonConvert.SerializeObject(this);
+        public string Serialize() => JsonConvert.SerializeObject(this);
         public void Deserialize(string json)
         {
             var seralizedClass = JsonConvert.DeserializeObject<Class>(json);
@@ -24,5 +26,6 @@ namespace Manglietia.DLL
             Description = seralizedClass.Description;
             GUID = seralizedClass.GUID;
         }
+
     }
 }
