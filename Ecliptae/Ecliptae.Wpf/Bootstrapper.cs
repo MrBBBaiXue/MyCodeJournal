@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 using Ecliptae.Wpf.ViewModels;
@@ -29,6 +25,7 @@ namespace Ecliptae.Wpf
 
         protected override void Configure()
         {
+
             // This is called after Stylet has created the IoC container, so this.Container exists, but before the
             // Root ViewModel is launched.
             // Configure your services, etc, in here
@@ -36,6 +33,8 @@ namespace Ecliptae.Wpf
 
         protected override void OnLaunch()
         {
+            var mainView = new Views.MainView();
+            mainView.Show();
             // This is called just after the root ViewModel has been launched
             // Something like a version check that displays a dialog might be launched from here
         }
@@ -43,6 +42,7 @@ namespace Ecliptae.Wpf
         protected override void OnExit(ExitEventArgs e)
         {
             // Called on Application.Exit
+
         }
 
         protected override void OnUnhandledException(DispatcherUnhandledExceptionEventArgs e)
