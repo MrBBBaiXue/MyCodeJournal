@@ -9,6 +9,11 @@ namespace Ecliptae.Wpf.ViewModels
 {
     public class LoginViewModel
     {
+        public static string WindowTitle => "Ecliptae 登陆";
 
+        public LoginViewModel()
+        {
+
+        }
     }
 }

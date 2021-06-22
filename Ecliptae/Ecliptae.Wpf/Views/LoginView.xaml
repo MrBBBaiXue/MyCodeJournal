@@ -6,8 +6,9 @@
         xmlns:s="https://github.com/canton7/Stylet"
         xmlns:local="clr-namespace:Ecliptae.Wpf.Views"
         xmlns:vm="clr-namespace:Ecliptae.Wpf.ViewModels"
+        d:DataContext="{d:DesignInstance vm:LoginViewModel, IsDesignTimeCreatable=True}"
         mc:Ignorable="d"
-        Title="{Binding }"
+        Title="{Binding WindowTitle}"
         Height="450"
         Width="800"
         >

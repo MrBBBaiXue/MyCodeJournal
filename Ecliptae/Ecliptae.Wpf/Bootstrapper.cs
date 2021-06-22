@@ -7,7 +7,7 @@ using StyletIoC;
 
 namespace Ecliptae.Wpf
 {
-    public class Bootstrapper : Bootstrapper<LoginViewModel>
+    public class Bootstrapper : Bootstrapper<MainViewModel>
     {
 
         protected override void OnStart()
@@ -17,14 +17,11 @@ namespace Ecliptae.Wpf
             // Set up things like logging, etc
         }
 
-        protected override void ConfigureIoC(IStyletIoCBuilder builder)
-        {
-            // Bind your own types. Concrete types are automatically self-bound.
-
-        }
-
         protected override void Configure()
         {
+            // ToDo : Add more function to Configure IOC.
+            // Configure ViewModels.
+            App.LoginViewModel = new LoginViewModel();
 
             // This is called after Stylet has created the IoC container, so this.Container exists, but before the
             // Root ViewModel is launched.
@@ -33,8 +30,6 @@ namespace Ecliptae.Wpf
 
         protected override void OnLaunch()
         {
-            var mainView = new Views.MainView();
-            mainView.Show();
             // This is called just after the root ViewModel has been launched
             // Something like a version check that displays a dialog might be launched from here
         }
