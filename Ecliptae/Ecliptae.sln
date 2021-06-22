@@ -16,6 +16,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecliptae.Api", "Ecliptae.Ap
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecliptae.NUnit", "Ecliptae.NUnit\Ecliptae.NUnit.csproj", "{93635420-4651-4DE1-88CE-E5EE85CB6EAC}"
+	ProjectSection(ProjectDependencies) = postProject
+		{85661D2E-3883-4713-B041-544EEFF424A4} = {85661D2E-3883-4713-B041-544EEFF424A4}
+		{93DEFAB9-BF8E-417B-8F0E-96DDC9F63DAA} = {93DEFAB9-BF8E-417B-8F0E-96DDC9F63DAA}
+		{7C41D5F5-133D-4AEB-AC4A-6DEC9ABD1071} = {7C41D5F5-133D-4AEB-AC4A-6DEC9ABD1071}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

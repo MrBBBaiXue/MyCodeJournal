@@ -12,5 +12,9 @@
     <OutputPath>..\Build\</OutputPath>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Ecliptae.Lib\Ecliptae.Lib.csproj" />
+  </ItemGroup>
+
 
 </Project>

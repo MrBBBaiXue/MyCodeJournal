@@ -1,9 +1,7 @@
-﻿using System;
+﻿using Ecliptae.Wpf.ViewModels;
+using Stylet;
 using System.Windows;
 using System.Windows.Threading;
-using Ecliptae.Wpf.ViewModels;
-using Stylet;
-using StyletIoC;
 
 namespace Ecliptae.Wpf
 {
@@ -21,7 +19,6 @@ namespace Ecliptae.Wpf
         {
             // ToDo : Add more function to Configure IOC.
             // Configure ViewModels.
-            App.LoginViewModel = new LoginViewModel();
 
             // This is called after Stylet has created the IoC container, so this.Container exists, but before the
             // Root ViewModel is launched.
