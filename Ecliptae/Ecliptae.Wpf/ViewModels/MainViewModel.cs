@@ -1,4 +1,7 @@
-﻿namespace Ecliptae.Wpf.ViewModels
+﻿using System.Windows.Controls;
+using Ecliptae.Wpf.Views;
+
+namespace Ecliptae.Wpf.ViewModels
 {
     public class MainViewModel
     {

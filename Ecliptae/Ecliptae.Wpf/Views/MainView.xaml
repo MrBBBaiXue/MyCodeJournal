@@ -12,9 +12,10 @@
         mc:Ignorable="d"
         Width="1200" Height="800" Topmost="False"
         Background="{DynamicResource RegionBrush}"
-        NonClientAreaBackground="{DynamicResource RegionBrush}"
+        NonClientAreaBackground="Transparent"
         WindowStartupLocation="CenterScreen"
         Title="{Binding WindowTitle}"
+        ExtendViewIntoNonClientArea="True"
         >
     <hc:Window.NonClientAreaContent>
         <Grid x:Name="NonClientAreaGrid">
@@ -33,16 +34,23 @@
                           hc:IconElement.Width="15"
                           Command="{s:Action ToggleDarkMode}"
                           IsChecked="{Binding IsDarkMode}"
-            >
-            </ToggleButton>
+            />
+            <hc:Gravatar x:Name="Gravatar"
+                         Style="{StaticResource GravatarCircle}"
+                         HorizontalAlignment="Left"
+                         VerticalContentAlignment="Center"
+                         Height="25"
+                         Width="25"
+                         Margin="120,0,0,-13"
+                         Id="25555"
+                         />
         </Grid>
     </hc:Window.NonClientAreaContent>
 
     <Grid x:Name="MainGrid">
         <Frame Name="MainFrame" 
-               NavigationUIVisibility="Hidden"
+               NavigationUIVisibility="Visible"
                BorderBrush="Transparent"
-               >
-        </Frame>
+        />
     </Grid>
 </hc:Window>
