@@ -5,11 +5,12 @@ using System.Windows.Threading;
 
 namespace Ecliptae.Wpf
 {
-    public class Bootstrapper : Bootstrapper<MainViewModel>
+    public class Bootstrapper : Bootstrapper<LoginViewModel>
     {
 
         protected override void OnStart()
         {
+            // 
 
             // This is called just after the application is started, but before the IoC container is set up.
             // Set up things like logging, etc

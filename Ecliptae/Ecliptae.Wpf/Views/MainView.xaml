@@ -12,45 +12,29 @@
         mc:Ignorable="d"
         Width="1200" Height="800" Topmost="False"
         Background="{DynamicResource RegionBrush}"
-        NonClientAreaBackground="Transparent"
+        NonClientAreaBackground="{DynamicResource RegionBrush}"
         WindowStartupLocation="CenterScreen"
         Title="{Binding WindowTitle}"
-        ExtendViewIntoNonClientArea="True"
         >
     <hc:Window.NonClientAreaContent>
         <Grid x:Name="NonClientAreaGrid">
-            <ToggleButton x:Name="NightModeToggleButton"
+            <Button x:Name="NightModeToggleButton"
                           BorderThickness="0"
                           HorizontalAlignment="Right"
                           VerticalContentAlignment="Center"
                           Height="30"
                           Width="40"
                           Margin="0,0,0,0"                          
-                          Style="{StaticResource ToggleButtonIconPrimary}"
+                          Style="{StaticResource ButtonIcon}"
                           Background="Transparent"
                           Foreground="{DynamicResource PrimaryTextBrush}"
-                          hc:IconSwitchElement.Geometry="{StaticResource EyeOpenGeometry}"
-                          hc:IconSwitchElement.GeometrySelected="{StaticResource EyeCloseGeometry}"
-                          hc:IconElement.Width="15"
+                          hc:IconElement.Width="12"
+                          hc:IconElement.Geometry="{StaticResource WindowRestoreGeometry}"
                           Command="{s:Action ToggleDarkMode}"
-                          IsChecked="{Binding IsDarkMode}"
             />
-            <hc:Gravatar x:Name="Gravatar"
-                         Style="{StaticResource GravatarCircle}"
-                         HorizontalAlignment="Left"
-                         VerticalContentAlignment="Center"
-                         Height="25"
-                         Width="25"
-                         Margin="120,0,0,-13"
-                         Id="25555"
-                         />
         </Grid>
     </hc:Window.NonClientAreaContent>
-
     <Grid x:Name="MainGrid">
-        <Frame Name="MainFrame" 
-               NavigationUIVisibility="Visible"
-               BorderBrush="Transparent"
-        />
+        
     </Grid>
 </hc:Window>
