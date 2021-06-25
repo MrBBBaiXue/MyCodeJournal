@@ -16,7 +16,6 @@
         WindowStartupLocation="CenterScreen"
         Title="{Binding WindowTitle}"
         >
-
     <hc:Window.NonClientAreaContent>
         <Grid x:Name="NonClientAreaGrid">
             <ToggleButton x:Name="NightModeToggleButton"
@@ -40,6 +39,10 @@
     </hc:Window.NonClientAreaContent>
 
     <Grid x:Name="MainGrid">
-        
+        <Frame Name="MainFrame" 
+               NavigationUIVisibility="Hidden"
+               BorderBrush="Transparent"
+               >
+        </Frame>
     </Grid>
 </hc:Window>
