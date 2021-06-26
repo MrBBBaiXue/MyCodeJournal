@@ -1,0 +1,42 @@
+﻿<hc:Window x:Class="Ecliptae.Wpf.Views.ItemView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:Ecliptae.Wpf.ViewModels"
+        xmlns:s="https://github.com/canton7/Stylet"
+        xmlns:hc="https://handyorg.github.io/handycontrol"
+        xmlns:local="clr-namespace:Ecliptae.Wpf.Views"
+        mc:Ignorable="d"
+        Title="{Binding WindowTitleText}" 
+        Height="500" Width="450"
+        d:DataContext="{d:DesignInstance vm:ItemViewModel, IsDesignTimeCreatable=True}"
+        Background="{DynamicResource RegionBrush}"
+        NonClientAreaBackground="{DynamicResource RegionBrush}"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Topmost="True"
+        >
+
+    <hc:Window.NonClientAreaContent>
+        <Grid x:Name="NonClientAreaGrid">
+            <Button x:Name="NightModeToggleButton"
+                    BorderThickness="0"
+                    HorizontalAlignment="Right"
+                    VerticalContentAlignment="Center"
+                    Height="30"
+                    Width="40"
+                    Margin="0,0,0,0"                          
+                    Style="{StaticResource ButtonIcon}"
+                    Background="Transparent"
+                    Foreground="{DynamicResource PrimaryTextBrush}"
+                    hc:IconElement.Width="12"
+                    hc:IconElement.Geometry="{StaticResource WindowRestoreGeometry}"
+                    Command="{s:Action ToggleDarkMode}"
+            />
+        </Grid>
+    </hc:Window.NonClientAreaContent>
+    <Grid x:Name="MainGrid">
+        
+    </Grid>
+</hc:Window>

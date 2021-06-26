@@ -18,9 +18,7 @@ namespace Ecliptae.Wpf.ViewModels
 
         }
         public void CreateMainWindow()
-        {
-            App.WindowManager.ShowWindow(App.MainViewModel);
-        }
+        => App.WindowManager.ShowWindow(App.MainViewModel);
         public void LoginAndCreateMainWindow()
         {
 
@@ -29,7 +27,8 @@ namespace Ecliptae.Wpf.ViewModels
         public void SignUpAndCreateMainWindow()
         {
             // ToDo : Sign Up logic
-            CreateMainWindow();
+            //CreateMainWindow();
+            App.WindowManager.ShowDialog(App.ItemViewModel);
         }
 
         public void SignUp()
