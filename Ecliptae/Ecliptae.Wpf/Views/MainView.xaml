@@ -14,7 +14,7 @@
         Background="{DynamicResource RegionBrush}"
         NonClientAreaBackground="{DynamicResource RegionBrush}"
         WindowStartupLocation="CenterScreen"
-        Title="{Binding WindowTitle}"
+        Title="{Binding WindowTitleText}"
         >
     <hc:Window.NonClientAreaContent>
         <Grid x:Name="NonClientAreaGrid">
