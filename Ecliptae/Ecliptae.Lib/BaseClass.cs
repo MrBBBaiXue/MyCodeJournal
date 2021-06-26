@@ -4,16 +4,16 @@ namespace Ecliptae.Lib
 {
     public class GuidClass
     {
-        public string GUID { get; set; }
-        public void NewGUID()
+        public string GUID { get; }
+        public GuidClass()
         {
-            GUID = System.Guid.NewGuid().ToString().Replace("-", "").ToUpper();
+            GUID = System.Guid.NewGuid().ToString().ToUpper();
         }
     }
     public class Order : GuidClass
     {
         public string Owner { get; set; }
-        private ObservableCollection<Item> Items { get; set; }
+        public ObservableCollection<Item> Items { get; set; }
     }
 
     public class Item : GuidClass
@@ -28,8 +28,8 @@ namespace Ecliptae.Lib
     public class User : GuidClass
     {
         public string Name { get; set; }
-        private string Hash { get; set; }
-        private float Balance { get; set; }
+        public string Hash { get; set; }
+        public float Balance { get; set; }
         public int Level { get; set; }
     }
 

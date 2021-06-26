@@ -2,9 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ecliptae.Lib
 {
@@ -82,8 +79,8 @@ namespace Ecliptae.Lib
             int val;
             try
             {
-                val = MysqlHelper.ExecuteNonQuery(
-                        MysqlHelper.Conn,
+                val = SQLHelper.ExecuteNonQuery(
+                        SQLHelper.Conn,
                         CommandType.Text,
                         command,
                         paralist);
@@ -130,8 +127,8 @@ namespace Ecliptae.Lib
             int val;
             try
             {
-                val = MysqlHelper.ExecuteNonQuery(
-                        MysqlHelper.Conn,
+                val = SQLHelper.ExecuteNonQuery(
+                        SQLHelper.Conn,
                         CommandType.Text,
                         command,
                         parameter);
@@ -190,8 +187,8 @@ namespace Ecliptae.Lib
             int val;
             try
             {
-                val = MysqlHelper.ExecuteNonQuery(
-                        MysqlHelper.Conn,
+                val = SQLHelper.ExecuteNonQuery(
+                        SQLHelper.Conn,
                         CommandType.Text,
                         command,
                         new MySqlParameter[] {
@@ -256,8 +253,8 @@ namespace Ecliptae.Lib
                         MySqlDbType = t.FieldType[QueryMySqlDbTypeIndex(t, queryAim)],
                         Value = queryValue
                     };
-                    return MysqlHelper.ExecuteReader(
-                        MysqlHelper.Conn,
+                    return SQLHelper.ExecuteReader(
+                        SQLHelper.Conn,
                         CommandType.Text,
                         command,
                         parameter
@@ -265,8 +262,8 @@ namespace Ecliptae.Lib
                 }
                 else
                 {
-                    return MysqlHelper.ExecuteReader(
-                        MysqlHelper.Conn,
+                    return SQLHelper.ExecuteReader(
+                        SQLHelper.Conn,
                         CommandType.Text,
                         command,
                         null
@@ -298,8 +295,8 @@ namespace Ecliptae.Lib
 
             try
             {
-                return MysqlHelper.ExecuteReader(
-                    MysqlHelper.Conn,
+                return SQLHelper.ExecuteReader(
+                    SQLHelper.Conn,
                     CommandType.Text,
                     command,
                     null
@@ -369,7 +366,7 @@ namespace Ecliptae.Lib
             Console.WriteLine(command);
             try
             {
-                return MySQLHelper.ExecuteReader(MySQLHelper.Conn,
+                return SQLHelper.ExecuteReader(SQLHelper.Conn,
                                                 CommandType.Text,
                                                 command,
                                                 paralist);
@@ -378,6 +375,101 @@ namespace Ecliptae.Lib
             {
                 Console.WriteLine(e.Message);
                 return null;
+            }
+        }
+    }
+
+    public enum Tables
+    {
+        Users,
+        Items,
+        Orders,
+        Comments
+    }
+    public class TablesDesc
+    {
+        public Tables TableName { get; set; }
+        public List<MySqlDbType> FieldType { get; set; }
+        public string[] FieldName { get; set; }
+        public TablesDesc(Tables t)
+        {
+            if (t == Tables.Users)
+            {
+                FieldName = new string[]
+                {
+                    "guid",
+                    "name",
+                    "password",
+                    "balance",
+                    "level"
+                };
+                FieldType = new List<MySqlDbType>
+                {
+                    MySqlDbType.VarChar,
+                    MySqlDbType.VarChar,
+                    MySqlDbType.VarChar,
+                    MySqlDbType.Double,
+                    MySqlDbType.Int32
+                };
+            }
+            else if (t == Tables.Items)
+            {
+                FieldName = new string[]
+                {
+                    "guid",
+                    "name",
+                    "description",
+                    "price",
+                    "storage",
+                    "owner"
+                };
+                FieldType = new List<MySqlDbType>
+                {
+                    MySqlDbType.VarChar,
+                    MySqlDbType.VarChar,
+                    MySqlDbType.Text,
+                    MySqlDbType.Double,
+                    MySqlDbType.Int32,
+                    MySqlDbType.VarChar
+                };
+            }
+            else if (t == Tables.Orders)
+            {
+                FieldName = new string[]
+                {
+                    "guid",
+                    "owner",
+                    "info"
+                };
+                FieldType = new List<MySqlDbType>
+                {
+                    MySqlDbType.VarChar,
+                    MySqlDbType.VarChar,
+                    MySqlDbType.Text
+                };
+            }
+            else if (t == Tables.Comments)
+            {
+                FieldName = new string[]
+                {
+                    "guid",
+                    "owner",
+                    "item",
+                    "content",
+                    "star"
+                };
+                FieldType = new List<MySqlDbType>
+                {
+                    MySqlDbType.VarChar,
+                    MySqlDbType.VarChar,
+                    MySqlDbType.VarChar,
+                    MySqlDbType.Text,
+                    MySqlDbType.Int32
+                };
+            }
+            else
+            {
+                throw new Exception("NotFoundThisTable");
             }
         }
     }

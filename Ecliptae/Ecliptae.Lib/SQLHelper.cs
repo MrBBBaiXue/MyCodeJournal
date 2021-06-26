@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ecliptae.Lib
 {
-    class MySQLHelper
-    {//数据库连接字符串
+    class SQLHelper
+    {
+        //数据库连接字符串
         public static string Conn = "Database='ecliptae';" +
                                     "Data Source='localhost';" +
                                     "User Id='root';" +
@@ -29,13 +27,11 @@ namespace Ecliptae.Lib
 
             MySqlCommand cmd = new MySqlCommand();
 
-            using (MySqlConnection conn = new MySqlConnection(connectionString))
-            {
-                PrepareCommand(cmd, conn, null, cmdType, cmdText, commandParameters);
-                int val = cmd.ExecuteNonQuery();
-                cmd.Parameters.Clear();
-                return val;
-            }
+            using MySqlConnection conn = new MySqlConnection(connectionString);
+            PrepareCommand(cmd, conn, null, cmdType, cmdText, commandParameters);
+            int val = cmd.ExecuteNonQuery();
+            cmd.Parameters.Clear();
+            return val;
         }
 
         /// <summary>
@@ -128,9 +124,9 @@ namespace Ecliptae.Lib
                 conn.Close();
                 return ds;
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
 
@@ -161,9 +157,9 @@ namespace Ecliptae.Lib
                 conn.Close();
                 return ds;
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }
         }
 
@@ -184,13 +180,11 @@ namespace Ecliptae.Lib
         {
             MySqlCommand cmd = new MySqlCommand();
 
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                PrepareCommand(cmd, connection, null, cmdType, cmdText, commandParameters);
-                object val = cmd.ExecuteScalar();
-                cmd.Parameters.Clear();
-                return val;
-            }
+            using MySqlConnection connection = new MySqlConnection(connectionString);
+            PrepareCommand(cmd, connection, null, cmdType, cmdText, commandParameters);
+            object val = cmd.ExecuteScalar();
+            cmd.Parameters.Clear();
+            return val;
         }
 
         /// <summary>
