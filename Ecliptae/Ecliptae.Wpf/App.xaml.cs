@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using Ecliptae.Wpf.ViewModels;
+using HandyControl.Themes;
 using Stylet;
 
 namespace Ecliptae.Wpf
@@ -12,16 +13,13 @@ namespace Ecliptae.Wpf
         public static IWindowManager WindowManager;
 
         public static void ToggleDarkMode() =>
-
-        HandyControl.Themes.ThemeManager.Current.ApplicationTheme =
-        (HandyControl.Themes.ThemeManager.Current.ApplicationTheme ==
-        HandyControl.Themes.ApplicationTheme.Light)
-        ? HandyControl.Themes.ApplicationTheme.Dark
-        : HandyControl.Themes.ApplicationTheme.Light;
+            ThemeManager.Current.ApplicationTheme =
+            (ThemeManager.Current.ApplicationTheme == ApplicationTheme.Light)
+            ? ApplicationTheme.Dark : ApplicationTheme.Light;
 
         public App()
         {
-           
+            HandyControl.Themes.ThemeManager.Current.ApplicationTheme = ApplicationTheme.Light;
         }
     }
 }
