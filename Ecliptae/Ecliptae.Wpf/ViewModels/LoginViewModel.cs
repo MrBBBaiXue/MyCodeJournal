@@ -6,9 +6,9 @@ namespace Ecliptae.Wpf.ViewModels
 {
     public class LoginViewModel : Screen
     {
-        public string WindowTitleText { get; set; } = "账户登录";
-        public string LoginButtonText { get; set; } = "登录";
-        public string SignUpButtonText { get; set; } = "注册";
+        public string WindowTitleText { get; } = "账户登录";
+        public string LoginButtonText { get; } = "登录";
+        public string SignUpButtonText { get; } = "注册";
         public string Account { get; set; }
         public string Password { get; set; }
         public void ToggleDarkMode() => App.ToggleDarkMode();
@@ -42,9 +42,14 @@ namespace Ecliptae.Wpf.ViewModels
             CloseWindow();
         }
 
-        public bool VerifyAccess()
+        private bool Login()
         {
             return false;
+        }
+
+        private bool SignUp()
+        {
+            return true;
         }
 
         private void CloseWindow()

@@ -35,6 +35,28 @@
         </Grid>
     </hc:Window.NonClientAreaContent>
     <Grid x:Name="MainGrid">
-        
+
+        <TabControl Style="{StaticResource TabControlCapsule}" FontSize="14" TabStripPlacement="Top">
+            <TabItem Header="商品列表">
+                <Grid x:Name="ItemListGrid">
+                    
+                </Grid>
+            </TabItem>
+            <TabItem Header="购物车">
+                <Grid x:Name="CartGrid">
+                    
+                </Grid>
+            </TabItem>
+            <TabItem Header="个人信息">
+                <Grid x:Name="PersonalInfoGrid">
+
+                </Grid>
+            </TabItem>
+            <TabItem Header="商店管理" Visibility="Visible">
+                <Grid x:Name="ShopManageGrid">
+                    
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </hc:Window>

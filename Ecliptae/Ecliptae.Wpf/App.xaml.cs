@@ -11,7 +11,6 @@ namespace Ecliptae.Wpf
     {
         // Configure with ViewModels
         public static MainViewModel MainViewModel { get; set; } = new MainViewModel();
-        public static ItemViewModel ItemViewModel { get; set; } = new ItemViewModel();
         public static User User { get; set; } = new User();
 
         public static string ApiAddress { get; set; } = "http://127.0.0.1:2333/";
