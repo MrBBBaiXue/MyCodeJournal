@@ -1,10 +1,13 @@
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using Ecliptae.Lib.Annotations;
 
 namespace Ecliptae.Lib
 {
     public class GuidClass
     {
-        public string GUID { get; }
+        public string GUID { get; set; }
         public GuidClass()
         {
             GUID = System.Guid.NewGuid().ToString().ToUpper();
@@ -23,6 +26,13 @@ namespace Ecliptae.Lib
         public string Description { get; set; }
         public float Price { get; set; }
         public int Storage { get; set; }
+    }
+
+    public class OrderItem
+    {
+        public Item Item { get; set; }
+        public int Count { get; set; }
+
     }
 
     public class User : GuidClass

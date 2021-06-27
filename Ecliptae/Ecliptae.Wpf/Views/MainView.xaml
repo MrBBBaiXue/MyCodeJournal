@@ -10,7 +10,7 @@
         xmlns:vm="clr-namespace:Ecliptae.Wpf.ViewModels"
         d:DataContext="{d:DesignInstance vm:MainViewModel, IsDesignTimeCreatable=True}"
         mc:Ignorable="d"
-        Width="1200" Height="800" Topmost="False"
+        Width="900" Height="600" Topmost="False"
         Background="{DynamicResource RegionBrush}"
         NonClientAreaBackground="{DynamicResource RegionBrush}"
         WindowStartupLocation="CenterScreen"
@@ -35,16 +35,101 @@
         </Grid>
     </hc:Window.NonClientAreaContent>
     <Grid x:Name="MainGrid">
-
         <TabControl Style="{StaticResource TabControlCapsule}" FontSize="14" TabStripPlacement="Top">
             <TabItem Header="商品列表">
                 <Grid x:Name="ItemListGrid">
+                    <DataGrid HeadersVisibility="All"
+                              RowHeaderWidth="60"
+                              AutoGenerateColumns="False"
+                              ItemsSource="{Binding Items}"
+                              hc:DataGridAttach.ShowRowNumber="True"
+                              IsReadOnly="True"
+                              SelectionMode="Single"
+                              SelectedItem="{Binding SelectedItem}"
+                              Margin="0,0,0,0"
+                    >
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Name}" Header="名称" FontSize="16" MinWidth="300"/>
+                            <DataGridTextColumn Binding="{Binding Storage}" Header="库存" FontSize="16" MinWidth="100"/>
+                            <DataGridTextColumn Binding="{Binding Price,StringFormat={}{0:C}}" Header="价格" FontSize="18" Foreground="#E74C3C" MinWidth="150"/>
+                            <DataGridTemplateColumn Width="260" CanUserResize="False" Header="操作">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <hc:UniformSpacingPanel Spacing="10">
+                                                <Button hc:IconElement.Geometry="{StaticResource InfoGeometry}"
+                                                        Content="详情"
+                                                        Command="{s:Action ShowItemInfo}"
+                                                />
+                                                <Button Style="{StaticResource ButtonSuccess}"
+                                                        hc:IconElement.Geometry="{StaticResource StarGeometry}"
+                                                        hc:IconElement.Width="15"
+                                                        hc:IconElement.Height="15"
+                                                        Content="购物车"
+                                                        Command="{s:Action AddItemToCart}"
+                                                />
+                                                <Button Style="{StaticResource ButtonDanger}"
+                                                        hc:IconElement.Geometry="{StaticResource SuccessGeometry}"
+                                                        hc:IconElement.Width="15"
+                                                        hc:IconElement.Height="15"
+                                                        Content="购买"
+                                                        Command="{s:Action BuyItem}"
+                                                />
+                                        </hc:UniformSpacingPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
                     
                 </Grid>
             </TabItem>
             <TabItem Header="购物车">
                 <Grid x:Name="CartGrid">
-                    
+                    <DataGrid HeadersVisibility="All"
+                              RowHeaderWidth="60"
+                              AutoGenerateColumns="False"
+                              ItemsSource="{Binding Carts}"
+                              hc:DataGridAttach.ShowRowNumber="True"
+                              SelectionMode="Single"
+                              SelectedItem="{Binding SelectedCartItem}"
+                    >
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Binding="{Binding Item.Name}" Header="名称" FontSize="16" MinWidth="300" IsReadOnly="True"/>
+                                <DataGridTextColumn Binding="{Binding Item.Storage}" Header="库存" FontSize="16" MinWidth="100" IsReadOnly="True"/>
+                                <DataGridTextColumn Binding="{Binding Item.Price,StringFormat={}{0:C}}" Header="价格" FontSize="18" Foreground="#E74C3C" MinWidth="150" IsReadOnly="True"/>
+                                <DataGridTemplateColumn Width="260" CanUserResize="False" Header="操作">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <hc:UniformSpacingPanel Spacing="10">
+                                                <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
+                                                <hc:NumericUpDown hc:InfoElement.TitleWidth="50"
+                                                              hc:InfoElement.TitlePlacement="Left"
+                                                              hc:InfoElement.Title="数量"
+                                                              Style="{StaticResource NumericUpDownPlus}"
+                                                              Value="{Binding Count}"
+                                                              ValueChanged="{s:Action OnCartItemNumericUpDownValueChanged}"
+                                            />
+                                                <Button Style="{StaticResource ButtonDanger}"
+                                                    hc:IconElement.Geometry="{StaticResource DeleteFillCircleGeometry}"
+                                                    hc:IconElement.Width="15"
+                                                    hc:IconElement.Height="15"
+                                                    Content="删除"
+                                                    Command="{s:Action RemoveItemFromCart}"
+                                            />
+                                            </hc:UniformSpacingPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    <Grid x:Name="CartButtonGrid" Height="50" VerticalAlignment="Bottom">
+                        <Button VerticalAlignment="Center" HorizontalAlignment="Right" Height="30" Width="100"
+                                Style="{StaticResource ButtonDanger}"
+                                Margin="0,0,10,0"
+                                Content="全部结算"
+                                Command="{s:Action SubmitPayment}"
+                        />
+                    </Grid>
                 </Grid>
             </TabItem>
             <TabItem Header="个人信息">

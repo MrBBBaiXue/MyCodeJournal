@@ -1,6 +1,7 @@
 ﻿using Stylet;
 using System;
 using System.IO;
+using HandyControl.Controls;
 
 namespace Ecliptae.Wpf.ViewModels
 {
@@ -29,7 +30,7 @@ namespace Ecliptae.Wpf.ViewModels
         public void LoginAndCreateMainWindow()
         {
             // ToDo : Login Logic
-
+            // Password Notifications for testing.
             CreateMainWindow();
             CloseWindow();
         }

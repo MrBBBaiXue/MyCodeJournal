@@ -9,15 +9,14 @@
         xmlns:local="clr-namespace:Ecliptae.Wpf.Views"
         mc:Ignorable="d"
         Title="{Binding WindowTitleText}" 
-        Height="500" Width="450"
+        Height="500" Width="800"
         d:DataContext="{d:DesignInstance vm:ItemViewModel, IsDesignTimeCreatable=True}"
         Background="{DynamicResource RegionBrush}"
         NonClientAreaBackground="{DynamicResource RegionBrush}"
-        WindowStartupLocation="CenterScreen"
+        WindowStartupLocation="CenterOwner"
         ResizeMode="NoResize"
         Topmost="True"
         >
-
     <hc:Window.NonClientAreaContent>
         <Grid x:Name="NonClientAreaGrid">
             <Button x:Name="NightModeToggleButton"
@@ -37,6 +36,119 @@
         </Grid>
     </hc:Window.NonClientAreaContent>
     <Grid x:Name="MainGrid">
-        
+        <TabControl Style="{StaticResource TabControlCapsule}" FontSize="14" TabStripPlacement="Top">
+            <TabItem Header="{Binding WindowTitleText}">
+                <Grid x:Name="ItemInfoGrid">
+                    <Label Content="商品名称"
+                           Background="Transparent"
+                           BorderThickness="0"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Top"
+                           HorizontalContentAlignment="Left"
+                           VerticalContentAlignment="Center"
+                           FontSize="14"
+                           Margin="10"
+                    />
+                    <Label Content="{Binding Item.Name}"
+                           Background="Transparent"
+                           BorderThickness="0"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Top"
+                           HorizontalContentAlignment="Left"
+                           VerticalContentAlignment="Center"
+                           FontSize="20"
+                           Margin="10,30"
+                    />
+                    <Label Content="商品描述"
+                           Background="Transparent"
+                           BorderThickness="0"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Top"
+                           HorizontalContentAlignment="Left"
+                           VerticalContentAlignment="Center"
+                           FontSize="14"
+                           Margin="10,70"
+                    />
+                    <TextBlock FontSize="16.5"
+                               Text="{Binding Item.Description}"
+                               Background="Transparent"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Top"
+                               Margin="20,100"
+                               TextWrapping="Wrap"
+                               />
+                    <Label Content="{Binding Item.Storage}"
+                           Background="Transparent"
+                           BorderThickness="0"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Bottom"
+                           HorizontalContentAlignment="Left"
+                           VerticalContentAlignment="Center"
+                           FontSize="20"
+                           Margin="10,0,0,30"
+                    />
+                    <Label Content="库存"
+                           Background="Transparent"
+                           BorderThickness="0"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Bottom"
+                           HorizontalContentAlignment="Left"
+                           VerticalContentAlignment="Center"
+                           FontSize="14"
+                           Margin="10,0,0,60"
+                    />
+                    <Label Content="{Binding Item.Price,StringFormat={}{0:C}}"
+                           FontSize="50"
+                           Foreground="#E74C3C"
+                           Background="Transparent"
+                           BorderThickness="0"
+                           HorizontalAlignment="Right"
+                           VerticalAlignment="Bottom"
+                           HorizontalContentAlignment="Right"
+                           VerticalContentAlignment="Center"
+                           Margin="0,0,20,20"
+                    />
+                    <Label Content="售价 (元)"
+                           Background="Transparent"
+                           BorderThickness="0"
+                           HorizontalAlignment="Right"
+                           VerticalAlignment="Bottom"
+                           HorizontalContentAlignment="Right"
+                           VerticalContentAlignment="Center"
+                           FontSize="20"
+                           Margin="0,0,20,80"
+                           Foreground="#E74C3C"
+                    />
+                </Grid>
+            </TabItem>
+            <TabItem Header="评论">
+                <Grid x:Name="CommentGrid">
+                    <DataGrid HeadersVisibility="None"
+                              RowHeaderWidth="60"
+                              AutoGenerateColumns="False"
+                              ItemsSource="{Binding Comments}"
+                              SelectionMode="Single"
+                              IsReadOnly="True"
+                    >
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                        <TextBlock FontSize="16.5"
+                                                   Text="{Binding Content}"
+                                                   Background="Transparent"
+                                                   HorizontalAlignment="Left"
+                                                   VerticalAlignment="Top"
+                                                   Margin="20,100"
+                                                   TextWrapping="Wrap"
+                                        />
+                                        </Grid>
+                                    </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </hc:Window>
