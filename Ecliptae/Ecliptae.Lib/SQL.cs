@@ -13,7 +13,7 @@ namespace Ecliptae.Lib
         /// <param name="t">目标表</param>
         /// <param name="fieldName">需要查询的字段名</param>
         /// <returns></returns>
-        private static int QueryMySqlDbTypeIndex(Ecliptae.Lib.TablesDesc t, string fieldName)
+        private static int QueryMySqlDbTypeIndex(TablesDesc t, string fieldName)
         {
             int index = -1;
             for (int i = 0; i < t.FieldType.Count; i++)
@@ -31,7 +31,7 @@ namespace Ecliptae.Lib
         /// <param name="t">插入目标表的实例</param>
         /// <param name="parameters">对应参数列表</param>
         /// <returns>受影响的行数</returns>
-        public static int Insert(Ecliptae.Lib.TablesDesc t, object[] parameters)
+        public static int Insert(TablesDesc t, object[] parameters)
         {
             if (t is null)
             {
@@ -104,7 +104,7 @@ namespace Ecliptae.Lib
         /// <param name="aimField">目标字段</param>
         /// <param name="Value">目标值</param>
         /// <returns></returns>
-        public static int Delete(Ecliptae.Lib.TablesDesc t, string aimField, object Value)
+        public static int Delete(TablesDesc t, string aimField, object Value)
         {
             if (t is null)
             {
@@ -153,7 +153,7 @@ namespace Ecliptae.Lib
         /// <param name="aimField">更新目标字段名</param>
         /// <param name="newValue">更新目标的新值</param>
         /// <returns></returns>
-        public static int Update(Ecliptae.Lib.TablesDesc t,
+        public static int Update(TablesDesc t,
             string limitedField,
             object limitedValue,
             string aimField,
@@ -219,7 +219,7 @@ namespace Ecliptae.Lib
         /// <param name="limitedStatement">范围查询的条件</param>
         /// <returns>一个MysqlDataReader对象</returns>
         public static MySqlDataReader Retrieve(
-            Ecliptae.Lib.TablesDesc t,
+            TablesDesc t,
             string queryAim,
             object queryValue,
             string sort = null,
@@ -282,7 +282,7 @@ namespace Ecliptae.Lib
         /// </summary>
         /// <param name="t">需要查询的表</param>
         /// <returns>一个MysqlDataReader对象</returns>
-        public static MySqlDataReader Retrieve(Ecliptae.Lib.TablesDesc t)
+        public static MySqlDataReader Retrieve(TablesDesc t)
         {
             if (t is null)
             {
@@ -320,7 +320,7 @@ namespace Ecliptae.Lib
         /// <param name="model">查询模式，默认为and，可选or</param>
         /// <returns>一个MysqlDataReader对象</returns>
         public static MySqlDataReader Retrieve(
-            Ecliptae.Lib.TablesDesc t,
+            TablesDesc t,
             string[] queryAim,
             object[] queryValue,
             string model = "and",
@@ -387,9 +387,9 @@ namespace Ecliptae.Lib
     }
     public class TablesDesc
     {
-        public Tables TableName { get; set; }
-        public List<MySqlDbType> FieldType { get; set; }
-        public string[] FieldName { get; set; }
+        public readonly Tables TableName;
+        public readonly List<MySqlDbType> FieldType;
+        public readonly string[] FieldName;
         public TablesDesc(Tables t)
         {
             if (t == Tables.Users)
