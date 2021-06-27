@@ -10,17 +10,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecliptae.Wpf", "Ecliptae.Wp
 		{93DEFAB9-BF8E-417B-8F0E-96DDC9F63DAA} = {93DEFAB9-BF8E-417B-8F0E-96DDC9F63DAA}
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecliptae.Avalonia", "Ecliptae.Avalonia\Ecliptae.Avalonia.csproj", "{B6639908-CF6C-4873-B4EB-464E9079AA79}"
-	ProjectSection(ProjectDependencies) = postProject
-		{93DEFAB9-BF8E-417B-8F0E-96DDC9F63DAA} = {93DEFAB9-BF8E-417B-8F0E-96DDC9F63DAA}
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecliptae.Api", "Ecliptae.Api\Ecliptae.Api.csproj", "{7C41D5F5-133D-4AEB-AC4A-6DEC9ABD1071}"
 	ProjectSection(ProjectDependencies) = postProject
 		{93DEFAB9-BF8E-417B-8F0E-96DDC9F63DAA} = {93DEFAB9-BF8E-417B-8F0E-96DDC9F63DAA}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ecliptae.NUnit", "Ecliptae.NUnit\Ecliptae.NUnit.csproj", "{93635420-4651-4DE1-88CE-E5EE85CB6EAC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecliptae.NUnit", "Ecliptae.NUnit\Ecliptae.NUnit.csproj", "{93635420-4651-4DE1-88CE-E5EE85CB6EAC}"
+	ProjectSection(ProjectDependencies) = postProject
+		{85661D2E-3883-4713-B041-544EEFF424A4} = {85661D2E-3883-4713-B041-544EEFF424A4}
+		{93DEFAB9-BF8E-417B-8F0E-96DDC9F63DAA} = {93DEFAB9-BF8E-417B-8F0E-96DDC9F63DAA}
+		{7C41D5F5-133D-4AEB-AC4A-6DEC9ABD1071} = {7C41D5F5-133D-4AEB-AC4A-6DEC9ABD1071}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,10 +36,6 @@ Global
 		{85661D2E-3883-4713-B041-544EEFF424A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{85661D2E-3883-4713-B041-544EEFF424A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{85661D2E-3883-4713-B041-544EEFF424A4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B6639908-CF6C-4873-B4EB-464E9079AA79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B6639908-CF6C-4873-B4EB-464E9079AA79}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B6639908-CF6C-4873-B4EB-464E9079AA79}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B6639908-CF6C-4873-B4EB-464E9079AA79}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7C41D5F5-133D-4AEB-AC4A-6DEC9ABD1071}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7C41D5F5-133D-4AEB-AC4A-6DEC9ABD1071}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C41D5F5-133D-4AEB-AC4A-6DEC9ABD1071}.Release|Any CPU.ActiveCfg = Release|Any CPU

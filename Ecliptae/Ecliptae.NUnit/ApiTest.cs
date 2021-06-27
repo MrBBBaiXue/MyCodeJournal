@@ -7,7 +7,7 @@ namespace Ecliptae.NUnit
         [SetUp]
         public void Setup()
         {
-            
+
         }
 
         [Test]
