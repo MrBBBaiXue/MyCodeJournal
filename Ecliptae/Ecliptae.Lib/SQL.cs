@@ -5,7 +5,7 @@ using System.Data;
 
 namespace Ecliptae.Lib
 {
-    class SQL
+    public class SQL
     {
         /// <summary>
         /// 查询类型索引
@@ -378,7 +378,6 @@ namespace Ecliptae.Lib
             }
         }
     }
-
     public enum Tables
     {
         Users,
@@ -472,5 +471,10 @@ namespace Ecliptae.Lib
                 throw new Exception("NotFoundThisTable");
             }
         }
+    }
+
+    public class SQLConfig
+    {
+
     }
 }

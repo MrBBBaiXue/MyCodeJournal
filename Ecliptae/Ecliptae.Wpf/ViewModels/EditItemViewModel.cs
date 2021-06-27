@@ -8,6 +8,6 @@ namespace Ecliptae.Wpf.ViewModels
 {
     public class EditItemViewModel
     {
-
+        public string WindowTitleText { get; set; } = "编辑商品信息";
     }
 }

@@ -7,6 +7,7 @@
            xmlns:s="https://github.com/canton7/Stylet"
            xmlns:hc="https://handyorg.github.io/handycontrol"
            xmlns:local="clr-namespace:Ecliptae.Wpf.Views"
+           xmlns:pswHelper="clr-namespace:PasswordHelper"
            mc:Ignorable="d"
            Title="{Binding WindowTitleText}" Height="350" Width="400"
            d:DataContext="{d:DesignInstance vm:LoginViewModel, IsDesignTimeCreatable=True}"
@@ -40,8 +41,7 @@
                  Margin="-200,30,0,0"
                  HorizontalContentAlignment="Left"
                  BorderThickness="0"
-
-                 />
+        />
         <TextBox Width="300"
                  hc:InfoElement.Placeholder="账号"
                  Height="40"
@@ -51,6 +51,7 @@
                  Margin="0,100,0,0"
                  FontSize="14"
                  VerticalContentAlignment="Center"
+                 Text="{Binding Account}"
         />
         <PasswordBox Width="300"
                  hc:InfoElement.Placeholder="密码"
@@ -61,9 +62,11 @@
                  Margin="0,160,0,0"
                  FontSize="14"
                  VerticalContentAlignment="Center"
+                 pswHelper:PasswordHelper.Attach="True"
+                 pswHelper:PasswordHelper.Password="{Binding Path=Password,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
         />
         <Button Content="{Binding LoginButtonText}"
-                Command="{s:Action CreateMainWindow}"
+                Command="{s:Action LoginAndCreateMainWindow}"
                 Style="{StaticResource ButtonPrimary}"
                 Width="100"
                 Height="40"

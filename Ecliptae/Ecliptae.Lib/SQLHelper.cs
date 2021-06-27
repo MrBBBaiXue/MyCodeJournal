@@ -4,7 +4,7 @@ using System.Data;
 
 namespace Ecliptae.Lib
 {
-    class SQLHelper
+    public class SQLHelper
     {
         //数据库连接字符串
         public static string Conn = "Database='ecliptae';" +
@@ -249,5 +249,4 @@ namespace Ecliptae.Lib
             }
         }
     }
-
 }
