@@ -12,8 +12,10 @@ namespace Ecliptae.Wpf.ViewModels
         public bool IsSeller => (App.User.Level == 1);
         public OptimizedObservableCollection<Item> Items { get; set; }
         public OptimizedObservableCollection<OrderItem> Carts { get; set; }
+        public OptimizedObservableCollection<Item> ShopItems { get; set; }
         public Item ?SelectedItem { get; set; }
         public OrderItem ?SelectedCartItem { get; set; }
+        public Item ?SelectedShopItem { get; set; }
         public User User => App.User;
 
         public MainViewModel()
@@ -43,6 +45,10 @@ namespace Ecliptae.Wpf.ViewModels
                 Count = 1
             };
             Carts.Add(orderItem_A);
+            // ShopItems testing.
+            ShopItems = new OptimizedObservableCollection<Item>();
+            ShopItems.Add(item_A);
+            ShopItems.Add(item_B);
         }
 
         // Item Operations

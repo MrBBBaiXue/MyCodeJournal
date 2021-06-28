@@ -19,7 +19,7 @@ namespace Ecliptae.Wpf.ViewModels
 
         // Submit comment
 
-        public int CommentStar { get; set; } = 0;
+        public int CommentStar { get; set; } = 3;
         public string CommentText { get; set; } = "";
         public void SendComment()
         {
