@@ -54,11 +54,11 @@ namespace Ecliptae.Wpf.ViewModels
         // Item Operations
         public void ShowItemInfo()
         {
-            // test method
+            // ToDo : ShowItemInfo
             var comments = new OptimizedObservableCollection<Comment> { };
             var comment = new Comment
             {
-                Content = "That is fucking bad.\n worst shop experience ever!",
+                Content = "这玩意儿一点都不好用，太烂了.\n 最糟糕的一次网购体验，差评！绝对差评！！！",
                 Star = 1
             };
             for (var i = 1; i <= 10; i++)
@@ -104,16 +104,43 @@ namespace Ecliptae.Wpf.ViewModels
 
         public bool VerifyCart()
         {
-            return true;
+            float cost = 0.00F;
+            foreach (var orderItem in Carts)
+            {
+                cost += orderItem.Item.Price * orderItem.Count;
+            }
+            return (User.Balance >= cost);
         }
 
         public void SubmitPayment()
         {
             if (VerifyCart())
             {
-
+                // place order
+            }
+            else
+            {
+                MessageBox.Show("余额不足", "提示");
             }
         }
+        
+        // Shop Item Operations
 
+        public void EditShopItem()
+        {
+            var shopItemViewModel = new EditItemViewModel()
+            {
+                Item = SelectedShopItem,
+            };
+            App.WindowManager.ShowDialog(shopItemViewModel);
+        }
+        public void RemoveItemFromShop()
+        {
+
+        }
+        public void AddShopItem()
+        {
+
+        }
     }
 }
