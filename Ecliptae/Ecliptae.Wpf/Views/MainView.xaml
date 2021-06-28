@@ -53,21 +53,21 @@
                             <DataGridTextColumn Binding="{Binding Storage}" Header="库存" FontSize="16" MinWidth="100"/>
                             <DataGridTextColumn Binding="{Binding Price,StringFormat={}{0:C}}" Header="价格" FontSize="18" Foreground="#E74C3C" MinWidth="150"/>
                             <DataGridTemplateColumn Width="260" CanUserResize="False" Header="操作">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <hc:UniformSpacingPanel Spacing="10">
-                                                <Button hc:IconElement.Geometry="{StaticResource InfoGeometry}"
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <hc:UniformSpacingPanel Spacing="10">
+                                            <Button hc:IconElement.Geometry="{StaticResource InfoGeometry}"
                                                         Content="详情"
                                                         Command="{s:Action ShowItemInfo}"
                                                 />
-                                                <Button Style="{StaticResource ButtonSuccess}"
+                                            <Button Style="{StaticResource ButtonSuccess}"
                                                         hc:IconElement.Geometry="{StaticResource StarGeometry}"
                                                         hc:IconElement.Width="15"
                                                         hc:IconElement.Height="15"
                                                         Content="购物车"
                                                         Command="{s:Action AddItemToCart}"
                                                 />
-                                                <Button Style="{StaticResource ButtonDanger}"
+                                            <Button Style="{StaticResource ButtonDanger}"
                                                         hc:IconElement.Geometry="{StaticResource SuccessGeometry}"
                                                         hc:IconElement.Width="15"
                                                         hc:IconElement.Height="15"
@@ -75,12 +75,11 @@
                                                         Command="{s:Action BuyItem}"
                                                 />
                                         </hc:UniformSpacingPanel>
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
-                    
                 </Grid>
             </TabItem>
             <TabItem Header="购物车">

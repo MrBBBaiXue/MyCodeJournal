@@ -55,7 +55,10 @@ namespace Ecliptae.Wpf.ViewModels
                 Content = "That is fucking bad.\n worst shop experience ever!",
                 Star = 1
             };
-            comments.Add(comment);
+            for (var i = 1; i <= 10; i++)
+            {
+                comments.Add(comment);
+            }
 
             var itemViewModel = new ItemViewModel
             {

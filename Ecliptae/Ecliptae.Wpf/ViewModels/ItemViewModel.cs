@@ -16,5 +16,15 @@ namespace Ecliptae.Wpf.ViewModels
         public void ToggleDarkMode() => App.ToggleDarkMode();
         public OptimizedObservableCollection<Comment> Comments { get; set; } =
             new OptimizedObservableCollection<Comment> { };
+
+        // Submit comment
+
+        public int CommentStar { get; set; } = 0;
+        public string CommentText { get; set; } = "";
+        public void SendComment()
+        {
+            // ToDo : Send Comment
+            return;
+        }
     }
 }

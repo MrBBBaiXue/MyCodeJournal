@@ -30,6 +30,7 @@ namespace Ecliptae.Wpf.ViewModels
         public void LoginAndCreateMainWindow()
         {
             // ToDo : Login Logic
+            // POST /login
             // Password Notifications for testing.
             CreateMainWindow();
             CloseWindow();
@@ -38,18 +39,20 @@ namespace Ecliptae.Wpf.ViewModels
         public void SignUpAndCreateMainWindow()
         {
             // ToDo : Sign Up logic
-
+            // POST /users/guid/
             CreateMainWindow();
             CloseWindow();
         }
 
         private bool Login()
         {
+
             return false;
         }
 
         private bool SignUp()
         {
+
             return true;
         }
 

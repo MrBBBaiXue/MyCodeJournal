@@ -124,6 +124,57 @@
             <TabItem Header="评论">
                 <Grid x:Name="CommentGrid">
                     <!-- //ToDo: 评论 -->
+                    <DataGrid HeadersVisibility="All"
+                              RowHeaderWidth="60"
+                              AutoGenerateColumns="False"
+                              ItemsSource="{Binding Comments}"
+                              hc:DataGridAttach.ShowRowNumber="False"
+                              IsReadOnly="True"
+                              SelectionMode="Single"
+                              Margin="0,0,0,90"
+                    >
+                        <DataGrid.Columns>
+                            <!-- Owner -->
+                            <DataGridTemplateColumn Width="500" CanUserResize="True" Header="评论">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Content}"
+                                                   FontSize="16"
+                                                   />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Width="200" CanUserResize="True" Header="评分">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <hc:Rate IsReadOnly="True" Count="5" Value="{Binding Star}" Foreground="Red" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <TextBox   VerticalAlignment="Bottom"
+                               Margin="5,0,5,5"
+                               Height="80"
+                               VerticalContentAlignment="Top"
+                               Text="{Binding CommentText}"
+                               FontSize="16"
+                               />
+                    <hc:Rate Count="5"
+                             Foreground="Red"
+                             HorizontalAlignment="Right"
+                             VerticalAlignment="Bottom"
+                             Margin="0,0,150,16"
+                             Value="{Binding CommentStar}"
+                             />
+                    <Button VerticalAlignment="Bottom"
+                            HorizontalAlignment="Right"
+                            Height="30" Width="100"
+                            Style="{StaticResource ButtonDanger}"
+                            Margin="0,0,10,10"
+                            Content="评论"
+                            Command="{s:Action SendComment}"
+                        />
                 </Grid>
             </TabItem>
         </TabControl>
