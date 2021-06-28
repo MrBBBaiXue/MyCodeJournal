@@ -19,9 +19,12 @@ namespace Ecliptae.Api.Controllers
         {
             _usersServices = UsersServices;
         }
+
         [HttpGet("newJson")]
         public string Get()
         {
+            //var u = JsonConvert.DeserializeObject<User>("{\"Name\":\"ADMIN\",\"Hash\":\"admin\",\"Balance\":99999999.0,\"Level\":5,\"GUID\":\"00000000-00000000-00000000-00000000\"}");
+            //return JsonConvert.SerializeObject(u);
             var u = new User();
             var r = new Random();
             u.NewGuid();
@@ -31,6 +34,9 @@ namespace Ecliptae.Api.Controllers
             u.Level = 5;
             return JsonConvert.SerializeObject(u);
         }
+
+
+
         [HttpGet]
         public async Task<IEnumerable<string>> GetUsersAsync()
         {
@@ -46,20 +52,39 @@ namespace Ecliptae.Api.Controllers
         {
             return await _usersServices.GetUserByGuid(guid);
         }
+
+
+
         [HttpPut]
-        public async Task PutUserInf(string userObj)
+        public async Task PutUserInf(User user)
         {
-            await _usersServices.PutUserInf(userObj);
+            await _usersServices.PutUserInf(user);
         }
-        [HttpPost()]
-        public async Task PostNewUserAsync(string userObj)
+
+
+
+        [HttpPost]
+        public async Task PostNewUserAsync(User user)
         {
-            await _usersServices.PostNewUser(userObj);
+            await _usersServices.PostNewUser(user);
+        }
+
+
+
+        [HttpDelete]
+        public async Task DeleteUserAsync(User user)
+        {
+            await _usersServices.DeleteByObject(user);
         }
         [HttpDelete("name={name}")]
         public async Task DeleteByName(string name)
         {
             await _usersServices.DeleteByName(name);
+        }
+        [HttpDelete("guid={guid}")]
+        public async Task DeleteByGuid(string guid)
+        {
+            await _usersServices.DeleteByGuid(guid);
         }
     }
 }

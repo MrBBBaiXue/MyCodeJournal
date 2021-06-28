@@ -9,7 +9,7 @@ namespace Ecliptae.Api.Controllers
 {
     [Route("/ecliptae/[controller]")]
     [ApiController]
-    public class OrdersController : ControllerBase
+    public class OrdersController : Controller
     {
     }
 }

@@ -52,15 +52,14 @@ namespace Ecliptae.Api.Services
             });
         }
 
-        public async Task DeleteByObject(string userObj)
+        public async Task DeleteByObject(User user)
         {
             await Task.Run(() =>
             {
-                var user = JsonConvert.DeserializeObject<User>(userObj);
                 try
                 {
                     var r = SQL.Delete(new TablesDesc(Tables.Users), "guid", user.GUID);
-                    if(r == 0)
+                    if (r == 0)
                     {
                         throw new Exception("This User is not exists");
                     }
@@ -146,7 +145,6 @@ namespace Ecliptae.Api.Services
                         user.Hash = reader["password"].ToString();
                         user.Balance = Convert.ToDouble(reader["balance"]);
                         user.Level = Convert.ToInt32(reader["level"]);
-                        Console.WriteLine(JsonConvert.SerializeObject(user));
                         retList.Add(JsonConvert.SerializeObject(user));
                     }
                     return retList.AsEnumerable();
@@ -190,13 +188,12 @@ namespace Ecliptae.Api.Services
             });
         }
 
-        public Task PostNewUser(string userObj)
+        public Task PostNewUser(User newUser)
         {
             return Task.Run(() =>
             {
                 try
                 {
-                    var newUser = JsonConvert.DeserializeObject<User>(userObj);
                     var r = SQL.Insert(
                         new TablesDesc(Tables.Users),
                         new object[]
@@ -215,13 +212,12 @@ namespace Ecliptae.Api.Services
             });
         }
 
-        public Task PutUserInf(string newJsonObj)
+        public Task PutUserInf(User user)
         {
             return Task.Run(() =>
             {
                 try
                 {
-                    var user = JsonConvert.DeserializeObject<User>(newJsonObj);
                     var t = new TablesDesc(Tables.Users);
                     var reader = SQL.Retrieve(t, "guid", user.GUID);
                     if (reader.Read())
@@ -229,18 +225,34 @@ namespace Ecliptae.Api.Services
                         if (user.Name != reader["name"].ToString())
                         {
                             var r = SQL.Update(t, "guid", user.GUID, "name", user.Name);
+                            if (r == 0)
+                            {
+                                throw new Exception("ChangeFault");
+                            }
                         }
                         if (user.Hash != reader["password"].ToString())
                         {
                             var r = SQL.Update(t, "guid", user.GUID, "password", user.Hash);
+                            if (r == 0)
+                            {
+                                throw new Exception("ChangeFault");
+                            }
                         }
                         if (user.Balance.ToString() != reader["balance"].ToString())
                         {
                             var r = SQL.Update(t, "guid", user.GUID, "balance", user.Balance);
+                            if (r == 0)
+                            {
+                                throw new Exception("ChangeFault");
+                            }
                         }
                         if (user.Level.ToString() != reader["level"].ToString())
                         {
                             var r = SQL.Update(t, "guid", user.GUID, "level", user.Level);
+                            if (r == 0)
+                            {
+                                throw new Exception("ChangeFault");
+                            }
                         }
                     }
                     else

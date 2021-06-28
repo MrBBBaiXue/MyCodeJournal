@@ -21,6 +21,9 @@ namespace Ecliptae.Api
         {
             services.AddControllers();
             services.AddScoped<IUsersServices, UsersServices>();
+            services.AddScoped<IItemsServices, ItemsServices>();
+            services.AddScoped<IOrdersService, OrdersService>();
+            services.AddScoped<ICommentsServices, CommentsServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
