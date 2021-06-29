@@ -8,7 +8,7 @@ namespace Ecliptae.Lib
     public class GuidClass
     {
         public string GUID { get; set; }
-        public GuidClass()
+        public void NewGuid()
         {
             GUID = System.Guid.NewGuid().ToString().ToUpper();
         }
@@ -24,7 +24,7 @@ namespace Ecliptae.Lib
         public string Owner { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public float Price { get; set; }
+        public double Price { get; set; }
         public int Storage { get; set; }
     }
 
@@ -39,7 +39,7 @@ namespace Ecliptae.Lib
     {
         public string Name { get; set; }
         public string Hash { get; set; }
-        public float Balance { get; set; }
+        public double Balance { get; set; }
         public int Level { get; set; }
     }
 
