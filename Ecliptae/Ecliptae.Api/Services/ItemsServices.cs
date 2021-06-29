@@ -74,7 +74,7 @@ namespace Ecliptae.Api.Services
             {
                 try
                 {
-                    var r = SQL.Delete(new TablesDesc(Tables.Items), "guid", user.GUID);
+                    var r = SQL.Delete(new TablesDesc(Tables.Items), "owner", user.GUID);
                     if (r == 0)
                     {
                         throw new Exception("NotFound");

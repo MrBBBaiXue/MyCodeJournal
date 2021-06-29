@@ -16,7 +16,11 @@ namespace Ecliptae.Lib
     public class Order : GuidClass
     {
         public string Owner { get; set; }
-        public ObservableCollection<Item> Items { get; set; }
+        public ObservableCollection<OrderItem> Items { get; set; }
+        public Order()
+        {
+            Items = new ObservableCollection<OrderItem> { };
+        }
     }
 
     public class Item : GuidClass

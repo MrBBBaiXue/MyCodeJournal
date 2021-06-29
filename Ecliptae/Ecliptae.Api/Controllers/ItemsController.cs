@@ -22,6 +22,25 @@ namespace Ecliptae.Api.Controllers
         }
 
 
+
+        [HttpGet("newJson")]
+        public string Get()
+        {
+            //var u = JsonConvert.DeserializeObject<User>("{\"Name\":\"ADMIN\",\"Hash\":\"admin\",\"Balance\":99999999.0,\"Level\":5,\"GUID\":\"00000000-00000000-00000000-00000000\"}");
+            //return JsonConvert.SerializeObject(u);
+            var u = new Item();
+            var r = new Random();
+            u.NewGuid();
+            u.Description = "zwlzwlzwl ballballu bangbang wo";
+            u.Name = u.GUID[5].ToString() + u.GUID[10].ToString() + u.GUID[15].ToString() + u.GUID[20].ToString();
+            u.Owner = r.Next() % 2 == 0 ? "00000000-00000000-00000000-00000000" : "4fg896eq-eqg741ws-qew7yh46a-gqe8746b";
+            u.Price = r.NextDouble();
+            u.Storage = r.Next() % 10000 + 1;
+            return JsonConvert.SerializeObject(u);
+        }
+
+
+
         [HttpGet]
         public async Task<IEnumerable<string>> GetAllItemsAsync()
         {
@@ -76,7 +95,7 @@ namespace Ecliptae.Api.Controllers
         {
             await _itemsServices.DeleteByGuid(guid);
         }
-        [HttpDelete("guid={guid}")]
+        [HttpDelete("name={name}")]
         public async Task DeleteByNameAsync(string name)
         {
             await _itemsServices.DeleteByName(name);
