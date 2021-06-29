@@ -119,7 +119,7 @@
                  Margin="110,320,0,0"
                  Width="100"
         />
-        <Label Content="价格"
+        <Label Content="库存"
                Background="Transparent"
                BorderThickness="0"
                HorizontalAlignment="Left"
