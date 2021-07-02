@@ -47,6 +47,19 @@ namespace Ecliptae.Lib
         public int Level { get; set; }
     }
 
+    public class LoginInfo
+    {
+        public string Account { get; set; }
+        public string Hash { get; set; }
+        public bool IsHashed { get; set; } = false;
+        public void GetHash()
+        {
+            var hashString = $"ECLIPTAE_ACCOUNT_HASH_{Account}_{Hash}".GetHashCode().ToString();
+            Hash = hashString;
+            IsHashed = true;
+        }
+    }
+
     public class Comment : GuidClass
     {
         public string Owner { get; set; }

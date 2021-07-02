@@ -10,7 +10,7 @@ namespace Ecliptae.Lib
         public static string Conn = "Database='ecliptae';" +
                                     "Data Source='localhost';" +
                                     "User Id='root';" +
-                                    "Password='020922';" +
+                                    "Password='1124';" +
                                     "charset='utf8';" +
                                     "pooling=true";
 

@@ -23,7 +23,7 @@ namespace Ecliptae.Api.Services
                     var r = SQL.Delete(new TablesDesc(Tables.Users), "guid", guid);
                     if (r == 0)
                     {
-                        throw new Exception("This User is not exists");
+                        throw new Exception("This User does not exists");
                     }
                 }
                 catch (Exception e)
@@ -42,7 +42,7 @@ namespace Ecliptae.Api.Services
                     var r = SQL.Delete(new TablesDesc(Tables.Users), "name", name);
                     if (r == 0)
                     {
-                        throw new Exception("This User is not exists");
+                        throw new Exception("This User does not exists");
                     }
                 }
                 catch (Exception e)
@@ -153,37 +153,6 @@ namespace Ecliptae.Api.Services
                 {
                     retList.Add(e.Message);
                     return retList.AsEnumerable();
-                }
-            });
-        }
-
-        public Task<bool> LoginAuthentication(string name, string passwordHashcode)
-        {
-            return Task.Run(() =>
-            {
-                try
-                {
-                    var reader = SQL.Retrieve(new TablesDesc(Tables.Users), "name", name);
-                    if (reader.Read())
-                    {
-                        if (reader["password"].ToString() == passwordHashcode)
-                        {
-                            return true;
-                        }
-                        else
-                        {
-                            return false;
-                        }
-                    }
-                    else
-                    {
-                        throw new Exception("Not Found The User");
-                    }
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.Message);
-                    return false;
                 }
             });
         }

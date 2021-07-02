@@ -12,7 +12,6 @@ namespace Ecliptae.Api.Services
         public Task<IEnumerable<string>> GetUsers();
         public Task<string> GetUserByGuid(string guid);
         public Task<string> GetUserByName(string name);
-        public Task<bool> LoginAuthentication(string name, string passwordHashcode);
         // PUT
         public Task PutUserInf(User user);
         // POST
