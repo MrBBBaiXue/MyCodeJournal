@@ -13,7 +13,7 @@ namespace Ecliptae.Wpf
         public static MainViewModel MainViewModel { get; set; } = new MainViewModel();
         public static User User { get; set; } = new User();
 
-        public static string ApiAddress { get; set; } = "http://127.0.0.1:2333/";
+        public static string ApiAddress { get; set; } = "http://127.0.0.1:5000/ecliptae";
 
         // Stylet
         public static IWindowManager WindowManager;

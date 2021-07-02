@@ -13,11 +13,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Ecliptae.Lib\Ecliptae.Lib.csproj" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <ProjectReference Include="..\Ecliptae.Lib\Ecliptae.Lib.csproj" />
   </ItemGroup>
 
 

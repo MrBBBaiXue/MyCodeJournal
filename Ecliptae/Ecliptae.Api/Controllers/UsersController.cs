@@ -35,35 +35,7 @@ namespace Ecliptae.Api.Controllers
             return JsonConvert.SerializeObject(u);
         }
 
-        [HttpGet("login")]
-        public string LoginAuth(LoginInfo loginInfo)
-        {
-            var user = new User();
-            try
-            {
-                var reader = SQL.Retrieve(new TablesDesc(Tables.Users), "name", loginInfo.Account);
-                if (reader.Read() && loginInfo.IsHashed)
-                {
-                    if (reader["password"].ToString() == loginInfo.Hash)
-                    {
-                        // login passed.
-                        // return user object.
-                        return true;
-                    }
-                    throw new Exception("Permisson Denied!");
-                }
-                else
-                {
-                    throw new Exception("User Not found.");
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-                
-            }
-            return JsonConvert.SerializeObject(user);
-        }
+
 
         [HttpGet]
         public async Task<IEnumerable<string>> GetUsersAsync()
@@ -96,6 +68,41 @@ namespace Ecliptae.Api.Controllers
         {
             await _usersServices.PostNewUser(user);
         }
+        [HttpPost("login")]
+        public string LoginAuth(LoginInfo loginInfo)
+        {
+            try
+            {
+                var reader = SQL.Retrieve(new TablesDesc(Tables.Users), "name", loginInfo.Account);
+                if (reader.Read() && loginInfo.IsHashed)
+                {
+                    if (reader["password"].ToString() == loginInfo.Hash)
+                    {
+                        // login passed.
+                        // return user object.
+                        var user = new User();
+                        user.GUID = reader["guid"].ToString();
+                        user.Name = reader["name"].ToString();
+                        user.Hash = reader["password"].ToString();
+                        user.Balance = Convert.ToDouble(reader["balance"]);
+                        user.Level = Convert.ToInt32(reader["level"]);
+                        return JsonConvert.SerializeObject(user);
+                    }
+                    throw new Exception("Permisson Denied!");
+                }
+                else
+                {
+                    throw new Exception("User Not found.");
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            return "ERROR";
+            // ToDo : 应当使用返回码
+        }
+
 
 
         [HttpDelete]
