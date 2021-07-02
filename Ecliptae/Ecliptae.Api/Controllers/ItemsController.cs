@@ -23,7 +23,7 @@ namespace Ecliptae.Api.Controllers
 
 
 
-        [HttpGet("newJson")]
+        [HttpGet("test")]
         public string Get()
         {
             //var u = JsonConvert.DeserializeObject<User>("{\"Name\":\"ADMIN\",\"Hash\":\"admin\",\"Balance\":99999999.0,\"Level\":5,\"GUID\":\"00000000-00000000-00000000-00000000\"}");

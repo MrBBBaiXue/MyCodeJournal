@@ -22,7 +22,7 @@ namespace Ecliptae.Api.Controllers
 
 
 
-        [HttpGet("newJson")]
+        [HttpGet("test")]
         public string Get()
         {
             //var u = JsonConvert.DeserializeObject<User>("{\"Name\":\"ADMIN\",\"Hash\":\"admin\",\"Balance\":99999999.0,\"Level\":5,\"GUID\":\"00000000-00000000-00000000-00000000\"}");
@@ -45,12 +45,12 @@ namespace Ecliptae.Api.Controllers
         {
             return await _commentsServices.GetAllComments();
         }
-        [HttpGet("ownerguid={ownerGuid}")]
+        [HttpGet("owner={ownerGuid}")]
         public async Task<IEnumerable<string>> GetCommentsByOwnerAsync(string ownerGuid)
         {
             return await _commentsServices.GetCommentsByOwner(ownerGuid);
         }
-        [HttpGet("itemguid={itemGuid}")]
+        [HttpGet("item={itemGuid}")]
         public async Task<IEnumerable<string>> GetCommentsByItemAsync(string itemGuid)
         {
             return await _commentsServices.GetCommentsByOwner(itemGuid);
@@ -84,12 +84,12 @@ namespace Ecliptae.Api.Controllers
         {
             await _commentsServices.DeleteByObject(comment);
         }
-        [HttpDelete("ownerguid={ownerGuid}")]
+        [HttpDelete("owner={ownerGuid}")]
         public async Task DeleteByObjectAsync(string ownerGuid)
         {
             await _commentsServices.DeleteByOwner(ownerGuid);
         }
-        [HttpDelete("itemguid={itemGuid}")]
+        [HttpDelete("item={itemGuid}")]
         public async Task DeleteByItemAsync(string itemGuid)
         {
             await _commentsServices.DeleteByItem(itemGuid);
