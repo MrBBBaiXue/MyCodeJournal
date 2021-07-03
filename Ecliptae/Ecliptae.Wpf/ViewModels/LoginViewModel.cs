@@ -42,8 +42,6 @@ namespace Ecliptae.Wpf.ViewModels
             var jsonParam = JsonConvert.SerializeObject(loginInfo);
             var response = APIHelper.RestfulRequest(url, "post", jsonParam);
 
-            MessageBox.Show($"response: {response}\n, loginInfo.Hash: {loginInfo.Hash}.", "Debug Info", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
-            // ToDo : 每次生成的hashcode不一样！！！
             if (response != null && response != "ERROR")
             {
                 App.User = JsonConvert.DeserializeObject<User>(response);
@@ -78,7 +76,7 @@ namespace Ecliptae.Wpf.ViewModels
             string url = $"{App.ApiAddress}/users/";
             var jsonParam = JsonConvert.SerializeObject(user);
             Lib.APIHelper.RestfulRequest(url, "post", jsonParam);
-
+            MessageBox.Show("注册成功！", "提示", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
             App.User = user;
 
             CreateMainWindow();

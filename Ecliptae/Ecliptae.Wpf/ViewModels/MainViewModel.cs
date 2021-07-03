@@ -21,6 +21,7 @@ namespace Ecliptae.Wpf.ViewModels
         public MainViewModel()
         {
             Items = new OptimizedObservableCollection<Item>();
+            // GET /
             var item_A = new Item
             {
                 Name = "Sandisk USB 3.0 Key (64GB)",

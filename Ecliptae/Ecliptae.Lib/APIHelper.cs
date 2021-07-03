@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Net;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace Ecliptae.Lib
@@ -51,6 +52,24 @@ namespace Ecliptae.Lib
                 json = reader.ReadToEnd();
             }
             return json;
+        }
+
+        /// <summary>
+        /// 对字符串进行SHA1加密
+        /// </summary>
+        /// <param name="source">需要加密的字符串</param>
+        /// <returns>密文</returns>
+        public static string SHA1Encrypt(string source)
+        {
+            byte[] strRes = Encoding.Default.GetBytes(source);
+            HashAlgorithm iSHA = new SHA1CryptoServiceProvider();
+            strRes = iSHA.ComputeHash(strRes);
+            StringBuilder enText = new StringBuilder();
+            foreach (byte iByte in strRes)
+            {
+                enText.AppendFormat("{0:x2}", iByte);
+            }
+            return enText.ToString().ToUpper();
         }
     }
 }
