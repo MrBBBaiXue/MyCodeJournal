@@ -473,9 +473,4 @@ namespace Ecliptae.Lib
             }
         }
     }
-
-    public class SQLConfig
-    {
-
-    }
 }

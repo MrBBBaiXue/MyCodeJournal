@@ -15,6 +15,7 @@ namespace Ecliptae.Wpf.ViewModels
         public string Account { get; set; }
         public string Password { get; set; }
         public void ToggleDarkMode() => App.ToggleDarkMode();
+        public string ApiAddress => App.ApiAddress;
 
         public LoginViewModel(IWindowManager windowManager)
         {
@@ -27,17 +28,21 @@ namespace Ecliptae.Wpf.ViewModels
         }
 
         public void CreateMainWindow()
-        => App.WindowManager.ShowWindow(App.MainViewModel);
+        {
+            App.MainViewModel = new MainViewModel();
+            App.WindowManager.ShowWindow(App.MainViewModel);
+        }
 
         public void LoginAndCreateMainWindow()
         {
-            var loginInfo = new LoginInfo {
+            var loginInfo = new LoginInfo
+            {
                 Account = Account,
                 Hash = Password
             };
             loginInfo.GetHash();
 
-            // GET /users/login/
+            // POST /users/login/
             string url = $"{App.ApiAddress}/users/login/";
             var jsonParam = JsonConvert.SerializeObject(loginInfo);
             var response = APIHelper.RestfulRequest(url, "post", jsonParam);
@@ -48,9 +53,9 @@ namespace Ecliptae.Wpf.ViewModels
             }
             else
             {
-                MessageBox.Show("用户名或密码错误！","错误", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                MessageBox.Show("用户名或密码错误！", "错误", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
                 return;
-            }         
+            }
             CreateMainWindow();
             RequestClose();
         }

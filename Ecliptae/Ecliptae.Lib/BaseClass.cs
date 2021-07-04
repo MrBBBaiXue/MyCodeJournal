@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Ecliptae.Lib.Annotations;
+using Newtonsoft.Json;
 
 namespace Ecliptae.Lib
 {
@@ -68,4 +69,39 @@ namespace Ecliptae.Lib
         public int Star { get; set; }
     }
 
+    // SQLHelper
+    public class SQLConfig
+    {
+        public string Database { get; set; }
+        public string DataSource { get; set; }
+        public string UserID { get; set; }
+        public string Password { get; set; }
+        public string Charset { get; set; }
+        public string Pooling { get; set; }
+
+        public SQLConfig(string json)
+        {
+            var sqlconfig = JsonConvert.DeserializeObject<SQLConfig>(json);
+            // Deserialize Object
+            Database = sqlconfig.Database;
+            DataSource = sqlconfig.DataSource;
+            UserID = sqlconfig.UserID;
+            Password = sqlconfig.Password;
+            Charset = sqlconfig.Charset;
+            Pooling = sqlconfig.Pooling;
+        }
+
+        public string Serialize() => JsonConvert.SerializeObject(this);
+
+        public override string ToString()
+        {
+            var str = $"Database='{Database}';" +
+                         $"Data Source='{DataSource}';" +
+                         $"User Id='{UserID}';" +
+                         $"Password='{Password}';" +
+                         $"charset='{Charset}';" +
+                         $"pooling={Pooling}";
+            return str;
+        }
+    }
 }

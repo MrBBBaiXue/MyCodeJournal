@@ -7,12 +7,7 @@ namespace Ecliptae.Lib
     public class SQLHelper
     {
         //数据库连接字符串
-        public static string Conn = "Database='ecliptae';" +
-                                    "Data Source='localhost';" +
-                                    "User Id='root';" +
-                                    "Password='1124';" +
-                                    "charset='utf8';" +
-                                    "pooling=true";
+        public static string Conn => APIHelper.ReadSQLConfig();
 
         /// <summary>
         /// 给定连接的数据库用假设参数执行一个sql命令（不返回数据集）

@@ -71,5 +71,27 @@ namespace Ecliptae.Lib
             }
             return enText.ToString().ToUpper();
         }
+
+        public static string ReadSQLConfig()
+        {
+            if (File.Exists($"sql.config"))
+            {
+                var streamReader = new StreamReader(@"sql.config");
+                var json = streamReader.ReadLine();
+                var sqlConfig = new SQLConfig(json);
+                streamReader.Close();
+                return sqlConfig.ToString();
+            }
+            else
+            {
+                string Conn = "Database='ecliptae';" +
+                                   "Data Source='localhost';" +
+                                   "User Id='root';" +
+                                   "Password='1124';" +
+                                   "charset='utf8';" +
+                                   "pooling=true";
+                return Conn;
+            }
+        }
     }
 }

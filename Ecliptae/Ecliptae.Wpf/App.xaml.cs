@@ -10,7 +10,7 @@ namespace Ecliptae.Wpf
     public partial class App : Application
     {
         // Configure with ViewModels
-        public static MainViewModel MainViewModel { get; set; } = new MainViewModel();
+        public static MainViewModel MainViewModel { get; set; }
         public static User User { get; set; } = new User();
 
         public static string ApiAddress { get; set; } = "http://127.0.0.1:5000/ecliptae";

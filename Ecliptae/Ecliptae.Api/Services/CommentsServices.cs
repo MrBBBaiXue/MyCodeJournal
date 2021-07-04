@@ -20,7 +20,7 @@ namespace Ecliptae.Api.Services
                     var r = SQL.Delete(new TablesDesc(Tables.Comments), "guid", guid);
                     if (r == 0)
                     {
-                        throw new Exception("This Comment is not exists");
+                        throw new Exception("This Comment does not exists");
                     }
                 }
                 catch (Exception e)
