@@ -21,34 +21,34 @@ namespace Ecliptae.Wpf.ViewModels
 
         public MainViewModel()
         {
-            // GET /items/
             Items = new OptimizedObservableCollection<Item>();
-            string url = $"{App.ApiAddress}/items/";
-            var json = APIHelper.RestfulGet(url);
-            Items = JsonConvert.DeserializeObject<OptimizedObservableCollection<Item>>(json);
+            {
+                // GET /items/
+                string url = $"{App.ApiAddress}/items/";
+                var json = APIHelper.RestfulGet(url);
+                Items = JsonConvert.DeserializeObject<OptimizedObservableCollection<Item>>(json);
+            }
 
             Carts = new OptimizedObservableCollection<OrderItem>();
 
-            // GET /items/user={App.User.GUID}
             ShopItems = new OptimizedObservableCollection<Item>();
-
-
+            {
+                // POST /items/user/
+                string url = $"{App.ApiAddress}/items/user/";
+                var jsonParam = JsonConvert.SerializeObject(App.User);
+                var response = APIHelper.RestfulRequest(url, "post", jsonParam);
+                ShopItems = JsonConvert.DeserializeObject<OptimizedObservableCollection<Item>>(response);
+            }
         }
 
-        // Item Operations
+        /// Item Operations ///
         public void ShowItemInfo()
         {
-            // ToDo : ShowItemInfo
-            var comments = new OptimizedObservableCollection<Comment> { };
-            var comment = new Comment
-            {
-                Content = "这玩意儿一点都不好用，太烂了.\n 最糟糕的一次网购体验，差评！绝对差评！！！",
-                Star = 1
-            };
-            for (var i = 1; i <= 10; i++)
-            {
-                comments.Add(comment);
-            }
+            // GET /comments/item={itemGuid}
+            string itemGuid = SelectedItem.GUID;
+            string url = $"{App.ApiAddress}/comments/item={itemGuid}";
+            var json = APIHelper.RestfulGet(url);
+            var comments = JsonConvert.DeserializeObject<OptimizedObservableCollection<Comment>>(json);
 
             var itemViewModel = new ItemViewModel
             {
@@ -74,10 +74,10 @@ namespace Ecliptae.Wpf.ViewModels
         }
         public void BuyItem()
         {
-
+            // Place Order
         }
 
-        // Cart Item Operations
+        /// Cart Item Operations ///
         public void OnCartItemNumericUpDownValueChanged()
         {
             if (SelectedCartItem != null && SelectedCartItem.Count <= 0)
@@ -88,7 +88,7 @@ namespace Ecliptae.Wpf.ViewModels
 
         public bool VerifyCart()
         {
-            float cost = 0.00F;
+            double cost = 0.00;
             return true;
         }
 
@@ -104,8 +104,7 @@ namespace Ecliptae.Wpf.ViewModels
             }
         }
 
-        // Shop Item Operations
-
+        /// Shop Item Operations ///
         public void EditShopItem()
         {
             var shopItemViewModel = new EditItemViewModel()

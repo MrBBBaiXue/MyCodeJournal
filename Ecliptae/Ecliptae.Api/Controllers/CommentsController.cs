@@ -53,7 +53,7 @@ namespace Ecliptae.Api.Controllers
         [HttpGet("item={itemGuid}")]
         public async Task<IEnumerable<Comment>> GetCommentsByItemAsync(string itemGuid)
         {
-            return await _commentsServices.GetCommentsByOwner(itemGuid);
+            return await _commentsServices.GetCommentsByItem(itemGuid);
         }
         [HttpGet("guid={guid}")]
         public async Task<Comment> GetCommentsByGuidAsync(string guid)

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Ecliptae.Lib;
 using HandyControl.Controls;
+using Newtonsoft.Json;
 using Stylet;
 
 namespace Ecliptae.Wpf.ViewModels
@@ -23,7 +24,29 @@ namespace Ecliptae.Wpf.ViewModels
         public string CommentText { get; set; } = "";
         public void SendComment()
         {
-            // ToDo : Send Comment
+            {
+                var comment = new Comment
+                {
+                    Owner = App.User.GUID,
+                    Item = Item.GUID,
+                    Content = CommentText,
+                    Star = CommentStar
+                };
+                comment.NewGuid();
+
+                // POST /comments/
+                string url = $"{App.ApiAddress}/comments/";
+                var jsonParam = JsonConvert.SerializeObject(comment);
+                var response = APIHelper.RestfulRequest(url, "post", jsonParam);
+            }
+            {
+                // GET /comments/item={itemGuid}
+                string itemGuid = Item.GUID;
+                string url = $"{App.ApiAddress}/comments/item={itemGuid}";
+                var json = APIHelper.RestfulGet(url);
+                Comments = JsonConvert.DeserializeObject<OptimizedObservableCollection<Comment>>(json);
+            }
+
             return;
         }
     }
