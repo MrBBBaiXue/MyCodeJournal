@@ -152,7 +152,7 @@ namespace Ecliptae.Api.Services
             });
         }
 
-        public Task<string> GetItemByName(string name)
+        public Task<Item> GetItemByName(string name)
         {
             return Task.Run(() =>
             {
@@ -176,21 +176,21 @@ namespace Ecliptae.Api.Services
                     {
                         throw new Exception("NotFound");
                     }
-                    return JsonConvert.SerializeObject(item);
+                    return item;
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
-                    return e.Message;
+                    return new Item();
                 }
             });
         }
 
-        public Task<IEnumerable<string>> GetItemsByOwner(User user)
+        public Task<IEnumerable<Item>> GetItemsByOwner(User user)
         {
             return Task.Run(() =>
             {
-                List<string> itemsList = new List<string>();
+                List<Item> itemsList = new List<Item>();
                 try
                 {
                     var reader = SQL.Retrieve(new TablesDesc(Tables.Items), "owner", user.GUID);
@@ -205,14 +205,13 @@ namespace Ecliptae.Api.Services
                             Name = reader["name"].ToString(),
                             Price = Convert.ToDouble(reader["price"])
                         };
-                        itemsList.Add(JsonConvert.SerializeObject(item));
+                        itemsList.Add(item);
                     }
                     return itemsList.AsEnumerable();
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
-                    itemsList.Add(e.Message);
                     return itemsList.AsEnumerable();
                 }
             });

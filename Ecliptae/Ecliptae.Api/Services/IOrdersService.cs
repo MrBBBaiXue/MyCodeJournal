@@ -9,8 +9,8 @@ namespace Ecliptae.Api.Services
     public interface IOrdersService
     {
         // GET
-        public Task<IEnumerable<string>> GetAllOrders();
-        public Task<IEnumerable<string>> GetOrdersByOwner(User user);
+        public Task<IEnumerable<Order>> GetAllOrders();
+        public Task<IEnumerable<Order>> GetOrdersByOwner(User user);
         public Task<string> GetOrderByGuid(string guid);
         // PUT
         public Task PutOrderInfo(Order order);

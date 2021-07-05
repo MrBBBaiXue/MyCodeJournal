@@ -47,12 +47,12 @@ namespace Ecliptae.Api.Controllers
             return await _itemsServices.GetAllItems();
         }
         [HttpGet("user")]
-        public async Task<IEnumerable<string>> GetItemsByOwnerAsync(User user)
+        public async Task<IEnumerable<Item>> GetItemsByOwnerAsync(User user)
         {
             return await _itemsServices.GetItemsByOwner(user);
         }
         [HttpGet("name={name}")]
-        public async Task<string> GetItemByNameAsync(string name)
+        public async Task<Item> GetItemByNameAsync(string name)
         {
             return await _itemsServices.GetItemByName(name);
         }

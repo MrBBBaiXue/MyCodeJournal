@@ -88,11 +88,11 @@ namespace Ecliptae.Api.Services
             });
         }
 
-        public Task<IEnumerable<string>> GetAllComments()
+        public Task<IEnumerable<Comment>> GetAllComments()
         {
             return Task.Run(() =>
             {
-                List<string> commentList = new List<string>();
+                List<Comment> commentList = new List<Comment>();
                 try
                 {
                     var reader = SQL.Retrieve(new TablesDesc(Tables.Comments));
@@ -106,20 +106,19 @@ namespace Ecliptae.Api.Services
                             Owner = reader["owner"].ToString(),
                             Star = Convert.ToInt32(reader["star"])
                         };
-                        commentList.Add(JsonConvert.SerializeObject(c));
+                        commentList.Add(c);
                     }
                     return commentList.AsEnumerable();
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
-                    commentList.Add(e.Message);
                     return commentList.AsEnumerable();
                 }
             });
         }
 
-        public Task<string> GetCommentByGuid(string guid)
+        public Task<Comment> GetCommentByGuid(string guid)
         {
             return Task.Run(() =>
             {
@@ -136,7 +135,7 @@ namespace Ecliptae.Api.Services
                             Owner = reader["owner"].ToString(),
                             Star = Convert.ToInt32(reader["star"])
                         };
-                        return JsonConvert.SerializeObject(c);
+                        return c;
                     }
                     else
                     {
@@ -146,16 +145,16 @@ namespace Ecliptae.Api.Services
                 catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
-                    return e.Message;
+                    return new Comment();
                 }
             });
         }
 
-        public Task<IEnumerable<string>> GetCommentsByItem(string itemGuid)
+        public Task<IEnumerable<Comment>> GetCommentsByItem(string itemGuid)
         {
             return Task.Run(() =>
             {
-                List<string> commentList = new List<string>();
+                List<Comment> commentList = new List<Comment>();
                 try
                 {
                     var reader = SQL.Retrieve(new TablesDesc(Tables.Comments), "item", itemGuid);
@@ -169,24 +168,23 @@ namespace Ecliptae.Api.Services
                             Owner = reader["owner"].ToString(),
                             Star = Convert.ToInt32(reader["star"])
                         };
-                        commentList.Add(JsonConvert.SerializeObject(c));
+                        commentList.Add(c);
                     }
                     return commentList.AsEnumerable();
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
-                    commentList.Add(e.Message);
                     return commentList.AsEnumerable();
                 }
             });
         }
 
-        public Task<IEnumerable<string>> GetCommentsByOwner(string ownerGuid)
+        public Task<IEnumerable<Comment>> GetCommentsByOwner(string ownerGuid)
         {
             return Task.Run(() =>
             {
-                List<string> commentList = new List<string>();
+                List<Comment> commentList = new List<Comment>();
                 try
                 {
                     var reader = SQL.Retrieve(new TablesDesc(Tables.Comments), "owner", ownerGuid);
@@ -200,14 +198,13 @@ namespace Ecliptae.Api.Services
                             Owner = reader["owner"].ToString(),
                             Star = Convert.ToInt32(reader["star"])
                         };
-                        commentList.Add(JsonConvert.SerializeObject(c));
+                        commentList.Add(c);
                     }
                     return commentList.AsEnumerable();
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
-                    commentList.Add(e.Message);
                     return commentList.AsEnumerable();
                 }
             });

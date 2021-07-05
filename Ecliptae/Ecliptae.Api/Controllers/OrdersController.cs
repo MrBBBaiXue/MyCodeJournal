@@ -51,12 +51,12 @@ namespace Ecliptae.Api.Controllers
 
 
         [HttpGet]
-        public async Task<IEnumerable<string>> GetAllOrdersAsync()
+        public async Task<IEnumerable<Order>> GetAllOrdersAsync()
         {
             return await _ordersService.GetAllOrders();
         }
         [HttpGet("user")]
-        public async Task<IEnumerable<string>> GetOrdersByOwnerAsync(User user)
+        public async Task<IEnumerable<Order>> GetOrdersByOwnerAsync(User user)
         {
             return await _ordersService.GetOrdersByOwner(user);
         }

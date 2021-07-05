@@ -72,11 +72,11 @@ namespace Ecliptae.Api.Services
             });
         }
 
-        public Task<IEnumerable<string>> GetAllOrders()
+        public Task<IEnumerable<Order>> GetAllOrders()
         {
             return Task.Run(() =>
             {
-                List<string> retList = new List<string>();
+                List<Order> retList = new List<Order>();
                 try
                 {
                     var reader = SQL.Retrieve(new TablesDesc(Tables.Orders));
@@ -89,13 +89,12 @@ namespace Ecliptae.Api.Services
                         order.Items = reader["info"].ToString() == "No info." ? 
                         new ObservableCollection<OrderItem>() : 
                         JsonConvert.DeserializeObject<ObservableCollection<OrderItem>>(reader["info"].ToString());
-                        retList.Add(JsonConvert.SerializeObject(order));
+                        retList.Add(order);
                     }
                     return retList.AsEnumerable();
                 }
                 catch (Exception e)
                 {
-                    retList.Add(e.Message);
                     return retList.AsEnumerable();
                 }
             });
@@ -131,11 +130,11 @@ namespace Ecliptae.Api.Services
             });
         }
 
-        public Task<IEnumerable<string>> GetOrdersByOwner(User user)
+        public Task<IEnumerable<Order>> GetOrdersByOwner(User user)
         {
             return Task.Run(() =>
             {
-                List<string> retList = new List<string>();
+                List<Order> retList = new List<Order>();
                 try
                 {
                     var reader = SQL.Retrieve(new TablesDesc(Tables.Orders), "owner", user.GUID);
@@ -147,13 +146,12 @@ namespace Ecliptae.Api.Services
                         order.Items = reader["info"].ToString() == "No info." ?
                         new ObservableCollection<OrderItem>() :
                         JsonConvert.DeserializeObject<ObservableCollection<OrderItem>>(reader["info"].ToString());
-                        retList.Add(JsonConvert.SerializeObject(order));
+                        retList.Add(order);
                     }
                     return retList.AsEnumerable();
                 }
                 catch (Exception e)
                 {
-                    retList.Add(e.Message);
                     return retList.AsEnumerable();
                 }
             });

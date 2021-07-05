@@ -10,10 +10,10 @@ namespace Ecliptae.Api.Services
     public interface ICommentsServices
     {
         // GET
-        public Task<IEnumerable<string>> GetAllComments();
-        public Task<IEnumerable<string>> GetCommentsByOwner(string ownerGuid);
-        public Task<IEnumerable<string>> GetCommentsByItem(string itemGuid);
-        public Task<string> GetCommentByGuid(string guid);
+        public Task<IEnumerable<Comment>> GetAllComments();
+        public Task<IEnumerable<Comment>> GetCommentsByOwner(string ownerGuid);
+        public Task<IEnumerable<Comment>> GetCommentsByItem(string itemGuid);
+        public Task<Comment> GetCommentByGuid(string guid);
         // PUT
         public Task PutCommentsInf(Comment comment);
         // POST

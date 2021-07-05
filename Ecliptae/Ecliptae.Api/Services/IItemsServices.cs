@@ -11,9 +11,9 @@ namespace Ecliptae.Api.Services
     {
         // GET
         public Task<IEnumerable<Item>> GetAllItems();
-        public Task<IEnumerable<string>> GetItemsByOwner(User user);
+        public Task<IEnumerable<Item>> GetItemsByOwner(User user);
         public Task<Item> GetItemByGuid(string guid);
-        public Task<string> GetItemByName(string name);
+        public Task<Item> GetItemByName(string name);
         // PUT
         public Task PutItemsInf(Item item);
         // POST

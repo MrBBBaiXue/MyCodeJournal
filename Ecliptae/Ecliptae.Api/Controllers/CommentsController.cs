@@ -41,22 +41,22 @@ namespace Ecliptae.Api.Controllers
 
 
         [HttpGet]
-        public async Task<IEnumerable<string>> GetAllCommentsAsync()
+        public async Task<IEnumerable<Comment>> GetAllCommentsAsync()
         {
             return await _commentsServices.GetAllComments();
         }
         [HttpGet("owner={ownerGuid}")]
-        public async Task<IEnumerable<string>> GetCommentsByOwnerAsync(string ownerGuid)
+        public async Task<IEnumerable<Comment>> GetCommentsByOwnerAsync(string ownerGuid)
         {
             return await _commentsServices.GetCommentsByOwner(ownerGuid);
         }
         [HttpGet("item={itemGuid}")]
-        public async Task<IEnumerable<string>> GetCommentsByItemAsync(string itemGuid)
+        public async Task<IEnumerable<Comment>> GetCommentsByItemAsync(string itemGuid)
         {
             return await _commentsServices.GetCommentsByOwner(itemGuid);
         }
         [HttpGet("guid={guid}")]
-        public async Task<string> GetCommentsByGuidAsync(string guid)
+        public async Task<Comment> GetCommentsByGuidAsync(string guid)
         {
             return await _commentsServices.GetCommentByGuid(guid);
         }
