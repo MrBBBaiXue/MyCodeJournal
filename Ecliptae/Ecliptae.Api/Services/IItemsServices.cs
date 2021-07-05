@@ -10,9 +10,9 @@ namespace Ecliptae.Api.Services
     public interface IItemsServices
     {
         // GET
-        public Task<IEnumerable<string>> GetAllItems();
+        public Task<IEnumerable<Item>> GetAllItems();
         public Task<IEnumerable<string>> GetItemsByOwner(User user);
-        public Task<string> GetItemByGuid(string guid);
+        public Task<Item> GetItemByGuid(string guid);
         public Task<string> GetItemByName(string name);
         // PUT
         public Task PutItemsInf(Item item);

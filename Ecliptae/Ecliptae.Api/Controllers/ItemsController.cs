@@ -31,7 +31,7 @@ namespace Ecliptae.Api.Controllers
             var u = new Item();
             var r = new Random();
             u.NewGuid();
-            u.Description = "zwlzwlzwl ballballu bangbang wo";
+            u.Description = "张文乐最喜欢吃的大嘴巴子";
             u.Name = u.GUID[5].ToString() + u.GUID[10].ToString() + u.GUID[15].ToString() + u.GUID[20].ToString();
             u.Owner = r.Next() % 2 == 0 ? "00000000-00000000-00000000-00000000" : "4fg896eq-eqg741ws-qew7yh46a-gqe8746b";
             u.Price = r.NextDouble();
@@ -42,7 +42,7 @@ namespace Ecliptae.Api.Controllers
 
 
         [HttpGet]
-        public async Task<IEnumerable<string>> GetAllItemsAsync()
+        public async Task<IEnumerable<Item>> GetAllItemsAsync()
         {
             return await _itemsServices.GetAllItems();
         }
@@ -57,7 +57,7 @@ namespace Ecliptae.Api.Controllers
             return await _itemsServices.GetItemByName(name);
         }
         [HttpGet("guid={guid}")]
-        public async Task<string> GetItemByGuidAsync(string guid)
+        public async Task<Item> GetItemByGuidAsync(string guid)
         {
             return await _itemsServices.GetItemByGuid(guid);
         }

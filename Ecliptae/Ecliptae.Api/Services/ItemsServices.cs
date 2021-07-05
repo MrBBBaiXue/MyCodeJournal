@@ -87,11 +87,11 @@ namespace Ecliptae.Api.Services
             });
         }
 
-        public Task<IEnumerable<string>> GetAllItems()
+        public Task<IEnumerable<Item>> GetAllItems()
         {
             return Task.Run(() =>
             {
-                List<string> itemsList = new List<string>();
+                List<Item> itemsList = new List<Item>();
                 try
                 {
                     var reader = SQL.Retrieve(new TablesDesc(Tables.Items));
@@ -106,27 +106,26 @@ namespace Ecliptae.Api.Services
                             Name = reader["name"].ToString(),
                             Price = Convert.ToDouble(reader["price"])
                         };
-                        itemsList.Add(JsonConvert.SerializeObject(item));
+                        itemsList.Add(item);
                     }
                     return itemsList.AsEnumerable();
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
-                    itemsList.Add(e.Message);
                     return itemsList.AsEnumerable();
                 }
             });
         }
 
-        public Task<string> GetItemByGuid(string guid)
+        public Task<Item> GetItemByGuid(string guid)
         {
             return Task.Run(() =>
             {
                 try
                 {
                     var reader = SQL.Retrieve(new TablesDesc(Tables.Items), "guid", guid);
-                    Item item;
+                    Item item = new Item();
                     if (reader.Read())
                     {
                         item = new Item()
@@ -143,12 +142,12 @@ namespace Ecliptae.Api.Services
                     {
                         throw new Exception("NotFound");
                     }
-                    return JsonConvert.SerializeObject(item);
+                    return item;
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
-                    return e.Message;
+                    return new Item();
                 }
             });
         }

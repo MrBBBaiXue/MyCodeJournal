@@ -129,11 +129,11 @@ namespace Ecliptae.Api.Services
             });
         }
 
-        public Task<IEnumerable<string>> GetUsers()
+        public Task<IEnumerable<User>> GetUsers()
         {
             return Task.Run(() =>
             {
-                List<string> retList = new List<string>();
+                List<User> retList = new List<User>();
                 try
                 {
                     var reader = SQL.Retrieve(new TablesDesc(Tables.Users));
@@ -145,13 +145,12 @@ namespace Ecliptae.Api.Services
                         user.Hash = reader["password"].ToString();
                         user.Balance = Convert.ToDouble(reader["balance"]);
                         user.Level = Convert.ToInt32(reader["level"]);
-                        retList.Add(JsonConvert.SerializeObject(user));
+                        retList.Add(user);
                     }
                     return retList.AsEnumerable();
                 }
                 catch (Exception e)
                 {
-                    retList.Add(e.Message);
                     return retList.AsEnumerable();
                 }
             });

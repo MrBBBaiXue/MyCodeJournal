@@ -38,7 +38,7 @@ namespace Ecliptae.Api.Controllers
 
 
         [HttpGet]
-        public async Task<IEnumerable<string>> GetUsersAsync()
+        public async Task<IEnumerable<User>> GetUsersAsync()
         {
             return await _usersServices.GetUsers();
         }

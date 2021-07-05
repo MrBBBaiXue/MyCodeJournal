@@ -9,7 +9,7 @@ namespace Ecliptae.Api.Services
     public interface IUsersServices
     {
         // GET
-        public Task<IEnumerable<string>> GetUsers();
+        public Task<IEnumerable<User>> GetUsers();
         public Task<string> GetUserByGuid(string guid);
         public Task<string> GetUserByName(string name);
         // PUT
