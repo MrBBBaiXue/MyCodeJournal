@@ -18,7 +18,6 @@ namespace Ecliptae.Wpf
 
         protected override void Configure()
         {
-            // ToDo : Add more function to Configure IOC.
             // Configure ViewModels.
 
             // This is called after Stylet has created the IoC container, so this.Container exists, but before the

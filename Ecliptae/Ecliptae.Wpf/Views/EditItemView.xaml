@@ -98,6 +98,7 @@
                  Width="350"
                  Height="200"
                  TextWrapping="Wrap"
+                 AcceptsReturn="True"
         />
         <Label Content="价格"
                Background="Transparent"
