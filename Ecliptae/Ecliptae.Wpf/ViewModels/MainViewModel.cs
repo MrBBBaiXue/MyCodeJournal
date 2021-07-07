@@ -16,7 +16,7 @@ namespace Ecliptae.Wpf.ViewModels
         public Item? SelectedItem { get; set; }
         public OrderItem? SelectedCartItem { get; set; }
         public Item? SelectedShopItem { get; set; }
-        public User User => App.User;
+        public User User { get; set; } = App.User;
 
         public MainViewModel()
         {
@@ -70,17 +70,10 @@ namespace Ecliptae.Wpf.ViewModels
         }
 
         /// Cart Item Operations ///
-        public void OnCartItemNumericUpDownValueChanged()
-        {
-            if (SelectedCartItem != null && SelectedCartItem.Count <= 0)
-                RemoveItemFromCart();
-        }
         public void RemoveItemFromCart()
         => Carts.Remove(SelectedCartItem);
-
         public bool VerifyCart(OptimizedObservableCollection<OrderItem> orderItems)
         => CalculateCost(orderItems) <= App.User.Balance;
-
         public double CalculateCost(OptimizedObservableCollection<OrderItem> orderItems)
         {
             double cost = 0.00;
@@ -88,13 +81,11 @@ namespace Ecliptae.Wpf.ViewModels
                 cost += orderItem.Item.Price * orderItem.Count;
             return cost;
         }
-
         public void SubmitPayment()
         {
             if (TryPlaceOrder(Carts))
                 Carts = new OptimizedObservableCollection<OrderItem>();
         }
-
         public bool TryPlaceOrder(OptimizedObservableCollection<OrderItem> orderItems)
         {
             if (orderItems.Count == 0)
@@ -116,11 +107,24 @@ namespace Ecliptae.Wpf.ViewModels
                 }
                 // PUT /users/
                 {
-
+                    App.User.Balance -= CalculateCost(orderItems);
+                    // PUT /users/
+                    string url = $"{App.ApiAddress}/users/";
+                    var jsonParam = JsonConvert.SerializeObject(App.User);
+                    APIHelper.RestfulRequest(url, "put", jsonParam);
+                    User = App.User;
+                    NotifyOfPropertyChange("User");
                 }
                 // PUT /items/
                 {
-
+                    foreach (var orderItem in orderItems)
+                    {
+                        var item = orderItem.Item;
+                        item.Storage -= orderItem.Count;
+                        string url = $"{App.ApiAddress}/items/";
+                        var jsonParam = JsonConvert.SerializeObject(item);
+                        APIHelper.RestfulRequest(url, "put", jsonParam);
+                    }
                 }
                 MessageBox.Show("购买成功！", "信息", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
                 UpdateInfo();
@@ -131,6 +135,20 @@ namespace Ecliptae.Wpf.ViewModels
                 MessageBox.Show("余额不足，请充值！", "错误", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
                 return false;
             }
+        }
+
+        public void IncreaseCount()
+        {
+            SelectedCartItem.Count++;
+            NotifyOfPropertyChange("Carts");
+        }
+        public void DecreaseCount()
+        {
+            if (SelectedCartItem.Count == 1)
+                return;
+            else
+                SelectedCartItem.Count--;
+            NotifyOfPropertyChange("Carts");
         }
 
         /// Shop Item Operations ///
@@ -192,10 +210,13 @@ namespace Ecliptae.Wpf.ViewModels
         /// Personal Operations ///
         public void Charge()
         {
-            App.User.Balance += 50;
-
+            App.User.Balance += 100;
+            User = App.User;
+            NotifyOfPropertyChange("User");
             // PUT /users/
-
+            string url = $"{App.ApiAddress}/users/";
+            var jsonParam = JsonConvert.SerializeObject(App.User);
+            APIHelper.RestfulRequest(url, "put", jsonParam);
         }
     }
 }
