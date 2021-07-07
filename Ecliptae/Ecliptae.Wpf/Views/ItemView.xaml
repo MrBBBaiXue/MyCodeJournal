@@ -140,6 +140,7 @@
                                     <DataTemplate>
                                         <TextBlock Text="{Binding Content}"
                                                    FontSize="16"
+                                                   TextWrapping="Wrap"
                                                    />
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
@@ -159,18 +160,26 @@
                                VerticalContentAlignment="Top"
                                Text="{Binding CommentText}"
                                FontSize="16"
+                               TextWrapping="Wrap"
+                               AcceptsReturn="True"
                                />
-                    <hc:Rate Count="5"
-                             Foreground="Red"
-                             HorizontalAlignment="Right"
-                             VerticalAlignment="Bottom"
-                             Margin="0,0,150,16"
-                             Value="{Binding CommentStar}"
-                             />
+                    <Slider Width="150" Height="25"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"
+                            hc:TipElement.Visibility="Visible"
+                            hc:TipElement.Placement="Top"
+                            IsSnapToTickEnabled="True"
+                            Maximum="5"
+                            Minimum="1"
+                            Value="{Binding CommentStar}"
+                            TickFrequency="1"
+                            TickPlacement="BottomRight"
+                            Margin="0,0,120,10"
+                            />
                     <Button VerticalAlignment="Bottom"
                             HorizontalAlignment="Right"
                             Height="30" Width="100"
-                            Style="{StaticResource ButtonDanger}"
+                            Style="{StaticResource ButtonPrimary}"
                             Margin="0,0,10,10"
                             Content="评论"
                             Command="{s:Action SendComment}"

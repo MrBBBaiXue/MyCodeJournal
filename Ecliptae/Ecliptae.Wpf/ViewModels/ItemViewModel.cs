@@ -7,6 +7,7 @@ using Ecliptae.Lib;
 using HandyControl.Controls;
 using Newtonsoft.Json;
 using Stylet;
+using MsgBox = HandyControl.Controls.MessageBox;
 
 namespace Ecliptae.Wpf.ViewModels
 {
@@ -19,7 +20,6 @@ namespace Ecliptae.Wpf.ViewModels
             new OptimizedObservableCollection<Comment> { };
 
         // Submit comment
-
         public int CommentStar { get; set; } = 3;
         public string CommentText { get; set; } = "";
         public void SendComment()
@@ -33,7 +33,6 @@ namespace Ecliptae.Wpf.ViewModels
                     Star = CommentStar
                 };
                 comment.NewGuid();
-
                 // POST /comments/
                 string url = $"{App.ApiAddress}/comments/";
                 var jsonParam = JsonConvert.SerializeObject(comment);
@@ -46,8 +45,11 @@ namespace Ecliptae.Wpf.ViewModels
                 var json = APIHelper.RestfulGet(url);
                 Comments = JsonConvert.DeserializeObject<OptimizedObservableCollection<Comment>>(json);
             }
-
+            // Clear content
+            CommentStar = 3;
+            CommentText = "";
             return;
         }
+
     }
 }
