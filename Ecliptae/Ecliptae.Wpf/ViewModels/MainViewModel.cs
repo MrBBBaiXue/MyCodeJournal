@@ -90,6 +90,14 @@ namespace Ecliptae.Wpf.ViewModels
         {
             if (orderItems.Count == 0)
                 return false;
+            foreach(var orderItem in orderItems)
+            {
+                if (orderItem.Item.Storage <= 0)
+                {
+                    MessageBox.Show("库存不足！", "错误", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                    return false;
+                }
+            }
             if (VerifyCart(orderItems))
             {
                 // Place Order
