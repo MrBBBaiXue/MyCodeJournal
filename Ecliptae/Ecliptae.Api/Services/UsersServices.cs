@@ -1,14 +1,9 @@
-﻿using System;
+﻿using Ecliptae.Lib;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Ecliptae.Lib;
-using Newtonsoft.Json;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Ecliptae.Api.Services;
-using System.Net.Http;
-using System.Web;
 
 namespace Ecliptae.Api.Services
 {

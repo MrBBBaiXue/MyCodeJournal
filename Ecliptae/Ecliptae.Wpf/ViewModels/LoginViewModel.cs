@@ -1,9 +1,8 @@
-﻿using Stylet;
-using System;
-using System.IO;
+﻿using Ecliptae.Lib;
 using HandyControl.Controls;
-using Ecliptae.Lib;
 using Newtonsoft.Json;
+using Stylet;
+using System.IO;
 
 namespace Ecliptae.Wpf.ViewModels
 {

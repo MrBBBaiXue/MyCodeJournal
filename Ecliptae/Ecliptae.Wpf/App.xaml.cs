@@ -1,9 +1,9 @@
-﻿using System.Windows;
-using System.Windows.Controls;
-using Ecliptae.Lib;
+﻿using Ecliptae.Lib;
 using Ecliptae.Wpf.ViewModels;
 using HandyControl.Themes;
 using Stylet;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace Ecliptae.Wpf
 {

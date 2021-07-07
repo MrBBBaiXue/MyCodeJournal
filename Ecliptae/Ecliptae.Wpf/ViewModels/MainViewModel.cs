@@ -1,8 +1,7 @@
-﻿using System.Collections.ObjectModel;
-using Ecliptae.Lib;
+﻿using Ecliptae.Lib;
 using HandyControl.Controls;
-using Stylet;
 using Newtonsoft.Json;
+using Stylet;
 
 namespace Ecliptae.Wpf.ViewModels
 {
@@ -98,7 +97,7 @@ namespace Ecliptae.Wpf.ViewModels
 
         public bool TryPlaceOrder(OptimizedObservableCollection<OrderItem> orderItems)
         {
-            if (orderItems.Count == 0) 
+            if (orderItems.Count == 0)
                 return false;
             if (VerifyCart(orderItems))
             {

@@ -1,11 +1,8 @@
 ﻿using Ecliptae.Lib;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 
 namespace Ecliptae.Api.Services
 {
@@ -18,7 +15,7 @@ namespace Ecliptae.Api.Services
                 try
                 {
                     var r = SQL.Delete(new TablesDesc(Tables.Items), "guid", guid);
-                    if(r == 0)
+                    if (r == 0)
                     {
                         throw new Exception("NotFound");
                     }
@@ -233,7 +230,7 @@ namespace Ecliptae.Api.Services
                             item.Storage,
                             item.Owner
                         });
-                    if(v == 0)
+                    if (v == 0)
                     {
                         throw new Exception("Something went wrong unpredictably");
                     }

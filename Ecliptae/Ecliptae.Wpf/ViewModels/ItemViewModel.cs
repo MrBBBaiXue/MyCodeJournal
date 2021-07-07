@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Ecliptae.Lib;
+﻿using Ecliptae.Lib;
 using HandyControl.Controls;
 using Newtonsoft.Json;
 using Stylet;
-using MsgBox = HandyControl.Controls.MessageBox;
 
 namespace Ecliptae.Wpf.ViewModels
 {

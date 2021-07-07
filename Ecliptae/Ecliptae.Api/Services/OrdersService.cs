@@ -1,15 +1,10 @@
-﻿using System;
+﻿using Ecliptae.Lib;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
-using Ecliptae.Lib;
-using Newtonsoft.Json;
-using System.Collections.ObjectModel;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Ecliptae.Api.Services;
-using System.Net.Http;
-using System.Web;
 
 namespace Ecliptae.Api.Services
 {
@@ -86,8 +81,8 @@ namespace Ecliptae.Api.Services
                         order.GUID = reader["guid"].ToString();
                         order.Owner = reader["owner"].ToString();
                         Console.WriteLine(reader["info"].ToString());
-                        order.Items = reader["info"].ToString() == "No info." ? 
-                        new ObservableCollection<OrderItem>() : 
+                        order.Items = reader["info"].ToString() == "No info." ?
+                        new ObservableCollection<OrderItem>() :
                         JsonConvert.DeserializeObject<ObservableCollection<OrderItem>>(reader["info"].ToString());
                         retList.Add(order);
                     }
@@ -179,10 +174,10 @@ namespace Ecliptae.Api.Services
                     {
                         foreach (var item in order.Items)
                         {
-                            var u = SQL.Update(new TablesDesc(Tables.Users), 
-                                "guid", 
-                                order.Owner, 
-                                "balance", 
+                            var u = SQL.Update(new TablesDesc(Tables.Users),
+                                "guid",
+                                order.Owner,
+                                "balance",
                                 Convert.ToDouble(reader["balance"]) - item.Item.Price * item.Count);
                             if (u == 0)
                             {

@@ -1,8 +1,5 @@
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using Ecliptae.Lib.Annotations;
 using Newtonsoft.Json;
+using System.Collections.ObjectModel;
 
 namespace Ecliptae.Lib
 {
