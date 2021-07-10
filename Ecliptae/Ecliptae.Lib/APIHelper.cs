@@ -80,7 +80,8 @@ namespace Ecliptae.Lib
                 var json = streamReader.ReadLine();
                 var sqlConfig = new SQLConfig(json);
                 streamReader.Close();
-                return sqlConfig.ToString();
+                var sqlString = sqlConfig.ToString() + "maximumpoolsize=1000;";
+                return sqlString;
             }
             else
             {
@@ -89,7 +90,8 @@ namespace Ecliptae.Lib
                                    "User Id='root';" +
                                    "Password='1124';" +
                                    "charset='utf8';" +
-                                   "pooling=true";
+                                   "pooling=true;" +
+                                   "maximumpoolsize=1000;";
                 return Conn;
             }
         }

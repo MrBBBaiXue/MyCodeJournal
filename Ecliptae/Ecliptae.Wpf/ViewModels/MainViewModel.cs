@@ -123,15 +123,28 @@ namespace Ecliptae.Wpf.ViewModels
                     User = App.User;
                     NotifyOfPropertyChange("User");
                 }
-                // PUT /items/
+
                 {
                     foreach (var orderItem in orderItems)
                     {
+                        // PUT /items/
                         var item = orderItem.Item;
                         item.Storage -= orderItem.Count;
                         string url = $"{App.ApiAddress}/items/";
                         var jsonParam = JsonConvert.SerializeObject(item);
                         APIHelper.RestfulRequest(url, "put", jsonParam);
+                        // GET -> PUT /users/
+                        var owner = orderItem.Item.Owner;
+                        var balance = orderItem.Item.Price * orderItem.Count;
+                        // GET
+                        string getUserUrl = $"{App.ApiAddress}/users/guid={owner}";
+                        var getUserJson = APIHelper.RestfulGet(getUserUrl);
+                        var user = JsonConvert.DeserializeObject<User>(getUserJson);
+                        user.Balance += balance;
+                        // PUT
+                        var putUserUrl = $"{App.ApiAddress}/users/";
+                        var putUserJson = JsonConvert.SerializeObject(user);
+                        APIHelper.RestfulRequest(putUserUrl, "put", putUserJson);
                     }
                 }
                 MessageBox.Show("购买成功！", "信息", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
@@ -143,20 +156,6 @@ namespace Ecliptae.Wpf.ViewModels
                 MessageBox.Show("余额不足，请充值！", "错误", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
                 return false;
             }
-        }
-
-        public void IncreaseCount()
-        {
-            SelectedCartItem.Count++;
-            NotifyOfPropertyChange("Carts");
-        }
-        public void DecreaseCount()
-        {
-            if (SelectedCartItem.Count == 1)
-                return;
-            else
-                SelectedCartItem.Count--;
-            NotifyOfPropertyChange("Carts");
         }
 
         /// Shop Item Operations ///

@@ -15,6 +15,7 @@
         NonClientAreaBackground="{DynamicResource RegionBrush}"
         WindowStartupLocation="CenterScreen"
         Title="{Binding WindowTitleText}"
+           Topmost="true"
         >
     <hc:Window.NonClientAreaContent>
         <Grid x:Name="NonClientAreaGrid">
@@ -94,30 +95,15 @@
                     >
                             <DataGrid.Columns>
                                 <DataGridTextColumn Binding="{Binding Item.Name}" Header="名称" FontSize="16" MinWidth="300" IsReadOnly="True"/>
-                                <DataGridTextColumn Binding="{Binding Item.Storage}" Header="库存" FontSize="16" MinWidth="100" IsReadOnly="True"/>
-                                <DataGridTextColumn Binding="{Binding Item.Price,StringFormat={}{0:C}}" Header="价格" FontSize="18" Foreground="#E74C3C" MinWidth="150" IsReadOnly="True"/>
-                                <DataGridTemplateColumn Width="260" CanUserResize="False" Header="操作">
+                            <DataGridTextColumn Binding="{Binding Item.Storage}" Header="库存" FontSize="16" MinWidth="100" IsReadOnly="True"/>
+                            <DataGridTextColumn Binding="{Binding Item.Price,StringFormat={}{0:C}}" Header="价格" FontSize="18" Foreground="#E74C3C" MinWidth="150" IsReadOnly="True"/>
+                            <DataGridTextColumn Binding="{Binding Count}" Header="购买数量" FontSize="16" MinWidth="100" IsReadOnly="False"/>
+                            <DataGridTemplateColumn Width="260" CanUserResize="False" Header="操作">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <hc:UniformSpacingPanel Spacing="10">
                                                 <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
-                                            <Button 
-                                                    hc:IconElement.Width="12"
-                                                    hc:IconElement.Height="12"
-                                                    hc:IconElement.Geometry="{StaticResource LeftGeometry}"
-                                                    Command="{s:Action DecreaseCount}"
-                                            />
-                                            <Label hc:InfoElement.TitleWidth="50"
-                                                   hc:InfoElement.TitlePlacement="Left"
-                                                   hc:InfoElement.Title="数量"
-                                                   Content="{Binding Count}"
-                                                   />
-                                            <Button 
-                                                    hc:IconElement.Width="12"
-                                                    hc:IconElement.Height="12"
-                                                    hc:IconElement.Geometry="{StaticResource RightGeometry}"
-                                                    Command="{s:Action IncreaseCount}"
-                                            />
+                                                
                                             <Button Style="{StaticResource ButtonDanger}"
                                                     hc:IconElement.Geometry="{StaticResource DeleteFillCircleGeometry}"
                                                     hc:IconElement.Width="15"
