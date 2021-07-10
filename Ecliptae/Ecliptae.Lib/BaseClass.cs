@@ -106,7 +106,7 @@ namespace Ecliptae.Lib
                          $"User Id='{UserID}';" +
                          $"Password='{Password}';" +
                          $"charset='{Charset}';" +
-                         $"pooling={Pooling}";
+                         $"pooling={Pooling};";
             return str;
         }
     }
