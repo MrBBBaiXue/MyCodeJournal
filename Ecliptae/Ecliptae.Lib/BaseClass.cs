@@ -88,6 +88,15 @@ namespace Ecliptae.Lib
             Pooling = sqlconfig.Pooling;
         }
 
+        public SQLConfig()
+        {
+            Database = "";
+            DataSource = "";
+            UserID = "";
+            Password = "";
+            Charset = "";
+            Pooling = "";
+        }
         public string Serialize() => JsonConvert.SerializeObject(this);
 
         public override string ToString()
