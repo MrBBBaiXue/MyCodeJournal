@@ -1,6 +1,6 @@
-﻿using System.Collections.ObjectModel;
-using Ecliptae.Lib;
+﻿using Ecliptae.Lib;
 using HandyControl.Controls;
+using Newtonsoft.Json;
 using Stylet;
 
 namespace Ecliptae.Wpf.ViewModels
@@ -12,50 +12,28 @@ namespace Ecliptae.Wpf.ViewModels
         public bool IsSeller => (App.User.Level == 1);
         public OptimizedObservableCollection<Item> Items { get; set; }
         public OptimizedObservableCollection<OrderItem> Carts { get; set; }
-        public Item ?SelectedItem { get; set; }
-        public OrderItem ?SelectedCartItem { get; set; }
-        public User User => App.User;
+        public OptimizedObservableCollection<Item> ShopItems { get; set; }
+        public Item? SelectedItem { get; set; }
+        public OrderItem? SelectedCartItem { get; set; }
+        public Item? SelectedShopItem { get; set; }
+        public User User { get; set; } = App.User;
 
         public MainViewModel()
         {
             Items = new OptimizedObservableCollection<Item>();
-            var item_A = new Item
-            {
-                Name = "Sandisk USB 3.0 Key (64GB)",
-                Price = 99.99F,
-                Description = "IT之家 6 月 27 日消息 微软本周发布了全新的 Windows 11 操作系统，将在圣诞节期间推出正式版，并表示用户可于 2022 年免费升级到 Win11。" +
-                              " 当您从 Windows 10 升级到 Windows 11 时，某些用户可能会不太习惯，例如某些长期存在的 Windows 功能被砍，其中之一是 Windows 的任务栏停靠位置。" +
-                              "众所周知，在现在的多个 Windows 版本中，用户不仅可以将任务栏放到底部，还可以任意将其停靠在屏幕顶部或侧边，方便竖屏小伙伴的日常使用。",
-                Storage = 993
-            };
-            var item_B = new Item
-            {
-                Name = "Microsoft Windows 11 Pro",
-                Price = 888.88F,
-                Storage = 552
-            };
-            Items.Add(item_A);
-            Items.Add(item_B);
             Carts = new OptimizedObservableCollection<OrderItem>();
-            var orderItem_A = new OrderItem
-            {
-                Item = item_A,
-                Count = 1
-            };
-            Carts.Add(orderItem_A);
+            ShopItems = new OptimizedObservableCollection<Item>();
+            UpdateInfo();
         }
 
-        // Item Operations
+        /// Item Operations ///
         public void ShowItemInfo()
         {
-            // test method
-            var comments = new OptimizedObservableCollection<Comment> { };
-            var comment = new Comment
-            {
-                Content = "That is fucking bad.\n worst shop experience ever!",
-                Star = 1
-            };
-            comments.Add(comment);
+            // GET /comments/item={itemGuid}
+            string itemGuid = SelectedItem.GUID;
+            string url = $"{App.ApiAddress}/comments/item={itemGuid}";
+            var json = APIHelper.RestfulGet(url);
+            var comments = JsonConvert.DeserializeObject<OptimizedObservableCollection<Comment>>(json);
 
             var itemViewModel = new ItemViewModel
             {
@@ -81,30 +59,171 @@ namespace Ecliptae.Wpf.ViewModels
         }
         public void BuyItem()
         {
+            var orderItems = new OptimizedObservableCollection<OrderItem>();
+            var orderItem = new OrderItem
+            {
+                Item = SelectedItem,
+                Count = 1
+            };
+            orderItems.Add(orderItem);
+            TryPlaceOrder(orderItems);
+        }
 
-        }
-        
-        // Cart Item Operations
-        public void OnCartItemNumericUpDownValueChanged()
-        {
-            if (SelectedCartItem != null && SelectedCartItem.Count <= 0)
-                RemoveItemFromCart();
-        }
+        /// Cart Item Operations ///
         public void RemoveItemFromCart()
         => Carts.Remove(SelectedCartItem);
-
-        public bool VerifyCart()
+        public bool VerifyCart(OptimizedObservableCollection<OrderItem> orderItems)
+        => CalculateCost(orderItems) <= App.User.Balance;
+        public double CalculateCost(OptimizedObservableCollection<OrderItem> orderItems)
         {
-            return true;
+            double cost = 0.00;
+            foreach (var orderItem in orderItems)
+                cost += orderItem.Item.Price * orderItem.Count;
+            return cost;
         }
-
         public void SubmitPayment()
         {
-            if (VerifyCart())
+            if (TryPlaceOrder(Carts))
+                Carts = new OptimizedObservableCollection<OrderItem>();
+        }
+        public bool TryPlaceOrder(OptimizedObservableCollection<OrderItem> orderItems)
+        {
+            if (orderItems.Count == 0)
+                return false;
+            foreach(var orderItem in orderItems)
             {
+                if (orderItem.Item.Storage <= 0)
+                {
+                    MessageBox.Show("库存不足！", "错误", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                    return false;
+                }
+            }
+            if (VerifyCart(orderItems))
+            {
+                // Place Order
+                var order = new Order
+                {
+                    Owner = User.GUID,
+                    Items = orderItems
+                };
+                order.NewGuid();
+                // POST /orders/
+                {
+                    string url = $"{App.ApiAddress}/orders/";
+                    var jsonParam = JsonConvert.SerializeObject(order);
+                    APIHelper.RestfulRequest(url, "post", jsonParam);
+                }
+                // PUT /users/
+                {
+                    App.User.Balance -= CalculateCost(orderItems);
+                    // PUT /users/
+                    string url = $"{App.ApiAddress}/users/";
+                    var jsonParam = JsonConvert.SerializeObject(App.User);
+                    APIHelper.RestfulRequest(url, "put", jsonParam);
+                    User = App.User;
+                    NotifyOfPropertyChange("User");
+                }
 
+                {
+                    foreach (var orderItem in orderItems)
+                    {
+                        // PUT /items/
+                        var item = orderItem.Item;
+                        item.Storage -= orderItem.Count;
+                        string url = $"{App.ApiAddress}/items/";
+                        var jsonParam = JsonConvert.SerializeObject(item);
+                        APIHelper.RestfulRequest(url, "put", jsonParam);
+                        // GET -> PUT /users/
+                        var owner = orderItem.Item.Owner;
+                        var balance = orderItem.Item.Price * orderItem.Count;
+                        // GET
+                        string getUserUrl = $"{App.ApiAddress}/users/guid={owner}";
+                        var getUserJson = APIHelper.RestfulGet(getUserUrl);
+                        var user = JsonConvert.DeserializeObject<User>(getUserJson);
+                        user.Balance += balance;
+                        // PUT
+                        var putUserUrl = $"{App.ApiAddress}/users/";
+                        var putUserJson = JsonConvert.SerializeObject(user);
+                        APIHelper.RestfulRequest(putUserUrl, "put", putUserJson);
+                    }
+                }
+                MessageBox.Show("购买成功！", "信息", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+                UpdateInfo();
+                return true;
+            }
+            else
+            {
+                MessageBox.Show("余额不足，请充值！", "错误", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                return false;
             }
         }
 
+        /// Shop Item Operations ///
+        public void EditShopItem()
+        {
+            var shopItemViewModel = new EditItemViewModel()
+            {
+                Item = SelectedShopItem,
+                IsNewItem = false
+            };
+            App.WindowManager.ShowDialog(shopItemViewModel);
+        }
+        public void RemoveItemFromShop()
+        {
+            // DELETE /items/guid={guid}
+            var guid = SelectedShopItem.GUID;
+            string url = $"{App.ApiAddress}/items/guid={guid}";
+            APIHelper.RestfulRequest(url, "delete", string.Empty);
+            UpdateInfo();
+        }
+        public void AddShopItem()
+        {
+            // POST /items/
+            var item = new Item
+            {
+                Name = "New Item",
+                Owner = App.User.GUID,
+                Description = "",
+                Price = 0.00,
+                Storage = 100
+            };
+            item.NewGuid();
+            var shopItemViewModel = new EditItemViewModel()
+            {
+                Item = item,
+                IsNewItem = true
+            };
+            App.WindowManager.ShowDialog(shopItemViewModel);
+        }
+
+        /// Information Update ///
+        public void UpdateInfo()
+        {
+            {
+                // GET /items/
+                string url = $"{App.ApiAddress}/items/";
+                var json = APIHelper.RestfulGet(url);
+                Items = JsonConvert.DeserializeObject<OptimizedObservableCollection<Item>>(json);
+            }
+            {
+                // POST /items/user/
+                string url = $"{App.ApiAddress}/items/user/";
+                var jsonParam = JsonConvert.SerializeObject(App.User);
+                var response = APIHelper.RestfulRequest(url, "post", jsonParam);
+                ShopItems = JsonConvert.DeserializeObject<OptimizedObservableCollection<Item>>(response);
+            }
+        }
+
+        /// Personal Operations ///
+        public void Charge()
+        {
+            App.User.Balance += 100;
+            User = App.User;
+            NotifyOfPropertyChange("User");
+            // PUT /users/
+            string url = $"{App.ApiAddress}/users/";
+            var jsonParam = JsonConvert.SerializeObject(App.User);
+            APIHelper.RestfulRequest(url, "put", jsonParam);
+        }
     }
 }

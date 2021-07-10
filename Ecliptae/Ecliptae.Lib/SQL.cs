@@ -392,6 +392,7 @@ namespace Ecliptae.Lib
         public readonly string[] FieldName;
         public TablesDesc(Tables t)
         {
+            TableName = t;
             if (t == Tables.Users)
             {
                 FieldName = new string[]
@@ -471,10 +472,5 @@ namespace Ecliptae.Lib
                 throw new Exception("NotFoundThisTable");
             }
         }
-    }
-
-    public class SQLConfig
-    {
-
     }
 }

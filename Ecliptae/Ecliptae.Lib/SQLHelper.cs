@@ -7,12 +7,7 @@ namespace Ecliptae.Lib
     public class SQLHelper
     {
         //数据库连接字符串
-        public static string Conn = "Database='ecliptae';" +
-                                    "Data Source='localhost';" +
-                                    "User Id='root';" +
-                                    "Password='020922';" +
-                                    "charset='utf8';" +
-                                    "pooling=true";
+        public static string Conn => APIHelper.ReadSQLConfig();
 
         /// <summary>
         /// 给定连接的数据库用假设参数执行一个sql命令（不返回数据集）
@@ -27,11 +22,14 @@ namespace Ecliptae.Lib
 
             MySqlCommand cmd = new MySqlCommand();
 
-            using MySqlConnection conn = new MySqlConnection(connectionString);
-            PrepareCommand(cmd, conn, null, cmdType, cmdText, commandParameters);
-            int val = cmd.ExecuteNonQuery();
-            cmd.Parameters.Clear();
-            return val;
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                PrepareCommand(cmd, conn, null, cmdType, cmdText, commandParameters);
+                int val = cmd.ExecuteNonQuery();
+                cmd.Parameters.Clear();
+                conn.Close();
+                return val;
+            }
         }
 
         /// <summary>
@@ -46,7 +44,6 @@ namespace Ecliptae.Lib
         {
 
             MySqlCommand cmd = new MySqlCommand();
-
             PrepareCommand(cmd, connection, null, cmdType, cmdText, commandParameters);
             int val = cmd.ExecuteNonQuery();
             cmd.Parameters.Clear();
@@ -67,14 +64,14 @@ namespace Ecliptae.Lib
         /// <returns>包含结果的读取器</returns>
         public static MySqlDataReader ExecuteReader(string connectionString, CommandType cmdType, string cmdText, params MySqlParameter[] commandParameters)
         {
-            //创建一个MySqlCommand对象
-            MySqlCommand cmd = new MySqlCommand();
-            //创建一个MySqlConnection对象
-            MySqlConnection conn = new MySqlConnection(connectionString);
-            //在这里我们用一个try/catch结构执行sql文本命令/存储过程，因为如果这个方法产生一个异常我们要关闭连接，因为没有读取器存在，
-            //因此commandBehaviour.CloseConnection 就不会执行
             try
             {
+                //创建一个MySqlCommand对象
+                MySqlCommand cmd = new MySqlCommand();
+                //创建一个MySqlConnection对象
+                MySqlConnection conn = new MySqlConnection(connectionString);
+                //在这里我们用一个try/catch结构执行sql文本命令/存储过程，因为如果这个方法产生一个异常我们要关闭连接，因为没有读取器存在，
+                //因此commandBehaviour.CloseConnection 就不会执行
                 //调用 PrepareCommand 方法，对 MySqlCommand 对象设置参数
                 PrepareCommand(cmd, conn, null, cmdType, cmdText, commandParameters);
                 //调用 MySqlCommand 的 ExecuteReader 方法
@@ -85,8 +82,6 @@ namespace Ecliptae.Lib
             }
             catch
             {
-                //关闭连接，抛出异常
-                conn.Close();
                 throw;
             }
         }
@@ -121,7 +116,6 @@ namespace Ecliptae.Lib
                 adapter.Fill(ds);
                 //清除参数
                 cmd.Parameters.Clear();
-                conn.Close();
                 return ds;
             }
             catch (Exception)

@@ -1,19 +1,19 @@
-﻿using System.Windows;
-using System.Windows.Controls;
-using Ecliptae.Lib;
+﻿using Ecliptae.Lib;
 using Ecliptae.Wpf.ViewModels;
 using HandyControl.Themes;
 using Stylet;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace Ecliptae.Wpf
 {
     public partial class App : Application
     {
         // Configure with ViewModels
-        public static MainViewModel MainViewModel { get; set; } = new MainViewModel();
+        public static MainViewModel MainViewModel { get; set; }
         public static User User { get; set; } = new User();
 
-        public static string ApiAddress { get; set; } = "http://127.0.0.1:2333/";
+        public static string ApiAddress { get; set; } = "http://127.0.0.1:5000/ecliptae";
 
         // Stylet
         public static IWindowManager WindowManager;

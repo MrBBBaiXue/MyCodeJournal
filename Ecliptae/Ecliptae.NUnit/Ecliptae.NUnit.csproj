@@ -20,4 +20,10 @@
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.10.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Ecliptae.Api\Ecliptae.Api.csproj" />
+      <ProjectReference Include="..\Ecliptae.Lib\Ecliptae.Lib.csproj" />
+      <ProjectReference Include="..\Ecliptae.Wpf\Ecliptae.Wpf.csproj" />
+    </ItemGroup>
+
 </Project>
